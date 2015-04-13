@@ -124,9 +124,11 @@ namespace ScanWord.Parser
         {
             try
             {
-                var sre = new StreamReader(absolutePath, Encoding.Default, true);
-                var code = sre.CurrentEncoding;
-                return code;
+                using (var sre = new StreamReader(absolutePath, true))
+                {
+                    var code = sre.CurrentEncoding;
+                    return code;
+                }
             }
             catch (FileNotFoundException ex)
             {

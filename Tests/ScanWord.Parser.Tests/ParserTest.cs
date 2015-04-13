@@ -44,7 +44,7 @@ namespace ScanWord.Parser.Tests
         public void ParseRussianTextTest()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseRussianTextTest.txt");
-            using (var sw = new StreamWriter(myTempFile, false, Encoding.Default))
+            using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
             {
                 // All words: 22, doubles: "Это", "Вы". Unique words: 20.
                 sw.Write(@"Исаак: Это лишь риторика — и вы действительно верите в это! Вы не знаете откуда пришли эти лозунги?
@@ -83,7 +83,7 @@ namespace ScanWord.Parser.Tests
         public void ParseEnglishTextTest()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseEnglishTextTest.txt");
-            using (var sw = new StreamWriter(myTempFile, false, Encoding.Default))
+            using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
             {
                 // All words: 11, doubles: "The". Unique words: 10.
                 sw.Write(@"The body may heal,
@@ -122,7 +122,7 @@ but the mind isn't always so resilient");
         public void ParseMultilanguageTextTest()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseMultilanguageTextTest.txt");
-            using (var sw = new StreamWriter(myTempFile, false, Encoding.Default))
+            using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
             {
                 // All words: 23, doubles: "Модель", "событий", "CLR". Unique words: 20.
                 sw.Write(@"Модель событий CLR.
