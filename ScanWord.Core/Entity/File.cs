@@ -1,4 +1,14 @@
-﻿namespace ScanWord.Core.Entity
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="File.cs" company="Maksym Shchyhol">
+//   Copyright (c) Maksym Shchyhol. All Rights Reserved
+// </copyright>
+// <summary>
+//   File entity:
+//   The Path, the Name and the Extension.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace ScanWord.Core.Entity
 {
     using System;
 
@@ -8,6 +18,16 @@
     public class File : IEquatable<File>
     {
         /// <summary>
+        /// Gets or sets filename extension.
+        /// </summary>
+        public string Extension { get; set; }
+
+        /// <summary>
+        /// Gets or sets file name, actually.
+        /// </summary>
+        public string Filename { get; set; }
+
+        /// <summary>
         /// Gets or sets file Id.
         /// </summary>
         public int Id { get; set; }
@@ -16,16 +36,6 @@
         /// Gets or sets the absolute path to the file, except filename and extension.
         /// </summary>
         public string Path { get; set; }
-
-        /// <summary>
-        /// Gets or sets file name, actually.
-        /// </summary>
-        public string Filename { get; set; }
-
-        /// <summary>
-        /// Gets or sets filename extension.
-        /// </summary>
-        public string Extension { get; set; }
 
         /// <summary>
         /// Equals of file entities.
@@ -48,7 +58,8 @@
                 return true;
             }
 
-            return this.Id == other.Id && string.Equals(this.Path, other.Path) && string.Equals(this.Filename, other.Filename) && string.Equals(this.Extension, other.Extension);
+            return this.Id == other.Id && string.Equals(this.Path, other.Path)
+                   && string.Equals(this.Filename, other.Filename) && string.Equals(this.Extension, other.Extension);
         }
 
         /// <summary>
@@ -72,7 +83,7 @@
                 return true;
             }
 
-            return origin.GetType() == GetType() && this.Equals((File)origin);
+            return origin.GetType() == this.GetType() && this.Equals((File)origin);
         }
 
         /// <summary>

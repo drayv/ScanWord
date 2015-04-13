@@ -1,4 +1,14 @@
-﻿namespace ScanWord.Core.Entity
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Composition.cs" company="Maksym Shchyhol">
+//   Copyright (c) Maksym Shchyhol. All Rights Reserved
+// </copyright>
+// <summary>
+//   Composition entity:
+//   A pointer to a specific word in the file.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace ScanWord.Core.Entity
 {
     using System;
 
@@ -8,24 +18,24 @@
     public class Composition : IEquatable<Composition>
     {
         /// <summary>
-        /// Gets or sets composition Id.
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
         /// Gets or sets link to a table of Files.
         /// </summary>
         public File File { get; set; }
 
         /// <summary>
-        /// Gets or sets link to a table of Words.
+        /// Gets or sets composition Id.
         /// </summary>
-        public Word Word { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the serial number of the line that contains the word.
         /// </summary>
         public int Line { get; set; }
+
+        /// <summary>
+        /// Gets or sets link to a table of Words.
+        /// </summary>
+        public Word Word { get; set; }
 
         /// <summary>
         /// Gets or sets the position of the first character in word, from the beginning of the line.
@@ -53,7 +63,8 @@
                 return true;
             }
 
-            return this.Id == other.Id && this.File.Equals(other.File) && this.Сolumn == other.Сolumn && this.Line == other.Line && this.Word.Equals(other.Word);
+            return this.Id == other.Id && this.File.Equals(other.File) && this.Сolumn == other.Сolumn
+                   && this.Line == other.Line && this.Word.Equals(other.Word);
         }
 
         /// <summary>
@@ -77,7 +88,7 @@
                 return true;
             }
 
-            return origin.GetType() == GetType() && this.Equals((Composition)origin);
+            return origin.GetType() == this.GetType() && this.Equals((Composition)origin);
         }
 
         /// <summary>
@@ -91,10 +102,10 @@
             unchecked
             {
                 var hashCode = this.Id;
-                hashCode = (hashCode * 397) ^ (File != null ? File.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.File != null ? this.File.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ this.Сolumn;
                 hashCode = (hashCode * 397) ^ this.Line;
-                hashCode = (hashCode * 397) ^ (Word != null ? Word.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (this.Word != null ? this.Word.GetHashCode() : 0);
                 return hashCode;
             }
         }

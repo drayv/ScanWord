@@ -1,4 +1,13 @@
-﻿namespace ScanWord.Core.Entity
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Word.cs" company="Maksym Shchyhol">
+//   Copyright (c) Maksym Shchyhol. All Rights Reserved
+// </copyright>
+// <summary>
+//   Word Entity.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace ScanWord.Core.Entity
 {
     using System;
 
@@ -62,7 +71,7 @@
                 return true;
             }
 
-            return origin.GetType() == GetType() && this.Equals((Word)origin);
+            return origin.GetType() == this.GetType() && this.Equals((Word)origin);
         }
 
         /// <summary>

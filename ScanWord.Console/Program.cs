@@ -1,4 +1,13 @@
-﻿namespace ScanWord.Console
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="Maksym Shchyhol">
+//   Copyright (c) Maksym Shchyhol. All Rights Reserved
+// </copyright>
+// <summary>
+//   Console for ScanWord program.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace ScanWord.Console
 {
     using System;
     using System.Linq;
@@ -9,7 +18,7 @@
     using ScanWord.DependencyResolution;
 
     /// <summary>
-    /// Console program.
+    /// Console for ScanWord program.
     /// </summary>
     public class Program
     {
@@ -19,19 +28,19 @@
         private static readonly IUnityContainer Container = UnityConfig.GetConfiguredContainer();
 
         /// <summary>
-        /// Entry point of the program.
+        /// Entry point of the console program.
         /// </summary>
         /// <param name="args">
         /// Console arguments.
-        /// </param>   
+        /// </param>
         public static void Main(string[] args)
         {
-            ScanFile("E:/PROJECTS/TESTS/ScanWord/Docs/king_stephen_the_stand.txt");
-            Console.ReadLine();      
+            ScanFile("E:/PROJECTS/TESTS/ScanWord/Docs/Test.txt");
+            Console.ReadLine();
         }
 
         /// <summary>
-        /// The scan file.
+        /// Scans a file and displays statistics on console.
         /// </summary>
         /// <param name="absolutePath">
         /// The absolute path.

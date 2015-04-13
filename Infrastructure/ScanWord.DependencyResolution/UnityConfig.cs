@@ -1,3 +1,12 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="UnityConfig.cs" company="Maksym Shchyhol">
+//   Copyright (c) Maksym Shchyhol. All Rights Reserved
+// </copyright>
+// <summary>
+//   Specifies the Unity configuration for the main container.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace ScanWord.DependencyResolution
 {
     using System;
@@ -5,6 +14,7 @@ namespace ScanWord.DependencyResolution
     using Microsoft.Practices.Unity;
 
     using ScanWord.Core.Common;
+    using ScanWord.Parser;
 
     /// <summary>
     /// Specifies the Unity configuration for the main container.
@@ -15,11 +25,11 @@ namespace ScanWord.DependencyResolution
         /// Unity container.
         /// </summary>
         private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
-        {
-            var container = new UnityContainer();
-            RegisterTypes(container);
-            return container;
-        });
+            {
+                var container = new UnityContainer();
+                RegisterTypes(container);
+                return container;
+            });
 
         /// <summary>
         /// Gets the configured Unity container.
@@ -32,13 +42,19 @@ namespace ScanWord.DependencyResolution
             return Container.Value;
         }
 
-        /// <summary>Registers the type mappings with the Unity container.</summary>
-        /// <param name="container">The unity container to configure.</param>
-        /// <remarks>There is no need to register concrete types such as controllers or API controllers (unless you want to 
-        /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
+        /// <summary>
+        /// Registers the type mappings with the Unity container.
+        /// </summary>
+        /// <param name="container">
+        /// The unity container to configure.
+        /// </param>
+        /// <remarks>
+        /// There is no need to register concrete types such as controllers or API controllers (unless you want to 
+        /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.
+        /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<IScanWordParser, Parser.ScanWordParser>();
+            container.RegisterType<IScanWordParser, ScanWordParser>();
         }
     }
 }
