@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-
-namespace WatchWord.Web.UI
+﻿namespace WatchWord.Web.UI
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
+    /// <summary>
+    /// The model-view-controller application.
+    /// </summary>
     public class MvcApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// The application start point.
+        /// </summary>
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
