@@ -57,7 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\ScanWord.DependencyResolution\ScanWord.DependencyResolution.csproj">
+    <ProjectReference Include="..\..\Infrastructure\ScanWord\ScanWord.DependencyResolution\ScanWord.DependencyResolution.csproj">
       <Project>{A7736679-D6C7-487E-A309-ADA4D8582136}</Project>
       <Name>ScanWord.DependencyResolution</Name>
     </ProjectReference>
