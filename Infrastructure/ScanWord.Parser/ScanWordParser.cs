@@ -13,7 +13,6 @@ namespace ScanWord.Parser
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.IO;
-    using System.Text;
     using System.Threading.Tasks;
 
     using Core.Common;
@@ -40,17 +39,21 @@ namespace ScanWord.Parser
         /// </returns>
         public ConcurrentBag<Composition> ParseFile(string absolutePath)
         {
-            return this.ParseFile(absolutePath, GetEncoding(absolutePath));
+            var scanFile = GetScanFileByPath(absolutePath);
+            using (var stream = OpenFileStreamReader(absolutePath))
+            {
+                return this.ParseFile(scanFile, stream);
+            }
         }
 
         /// <summary>
-        /// Scans the location of words in the file.
+        /// Scans the location of words in the StreamReader of the file.
         /// </summary>
-        /// <param name="absolutePath">
-        /// Path to the file that you want to parse.
+        /// <param name="scanFile">
+        /// Scan file entity.
         /// </param>
-        /// <param name="encoding">
-        /// File content encoding.
+        /// <param name="stream">
+        /// Stream reader for the text file.
         /// </param>
         /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
@@ -58,21 +61,18 @@ namespace ScanWord.Parser
         /// <returns>
         /// Thread-safe, unordered collection of scan results.
         /// </returns>
-        public ConcurrentBag<Composition> ParseFile(string absolutePath, Encoding encoding)
+        public ConcurrentBag<Composition> ParseFile(File scanFile, StreamReader stream)
         {
             var lines = new Dictionary<int, string>();
-            using (var stream = new StreamReader(absolutePath, encoding))
+
+            string currentLine;
+            var counter = 1;
+            while ((currentLine = stream.ReadLine()) != null)
             {
-                string currentLine;
-                var counter = 1;
-                while ((currentLine = stream.ReadLine()) != null)
-                {
-                    lines.Add(counter, currentLine.ToLower());
-                    counter++;
-                }
+                lines.Add(counter, currentLine.ToLower());
+                counter++;
             }
 
-            var scanFile = GetScanFileByPath(absolutePath);
             var words = new ConcurrentBag<Composition>();
 
             Parallel.ForEach(
@@ -113,22 +113,23 @@ namespace ScanWord.Parser
         }
 
         /// <summary>
-        /// Determines a text file's encoding by analyzing its byte order mark (BOM).
+        /// Get stream reader for the file.
         /// </summary>
-        /// <param name="absolutePath">The text file to analyze.</param>
+        /// <param name="absolutePath">
+        /// The absolute path to the file.
+        /// </param>
         /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
         /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
-        /// <returns>The detected encoding.</returns>
-        private static Encoding GetEncoding(string absolutePath)
+        /// <returns>
+        /// The <see cref="StreamReader"/>.
+        /// </returns>
+        private static StreamReader OpenFileStreamReader(string absolutePath)
         {
             try
             {
-                using (var sre = new StreamReader(absolutePath, true))
-                {
-                    var code = sre.CurrentEncoding;
-                    return code;
-                }
+                var streamReader = new StreamReader(absolutePath, true);
+                return streamReader;
             }
             catch (FileNotFoundException ex)
             {
