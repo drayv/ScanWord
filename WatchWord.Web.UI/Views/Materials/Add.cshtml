@@ -1,31 +1,17 @@
 ﻿@model WatchWord.Web.UI.Models.Materials.AddViewModel
 
-@{
-    Layout = null;
-}
+@using (Html.BeginForm("Add", "Materials", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
-<!DOCTYPE html>
+    <div class="form-horizontal">
+        @Html.TextBoxFor(m => m.File, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.File)
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Add</title>
-</head>
-<body>
-    @using (Html.BeginForm("Add", "Materials", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            @Html.TextBoxFor(m => m.File, new { type = "file" })
-            @Html.ValidationMessageFor(m => m.File)
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-    }
-</body>
-</html>
+    </div>
+}

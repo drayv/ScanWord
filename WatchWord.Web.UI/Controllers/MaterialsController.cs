@@ -19,7 +19,7 @@
         public ActionResult Add()
         {
             var addViewModel = new AddViewModel();
-            return this.View(addViewModel);
+            return View(addViewModel);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
             using (var memoryStream = new MemoryStream())
