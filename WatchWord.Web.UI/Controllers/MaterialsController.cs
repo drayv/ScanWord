@@ -18,7 +18,7 @@
         /// </returns>
         public ActionResult Add()
         {
-            var addViewModel = new AddViewModel();
+            var addViewModel = new AddMaterialViewModel();
             return View(addViewModel);
         }
 
@@ -32,7 +32,7 @@
         /// The <see cref="ActionResult"/>.
         /// </returns>
         [HttpPost]
-        public ActionResult Add(AddViewModel model)
+        public ActionResult Add(AddMaterialViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -45,7 +45,7 @@
             }
 
             // TODO: Redirect to the material page.
-            return this.View();
+            return View();
         }
     }
 }

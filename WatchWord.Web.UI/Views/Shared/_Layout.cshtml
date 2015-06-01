@@ -17,11 +17,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">ScanWord</a>
+                <a class="navbar-brand" href="#">WATCHWORD</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                @using (Html.BeginForm("Search", "NavBar", FormMethod.Post, new { @class = "navbar-form navbar-left", role = "search" }))
+                @using (Html.BeginForm("Search", "Navigation", FormMethod.Post, new { @class = "navbar-form navbar-left", role = "search" }))
                 {
                     <div class="input-group">
                         @Html.TextBox("searchquery", "", new { id = "searchquery", @class = "form-control input-sm", placeholder = "Search" })

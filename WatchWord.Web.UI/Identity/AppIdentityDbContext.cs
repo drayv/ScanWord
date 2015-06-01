@@ -1,23 +1,28 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WatchWord.Web.UI.Models;
-
-namespace WatchWord.Web.UI.Identity
+﻿namespace WatchWord.Web.UI.Identity
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
+
+    using WatchWord.Web.UI.Models;
+
+    /// <summary>
+    /// Identity database context.
+    /// </summary>
     public class AppIdentityDbContext : IdentityDbContext<AppUser>
     {
-        public AppIdentityDbContext()
-            : base("ScanWordDb")
-        {
-
-        }
         /// <summary>
-        /// Creates an instance of the IidentityDbContext
+        /// Initializes a new instance of the <see cref="AppIdentityDbContext"/> class.
         /// </summary>
-        /// <returns></returns>
+        public AppIdentityDbContext()
+            : base("WatchWord")
+        {
+        }
+
+        /// <summary>
+        /// Create identity database context.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="AppIdentityDbContext"/>.
+        /// </returns>
         public static AppIdentityDbContext Create()
         {
             return new AppIdentityDbContext();

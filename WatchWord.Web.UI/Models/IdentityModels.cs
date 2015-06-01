@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WatchWord.Web.UI.Models
+﻿namespace WatchWord.Web.UI.Models
 {
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     /// <summary>
     /// Identity user
     /// </summary>
     public class AppUser : IdentityUser
     {
-
     }
 }

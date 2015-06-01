@@ -6,7 +6,7 @@
     /// <summary>
     /// The add view model.
     /// </summary>
-    public class AddViewModel
+    public class AddMaterialViewModel
     {
         /// <summary>
         /// Gets or sets the file.

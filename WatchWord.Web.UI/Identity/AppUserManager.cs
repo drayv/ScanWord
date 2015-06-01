@@ -1,41 +1,49 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using WatchWord.Web.UI.Models;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
-
-namespace WatchWord.Web.UI.Identity
+﻿namespace WatchWord.Web.UI.Identity
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin;
+
+    using WatchWord.Web.UI.Models;
+
+    /// <summary>
+    /// Identity user manager.
+    /// </summary>
     public class AppUserManager : UserManager<AppUser>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppUserManager"/> class.
+        /// </summary>
+        /// <param name="store">
+        /// Identity user store.
+        /// </param>
         public AppUserManager(IUserStore<AppUser> store)
             : base(store)
         {
-
         }
 
         /// <summary>
-        /// Creates an instance of the AppUserManager
+        /// The create.
         /// </summary>
-        /// <param name="options"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="options">
+        /// The options.
+        /// </param>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        /// <returns>
+        /// The <see cref="AppUserManager"/>.
+        /// </returns>
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
             var db = context.Get<AppIdentityDbContext>();
-            var userManager = new AppUserManager(new UserStore<AppUser>(db));
-            userManager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-            };
-            userManager.UserValidator = new UserValidator<AppUser>(userManager)
-            {
-                RequireUniqueEmail = true
-            };
+            var userManager = new AppUserManager(new UserStore<AppUser>(db))
+                {
+                    PasswordValidator = new PasswordValidator { RequiredLength = 6 }
+                };
+
+            userManager.UserValidator = new UserValidator<AppUser>(userManager) { RequireUniqueEmail = true };
             return userManager;
         }
     }
