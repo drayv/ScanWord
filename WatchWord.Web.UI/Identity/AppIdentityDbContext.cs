@@ -1,8 +1,7 @@
 ﻿namespace WatchWord.Web.UI.Identity
 {
     using Microsoft.AspNet.Identity.EntityFramework;
-
-    using WatchWord.Web.UI.Models;
+    using WatchWord.Web.UI.Models.Identity;
 
     /// <summary>
     /// Identity database context.

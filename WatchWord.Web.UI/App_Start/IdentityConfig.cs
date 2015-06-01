@@ -2,9 +2,7 @@
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security.Cookies;
-
     using Owin;
-
     using WatchWord.Web.UI.Identity;
 
     /// <summary>

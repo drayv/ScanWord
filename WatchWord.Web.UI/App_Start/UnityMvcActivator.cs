@@ -7,9 +7,7 @@ namespace WatchWord.Web.UI
 {
     using System.Linq;
     using System.Web.Mvc;
-
     using Microsoft.Practices.Unity.Mvc;
-
     using WatchWord.DependencyResolution;
 
     /// <summary>

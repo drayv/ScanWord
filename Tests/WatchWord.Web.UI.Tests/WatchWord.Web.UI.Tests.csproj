@@ -71,7 +71,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ScanWordUserValidator_Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

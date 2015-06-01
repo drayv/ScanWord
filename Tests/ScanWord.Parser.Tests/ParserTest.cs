@@ -13,10 +13,8 @@ namespace ScanWord.Parser.Tests
     using System.IO;
     using System.Linq;
     using System.Text;
-
     using Microsoft.Practices.Unity;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     using ScanWord.Core.Common;
     using ScanWord.Core.Entity;
     using ScanWord.DependencyResolution;

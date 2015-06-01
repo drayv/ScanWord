@@ -4,8 +4,7 @@
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin;
-
-    using WatchWord.Web.UI.Models;
+    using WatchWord.Web.UI.Models.Identity;
 
     /// <summary>
     /// Identity user manager.
@@ -47,7 +46,7 @@
             {
                 RequireUniqueEmail = true,
                 UserNameMinLength = 4,
-                UserNameStartsWithDiggit = false
+                UserNameStartsWithDigit = false
             };
 
             return userManager;

@@ -11,9 +11,7 @@ namespace ScanWord.Core.Common
 {
     using System.Collections.Concurrent;
     using System.IO;
-
     using ScanWord.Core.Entity;
-
     using File = ScanWord.Core.Entity.File;
 
     /// <summary>

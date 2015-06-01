@@ -2,7 +2,6 @@
 {
     using System.IO;
     using System.Web.Mvc;
-
     using WatchWord.Web.UI.Models.Materials;
 
     /// <summary>

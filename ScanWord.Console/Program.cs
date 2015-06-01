@@ -11,9 +11,7 @@ namespace ScanWord.Console
 {
     using System;
     using System.Linq;
-
     using Microsoft.Practices.Unity;
-
     using ScanWord.Core.Common;
     using ScanWord.DependencyResolution;
 

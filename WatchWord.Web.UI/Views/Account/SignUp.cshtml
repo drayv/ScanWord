@@ -1,20 +1,20 @@
-﻿@model WatchWord.Web.UI.Models.SignUpViewModel
+﻿@model WatchWord.Web.UI.Models.Account.SignUpViewModel
 
 @{
     ViewBag.Title = "SignUn";
 }
 
-<div class="row centered-form">
+<div class="row">
     <div class="col-xs-12 col-sm-8 col-md-offset-3 col-md-6 col-sm-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title text-center">Please Register</h3>
             </div>
-            <div class="panel-body">
-                @using (Html.BeginForm())
-                {
+            @using (Html.BeginForm())
+            {
+                <div class="panel-body">
                     @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
-                    <text>@Html.AntiForgeryToken()</text>
+                    @Html.AntiForgeryToken()
 
                     <div class="form-group">
                         @Html.TextBoxFor(n => n.Login, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Login) })
@@ -41,8 +41,8 @@
                         </div>
                     </div>
                     <input type="submit" value="Register" class="btn btn-info btn-block">
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -61,4 +61,3 @@
         });
     </script>
 }
-

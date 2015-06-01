@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Parser.Tests", "Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.DataHandler.Tests", "Tests\ScanWord.DataHandler.Tests\ScanWord.DataHandler.Tests.csproj", "{7E3C2CB4-02F9-48D1-837D-1CA82C174709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Web.UI.Tests", "Tests\ScanWord.Web.UI.Tests\ScanWord.Web.UI.Tests.csproj", "{E55850D4-F15F-44C3-93C3-2E599A6D32CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Web.UI.Tests", "Tests\WatchWord.Web.UI.Tests\WatchWord.Web.UI.Tests.csproj", "{E55850D4-F15F-44C3-93C3-2E599A6D32CB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanWord", "ScanWord", "{8428CB49-D541-4AE7-ADF9-423A00ABAC1C}"
 EndProject

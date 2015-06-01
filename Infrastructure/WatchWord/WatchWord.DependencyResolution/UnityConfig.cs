@@ -10,7 +10,6 @@
 namespace WatchWord.DependencyResolution
 {
     using System;
-
     using Microsoft.Practices.Unity;
 
     /// <summary>
