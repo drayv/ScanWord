@@ -1,0 +1,64 @@
+﻿@model WatchWord.Web.UI.Models.SignUpViewModel
+
+@{
+    ViewBag.Title = "SignUn";
+}
+
+<div class="row centered-form">
+    <div class="col-xs-12 col-sm-8 col-md-offset-3 col-md-6 col-sm-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">Please Register</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+                    <text>@Html.AntiForgeryToken()</text>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(n => n.Login, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Login) })
+                        @Html.ValidationMessageFor(n => n.Login)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(n => n.Email, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Email) })
+                        @Html.ValidationMessageFor(n => n.Email)
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="form-group">
+                                @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Password) })
+                                @Html.ValidationMessageFor(n => n.Password)
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <div class="form-group">
+                                @Html.PasswordFor(n => n.ConfirmPassword, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.ConfirmPassword) })
+                                @Html.ValidationMessageFor(n => n.ConfirmPassword)
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Register" class="btn btn-info btn-block">
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $.validator.setDefaults({
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+        });
+    </script>
+}
+

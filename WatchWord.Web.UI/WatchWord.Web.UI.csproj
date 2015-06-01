@@ -186,6 +186,11 @@
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -196,15 +201,17 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MaterialsController.cs" />
-    <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Identity\AppIdentityDbContext.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
+    <Compile Include="Identity\ScanWordUserValidator.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Materials\AddMaterialViewModel.cs" />
+    <Compile Include="Models\SignUpViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +224,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Navigation\Search.cshtml" />
+    <Content Include="Views\Shared\NavBar.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

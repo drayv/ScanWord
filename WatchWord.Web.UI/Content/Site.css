@@ -1,2 +1,7 @@
-﻿body {
+﻿.navbar .glyphicon-user{
+    font-size: 1.2em;
+}
+
+.field-validation-error{
+    color: #D04437;
 }

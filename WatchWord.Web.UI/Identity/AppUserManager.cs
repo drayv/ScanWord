@@ -43,7 +43,13 @@
                     PasswordValidator = new PasswordValidator { RequiredLength = 6 }
                 };
 
-            userManager.UserValidator = new UserValidator<AppUser>(userManager) { RequireUniqueEmail = true };
+            userManager.UserValidator = new ScanWordUserValidator(userManager)
+            {
+                RequireUniqueEmail = true,
+                UserNameMinLength = 4,
+                UserNameStartsWithDiggit = false
+            };
+
             return userManager;
         }
     }
