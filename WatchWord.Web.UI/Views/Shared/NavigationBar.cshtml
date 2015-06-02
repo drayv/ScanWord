@@ -36,7 +36,13 @@
                 }
                 else
                 {
-
+                    using (Html.BeginForm("Logout", "Account"))
+                    {
+                        <li>
+                            <button type="submit" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-log-out"></span></button>
+                        </li>
+                        @Html.AntiForgeryToken()
+                    }
                 }
             </ul>
         </div><!-- /.navbar-collapse -->

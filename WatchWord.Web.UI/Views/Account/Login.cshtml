@@ -1,0 +1,59 @@
+﻿@model WatchWord.Web.UI.Models.Account.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-offset-3 col-md-6 col-sm-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center">Enter your login and password</h3>
+            </div>
+            @using (Html.BeginForm())
+            {
+                <div class="panel-body">
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+                    }
+
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(n => n.ReturnUrl)
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(n => n.Login, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Login) })
+                        @Html.ValidationMessageFor(n => n.Login)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Password) })
+                        @Html.ValidationMessageFor(n => n.Password)
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-info btn-block" value="Log In" />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox pull-left">
+                            <label>
+                                @Html.CheckBoxFor(n => n.IsPersistant) @Html.DisplayNameFor(n => n.IsPersistant)
+                            </label>
+                        </div>
+
+                        @Html.ActionLink("Need an account", "SignUp", null, new { @class = "btn btn-link pull-right" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/validation")
+}
+

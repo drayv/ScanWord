@@ -1,7 +1,7 @@
 ﻿@model WatchWord.Web.UI.Models.Account.SignUpViewModel
 
 @{
-    ViewBag.Title = "SignUn";
+    ViewBag.Title = "Sign Up";
 }
 
 <div class="row">
@@ -12,9 +12,12 @@
             </div>
             @using (Html.BeginForm())
             {
+                @Html.AntiForgeryToken()
                 <div class="panel-body">
-                    @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
-                    @Html.AntiForgeryToken()
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+                    }
 
                     <div class="form-group">
                         @Html.TextBoxFor(n => n.Login, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Login) })
@@ -48,16 +51,5 @@
 </div>
 
 @section Scripts{
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script>
-        $.validator.setDefaults({
-            highlight: function (element) {
-                $(element).closest('.form-group').addClass('has-error');
-            },
-            unhighlight: function (element) {
-                $(element).closest('.form-group').removeClass('has-error');
-            },
-        });
-    </script>
+    @Scripts.Render("~/Scripts/validation")
 }

@@ -182,6 +182,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\customValidation.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -208,6 +209,7 @@
     <Compile Include="Identity\AppIdentityDbContext.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Identity\ScanWordUserValidator.cs" />
+    <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
     <Compile Include="Models\Materials\AddMaterialViewModel.cs" />
     <Compile Include="Models\Account\SignUpViewModel.cs" />
@@ -225,6 +227,7 @@
     <Content Include="Views\Navigation\Search.cshtml" />
     <Content Include="Views\Shared\NavigationBar.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
