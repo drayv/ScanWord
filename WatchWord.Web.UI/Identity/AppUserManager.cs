@@ -1,11 +1,11 @@
-﻿namespace WatchWord.Web.UI.Identity
-{
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.AspNet.Identity.Owin;
-    using Microsoft.Owin;
-    using WatchWord.Web.UI.Models.Identity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
+using WatchWord.Web.UI.Models.Identity;
 
+namespace WatchWord.Web.UI.Identity
+{
     /// <summary>
     /// Identity user manager.
     /// </summary>
@@ -23,16 +23,16 @@
         }
 
         /// <summary>
-        /// The create.
+        /// Creates application user manager.
         /// </summary>
         /// <param name="options">
-        /// The options.
+        /// Identity factory options.
         /// </param>
         /// <param name="context">
-        /// The context.
+        /// OWIN context.
         /// </param>
         /// <returns>
-        /// The <see cref="AppUserManager"/>.
+        /// The application user manager <see cref="AppUserManager"/>.
         /// </returns>
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {

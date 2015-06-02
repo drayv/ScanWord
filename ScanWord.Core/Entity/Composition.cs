@@ -1,17 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Composition.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   Composition entity:
-//   A pointer to a specific word in the file.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+﻿using System;
 
 namespace ScanWord.Core.Entity
 {
-    using System;
-
     /// <summary>
     /// A pointer to a specific word in the file.
     /// </summary>

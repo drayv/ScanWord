@@ -1,21 +1,10 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UnityConfig.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   Specifies the Unity configuration for the main container.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+using System;
+using Microsoft.Practices.Unity;
+using ScanWord.Core.Common;
+using ScanWord.Parser;
 
 namespace ScanWord.DependencyResolution
 {
-    using System;
-
-    using Microsoft.Practices.Unity;
-
-    using ScanWord.Core.Common;
-    using ScanWord.Parser;
-
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>

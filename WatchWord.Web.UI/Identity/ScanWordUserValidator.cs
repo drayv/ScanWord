@@ -1,10 +1,10 @@
-﻿namespace WatchWord.Web.UI.Identity
-{
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Microsoft.AspNet.Identity;
-    using WatchWord.Web.UI.Models.Identity;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using WatchWord.Web.UI.Models.Identity;
 
+namespace WatchWord.Web.UI.Identity
+{
     /// <summary>
     /// The scan word user validator.
     /// </summary>
@@ -44,8 +44,7 @@
         {
             if (UserNameMinLength > 0 && item.UserName.Length < UserNameMinLength)
             {
-                return IdentityResult.Failed(
-                        new[] { string.Format("Login length must be longer then {0}.", UserNameMinLength) });
+                return IdentityResult.Failed(string.Format("Login length must be longer then {0}.", this.UserNameMinLength));
             }
 
             var result = await base.ValidateAsync(item);

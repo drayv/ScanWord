@@ -1,19 +1,10 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IScanWordParser.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   Provides the ability to scan files and a directories for parsing words in them.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+﻿using System.Collections.Concurrent;
+using System.IO;
+using ScanWord.Core.Entity;
+using File = ScanWord.Core.Entity.File;
 
 namespace ScanWord.Core.Common
 {
-    using System.Collections.Concurrent;
-    using System.IO;
-    using ScanWord.Core.Entity;
-    using File = ScanWord.Core.Entity.File;
-
     /// <summary>
     /// Provides the ability to scan files and a directories for parsing words in them.
     /// </summary>

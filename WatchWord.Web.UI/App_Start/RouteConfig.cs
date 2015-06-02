@@ -1,8 +1,8 @@
-﻿namespace WatchWord.Web.UI
-{
-    using System.Web.Mvc;
-    using System.Web.Routing;
+﻿using System.Web.Mvc;
+using System.Web.Routing;
 
+namespace WatchWord.Web.UI
+{
     /// <summary>
     /// The route config.
     /// </summary>

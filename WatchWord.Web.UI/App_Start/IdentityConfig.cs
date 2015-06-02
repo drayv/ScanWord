@@ -1,11 +1,11 @@
-﻿namespace WatchWord.Web.UI
-{
-    using Microsoft.AspNet.Identity;
-    using Microsoft.Owin.Security.Cookies;
-    using Owin;
-    using WatchWord.Web.UI.Identity;
-    using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
+using Owin;
+using WatchWord.Web.UI.Identity;
 
+namespace WatchWord.Web.UI
+{
     /// <summary>
     /// Identity framework config.
     /// </summary>
@@ -22,8 +22,7 @@
             app.CreatePerOwinContext(AppIdentityDbContext.Create);
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
 
-            app.UseCookieAuthentication(
-                new CookieAuthenticationOptions
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
                     AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                     LoginPath = new PathString("/Account/Login")

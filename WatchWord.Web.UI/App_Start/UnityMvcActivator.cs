@@ -1,15 +1,15 @@
+using System.Linq;
+using System.Web.Mvc;
+using Microsoft.Practices.Unity.Mvc;
+using WatchWord.DependencyResolution;
 using WatchWord.Web.UI;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
+[assembly: PreApplicationStartMethod(typeof(UnityWebActivator), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
 
 namespace WatchWord.Web.UI
 {
-    using System.Linq;
-    using System.Web.Mvc;
-    using Microsoft.Practices.Unity.Mvc;
-    using WatchWord.DependencyResolution;
-
     /// <summary>
     /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.
     /// </summary>
@@ -18,7 +18,7 @@ namespace WatchWord.Web.UI
         /// <summary>
         /// Integrates Unity when the application starts.
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             var container = UnityConfig.GetConfiguredContainer();
 

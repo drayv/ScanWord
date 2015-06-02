@@ -1,19 +1,11 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Program.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   Console for ScanWord program.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+﻿using System.Linq;
+using Microsoft.Practices.Unity;
+using ScanWord.Core.Common;
+using ScanWord.DependencyResolution;
 
 namespace ScanWord.Console
 {
     using System;
-    using System.Linq;
-    using Microsoft.Practices.Unity;
-    using ScanWord.Core.Common;
-    using ScanWord.DependencyResolution;
 
     /// <summary>
     /// Console for ScanWord program.

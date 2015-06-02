@@ -1,7 +1,7 @@
-﻿namespace WatchWord.Web.UI.Controllers
-{
-    using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
+namespace WatchWord.Web.UI.Controllers
+{
     /// <summary>
     /// The navigation bar controller.
     /// </summary>

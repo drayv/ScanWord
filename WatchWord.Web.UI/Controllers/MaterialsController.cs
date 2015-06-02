@@ -1,9 +1,9 @@
-﻿namespace WatchWord.Web.UI.Controllers
-{
-    using System.IO;
-    using System.Web.Mvc;
-    using WatchWord.Web.UI.Models.Materials;
+﻿using System.IO;
+using System.Web.Mvc;
+using WatchWord.Web.UI.Models.Materials;
 
+namespace WatchWord.Web.UI.Controllers
+{
     /// <summary>
     /// The materials controller.
     /// </summary>

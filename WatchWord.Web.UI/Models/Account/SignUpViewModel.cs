@@ -1,7 +1,7 @@
-﻿namespace WatchWord.Web.UI.Models.Account
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace WatchWord.Web.UI.Models.Account
+{
     /// <summary>
     /// The sign up view model.
     /// </summary>

@@ -1,7 +1,7 @@
-﻿namespace WatchWord.Domain.Entity
-{
-    using ScanWord.Core.Entity;
+﻿using ScanWord.Core.Entity;
 
+namespace WatchWord.Domain.Entity
+{
     /// <summary>
     /// Material type, film or series.
     /// </summary>

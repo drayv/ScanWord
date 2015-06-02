@@ -1,16 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="UnitTest.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   The class.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ScanWord.DataHandler.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// The unit test.
     /// </summary>

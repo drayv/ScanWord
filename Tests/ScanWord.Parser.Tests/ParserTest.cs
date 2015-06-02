@@ -1,24 +1,15 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ParserTest.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   The parser test.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ScanWord.Core.Common;
+using ScanWord.Core.Entity;
+using ScanWord.DependencyResolution;
 
 namespace ScanWord.Parser.Tests
-{
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using Microsoft.Practices.Unity;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using ScanWord.Core.Common;
-    using ScanWord.Core.Entity;
-    using ScanWord.DependencyResolution;
-
+{  
     /// <summary>
     /// The parser test.
     /// </summary>

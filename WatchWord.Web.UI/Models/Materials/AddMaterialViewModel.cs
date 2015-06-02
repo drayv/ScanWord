@@ -1,8 +1,8 @@
-﻿namespace WatchWord.Web.UI.Models.Materials
-{
-    using System.ComponentModel.DataAnnotations;
-    using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Web;
 
+namespace WatchWord.Web.UI.Models.Materials
+{
     /// <summary>
     /// The add view model.
     /// </summary>

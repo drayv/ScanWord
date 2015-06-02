@@ -1,17 +1,7 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="File.cs" company="Maksym Shchyhol">
-//   Copyright (c) Maksym Shchyhol. All Rights Reserved
-// </copyright>
-// <summary>
-//   File entity:
-//   The Path, the Name and the Extension.
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+﻿using System;
 
 namespace ScanWord.Core.Entity
 {
-    using System;
-
     /// <summary>
     /// The Path, the Name and the Extension.
     /// </summary>
