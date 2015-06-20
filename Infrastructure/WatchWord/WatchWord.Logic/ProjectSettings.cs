@@ -1,7 +1,7 @@
-﻿namespace WatchWord.Logic
-{
-    using WatchWord.Domain.Common;
+﻿using WatchWord.Domain.Common;
 
+namespace WatchWord.Logic
+{
     /// <summary>
     /// The project settings.
     /// </summary>

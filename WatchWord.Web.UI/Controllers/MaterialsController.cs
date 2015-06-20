@@ -1,5 +1,7 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Web.Mvc;
+using ScanWord.Core.Common;
 using WatchWord.Web.UI.Models.Materials;
 
 namespace WatchWord.Web.UI.Controllers
@@ -9,6 +11,22 @@ namespace WatchWord.Web.UI.Controllers
     /// </summary>
     public class MaterialsController : Controller
     {
+        /// <summary>
+        /// The parser.
+        /// </summary>
+        private readonly IScanWordParser parser;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MaterialsController"/> class.
+        /// </summary>
+        /// <param name="parser">
+        /// ScanWord parser.
+        /// </param>
+        public MaterialsController(IScanWordParser parser)
+        {
+            this.parser = parser;
+        }
+
         /// <summary>
         /// Creates a form for adding a new material to the site.
         /// </summary>
@@ -38,13 +56,15 @@ namespace WatchWord.Web.UI.Controllers
                 return View(model);
             }
 
-            using (var memoryStream = new MemoryStream())
+            using (var streamReader = new StreamReader(model.File.InputStream))
             {
-                model.File.InputStream.CopyTo(memoryStream);
+                var file = new ScanWord.Core.Entity.File { Path = "TODO", Filename = model.File.FileName, Extension = "TODO" };
+                var composition = parser.ParseFile(file, streamReader);
+                model.Words = composition.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsEnumerable();
             }
 
-            // TODO: Redirect to the material page.
-            return View();
+            // TODO: Add database logic and Redirect to the material page.
+            return View(model);
         }
     }
 }

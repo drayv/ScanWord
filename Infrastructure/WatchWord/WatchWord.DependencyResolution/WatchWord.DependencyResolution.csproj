@@ -44,9 +44,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\ScanWord.Core\ScanWord.Core.csproj">
+      <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
+      <Name>ScanWord.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\WatchWord.Domain\WatchWord.Domain.csproj">
       <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>
       <Name>WatchWord.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Parser\ScanWord.Parser.csproj">
+      <Project>{8883B5FF-41A3-4189-B085-3A51606D437D}</Project>
+      <Name>ScanWord.Parser</Name>
     </ProjectReference>
     <ProjectReference Include="..\WatchWord.Logic\WatchWord.Logic.csproj">
       <Project>{5873FAE6-3795-4DBD-B656-5B128EFC78BE}</Project>

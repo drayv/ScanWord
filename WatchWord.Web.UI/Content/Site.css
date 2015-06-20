@@ -5,3 +5,13 @@
 .field-validation-error{
     color: #D04437;
 }
+
+.words{
+    margin-top: 20px;
+}
+
+.word{
+    color: #222469;
+    display: inline;
+    border: 1px solid #fcdddd;
+}

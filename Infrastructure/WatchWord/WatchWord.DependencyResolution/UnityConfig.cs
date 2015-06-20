@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
+using ScanWord.Core.Common;
+using ScanWord.Parser;
+using WatchWord.Domain.Common;
+using WatchWord.Logic;
 
 namespace WatchWord.DependencyResolution
 {
-    using WatchWord.Domain.Common;
-    using WatchWord.Logic;
-
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -45,6 +46,7 @@ namespace WatchWord.DependencyResolution
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<IProjectSettings, ProjectSettings>(new ContainerControlledLifetimeManager(), new InjectionFactory(c => new ProjectSettings()));
+            container.RegisterType<IScanWordParser, ScanWordParser>();
         }
     }
 }
