@@ -243,6 +243,14 @@
       <Project>{64453426-9637-42A6-994E-B1DC84737BF2}</Project>
       <Name>WatchWord.DependencyResolution</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\WatchWord\WatchWord.Logic\WatchWord.Logic.csproj">
+      <Project>{5873FAE6-3795-4DBD-B656-5B128EFC78BE}</Project>
+      <Name>WatchWord.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WatchWord.Domain\WatchWord.Domain.csproj">
+      <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>
+      <Name>WatchWord.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

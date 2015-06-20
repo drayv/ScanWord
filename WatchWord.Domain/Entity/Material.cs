@@ -24,6 +24,11 @@ namespace WatchWord.Domain.Entity
     public class Material
     {
         /// <summary>
+        /// Gets or sets material Id.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Gets or sets material type.
         /// </summary>
         public MaterialType Type { get; set; }
@@ -37,5 +42,10 @@ namespace WatchWord.Domain.Entity
         /// Gets or sets image of the material.
         /// </summary>
         public byte[] Image { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creator of the material.
+        /// </summary>
+        public Account Owner { get; set; }
     }
 }

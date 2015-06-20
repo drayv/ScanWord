@@ -32,22 +32,18 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\IMaterialHandler.cs" />
-    <Compile Include="Data\IWatchWordRepository.cs" />
+    <Compile Include="Common\IProjectSettings.cs" />
+    <Compile Include="Data\IWatchDataRepository.cs" />
     <Compile Include="Entity\Material.cs" />
+    <Compile Include="Entity\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ScanWord.Core\ScanWord.Core.csproj">
-      <Project>{12d6a9fe-1939-4cf4-b45b-8ebc64fb862f}</Project>
+      <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
       <Name>ScanWord.Core</Name>
     </ProjectReference>
   </ItemGroup>

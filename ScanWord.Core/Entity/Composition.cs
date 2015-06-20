@@ -8,14 +8,14 @@ namespace ScanWord.Core.Entity
     public class Composition : IEquatable<Composition>
     {
         /// <summary>
-        /// Gets or sets link to a table of Files.
-        /// </summary>
-        public File File { get; set; }
-
-        /// <summary>
         /// Gets or sets composition Id.
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets link to a table of Files.
+        /// </summary>
+        public File File { get; set; }
 
         /// <summary>
         /// Gets or sets the serial number of the line that contains the word.

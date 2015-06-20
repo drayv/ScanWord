@@ -3,6 +3,9 @@ using Microsoft.Practices.Unity;
 
 namespace WatchWord.DependencyResolution
 {
+    using WatchWord.Domain.Common;
+    using WatchWord.Logic;
+
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -41,7 +44,7 @@ namespace WatchWord.DependencyResolution
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            // container.RegisterType<IType, Type>();
+            container.RegisterType<IProjectSettings, ProjectSettings>(new ContainerControlledLifetimeManager(), new InjectionFactory(c => new ProjectSettings()));
         }
     }
 }

@@ -12,7 +12,6 @@ namespace WatchWord.Web.UI.Models.Materials
         /// Gets or sets the file.
         /// </summary>
         [Required(ErrorMessage = "Please select the file!")]
-        [FileExtensions(Extensions = "txt,srt", ErrorMessage = "Please upload valid format!")]
         public HttpPostedFileBase File { get; set; }
     }
 }

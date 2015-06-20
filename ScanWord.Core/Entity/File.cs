@@ -8,6 +8,11 @@ namespace ScanWord.Core.Entity
     public class File : IEquatable<File>
     {
         /// <summary>
+        /// Gets or sets file Id.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Gets or sets filename extension.
         /// </summary>
         public string Extension { get; set; }
@@ -16,11 +21,6 @@ namespace ScanWord.Core.Entity
         /// Gets or sets file name, actually.
         /// </summary>
         public string Filename { get; set; }
-
-        /// <summary>
-        /// Gets or sets file Id.
-        /// </summary>
-        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the absolute path to the file, except filename and extension.

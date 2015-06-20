@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Practices.Unity;
+using WatchWord.DependencyResolution;
+using WatchWord.Domain.Common;
 using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
@@ -9,10 +12,18 @@ namespace WatchWord.Web.UI.Identity
     public class AppIdentityDbContext : IdentityDbContext<AppUser>
     {
         /// <summary>
+        /// Unity container.
+        /// </summary>
+        private static readonly IUnityContainer Container = UnityConfig.GetConfiguredContainer();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AppIdentityDbContext"/> class.
         /// </summary>
-        public AppIdentityDbContext()
-            : base("WatchWord")
+        /// <param name="dataBaseName">
+        /// The database name.
+        /// </param>
+        public AppIdentityDbContext(string dataBaseName)
+            : base(dataBaseName)
         {
         }
 
@@ -24,7 +35,8 @@ namespace WatchWord.Web.UI.Identity
         /// </returns>
         public static AppIdentityDbContext Create()
         {
-            return new AppIdentityDbContext();
+            var projectSettings = Container.Resolve<IProjectSettings>();
+            return new AppIdentityDbContext(projectSettings.DataBaseName);
         }
     }
 }
