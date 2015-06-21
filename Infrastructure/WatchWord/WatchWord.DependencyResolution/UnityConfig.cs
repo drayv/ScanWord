@@ -2,8 +2,7 @@
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Common;
 using ScanWord.Parser;
-using WatchWord.Domain.Common;
-using WatchWord.Logic;
+using WatchWord.Domain;
 
 namespace WatchWord.DependencyResolution
 {

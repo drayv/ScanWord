@@ -1,7 +1,7 @@
 ﻿namespace ScanWord.Core.Common
 {
     /// <summary>
-    /// The ScanWordDataHandler interface.
+    /// Provides batch work with ScanWord data.
     /// </summary>
     public interface IScanWordDataHandler
     {

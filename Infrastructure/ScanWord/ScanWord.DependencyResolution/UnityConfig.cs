@@ -5,6 +5,10 @@ using ScanWord.Parser;
 
 namespace ScanWord.DependencyResolution
 {
+    using ScanWord.Core;
+    using ScanWord.Core.Data;
+    using ScanWord.Data.Sql;
+
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -43,7 +47,9 @@ namespace ScanWord.DependencyResolution
         /// </remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
+            container.RegisterType<IProjectSettings, ProjectSettings>(new ContainerControlledLifetimeManager(), new InjectionFactory(c => new ProjectSettings()));
             container.RegisterType<IScanWordParser, ScanWordParser>();
+            container.RegisterType<IScanDataRepository, ScanDataRepository>();
         }
     }
 }

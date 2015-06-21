@@ -9,7 +9,9 @@ using ScanWord.Core.Entity;
 using ScanWord.DependencyResolution;
 
 namespace ScanWord.Parser.Tests
-{  
+{
+    using System.Collections.Concurrent;
+
     /// <summary>
     /// The parser test.
     /// </summary>
@@ -33,6 +35,7 @@ namespace ScanWord.Parser.Tests
         public void ParseRussianTextTest()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseRussianTextTest.txt");
+            var existingWords = new ConcurrentBag<Word>();
             using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
             {
                 // All words: 22, doubles: "Это", "Вы". Unique words: 20.
@@ -40,7 +43,7 @@ namespace ScanWord.Parser.Tests
 Джей Си Дентон: Я сдаюсь.");              
             }
 
-            var compositions = Parser.ParseFile(myTempFile);
+            var compositions = Parser.ParseFile(myTempFile, existingWords);
             Assert.AreEqual(22, compositions.Count, "Wrong result of count words!");
 
             var uniqueWords = CalcUniqueWords(compositions);
@@ -72,6 +75,7 @@ namespace ScanWord.Parser.Tests
         public void ParseEnglishTextTest()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseEnglishTextTest.txt");
+            var existingWords = new ConcurrentBag<Word>();
             using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
             {
                 // All words: 11, doubles: "The". Unique words: 10.
@@ -79,7 +83,7 @@ namespace ScanWord.Parser.Tests
 but the mind isn't always so resilient");
             }
 
-            var compositions = Parser.ParseFile(myTempFile);
+            var compositions = Parser.ParseFile(myTempFile, existingWords);
             Assert.AreEqual(11, compositions.Count, "Wrong result of count words!");
 
             var uniqueWords = CalcUniqueWords(compositions);
@@ -111,6 +115,7 @@ but the mind isn't always so resilient");
         public void ParseMultilanguageTextTest()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseMultilanguageTextTest.txt");
+            var existingWords = new ConcurrentBag<Word>();
             using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
             {
                 // All words: 23, doubles: "Модель", "событий", "CLR". Unique words: 20.
@@ -120,7 +125,7 @@ but the mind isn't always so resilient");
 безопасности типов.");
             }
 
-            var compositions = Parser.ParseFile(myTempFile);
+            var compositions = Parser.ParseFile(myTempFile, existingWords);
             Assert.AreEqual(23, compositions.Count, "Wrong result of count words!");
 
             var uniqueWords = CalcUniqueWords(compositions);

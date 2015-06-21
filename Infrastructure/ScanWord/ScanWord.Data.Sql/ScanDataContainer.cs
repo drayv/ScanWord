@@ -33,5 +33,16 @@ namespace ScanWord.Data.Sql
         /// Gets or sets the compositions.
         /// </summary>
         public DbSet<Composition> Compositions { get; set; }
+
+        /// <summary>
+        /// Configure model with fluent API.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder.</param>
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<File>().HasKey(f => f.Id);
+            modelBuilder.Entity<Word>().HasKey(w => w.Id);
+            modelBuilder.Entity<Composition>().HasKey(c => c.Id);
+        }
     }
 }

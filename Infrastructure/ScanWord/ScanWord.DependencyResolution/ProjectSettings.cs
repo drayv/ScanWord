@@ -1,7 +1,7 @@
-﻿using WatchWord.Domain.Common;
-
-namespace WatchWord.Logic
+﻿namespace ScanWord.DependencyResolution
 {
+    using ScanWord.Core;
+
     /// <summary>
     /// The project settings.
     /// </summary>
@@ -12,7 +12,7 @@ namespace WatchWord.Logic
         /// </summary>
         public ProjectSettings()
         {
-            this.DataBaseName = "WathWord";
+            this.DataBaseName = "ScanWord";
         }
 
         /// <summary>

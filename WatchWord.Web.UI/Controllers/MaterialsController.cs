@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections.Concurrent;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using ScanWord.Core.Common;
+using ScanWord.Core.Entity;
 using WatchWord.Web.UI.Models.Materials;
 
 namespace WatchWord.Web.UI.Controllers
@@ -59,7 +61,8 @@ namespace WatchWord.Web.UI.Controllers
             using (var streamReader = new StreamReader(model.File.InputStream))
             {
                 var file = new ScanWord.Core.Entity.File { Path = "TODO", Filename = model.File.FileName, Extension = "TODO" };
-                var composition = parser.ParseFile(file, streamReader);
+                var existingWords = new ConcurrentBag<Word>();
+                var composition = parser.ParseFile(file, existingWords, streamReader);
                 model.Words = composition.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsEnumerable();
             }
 

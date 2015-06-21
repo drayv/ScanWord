@@ -1,4 +1,4 @@
-﻿namespace WatchWord.Domain.Common
+﻿namespace ScanWord.Core
 {
     /// <summary>
     /// The ProjectSettings interface.

@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectSettings.cs" />
     <Compile Include="UnityConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -44,6 +45,10 @@
     <ProjectReference Include="..\..\..\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
       <Name>ScanWord.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScanWord.Data.Sql\ScanWord.Data.Sql.csproj">
+      <Project>{D393ABE3-885B-4D59-9F0C-956BF780FF58}</Project>
+      <Name>ScanWord.Data.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\ScanWord.Parser\ScanWord.Parser.csproj">
       <Project>{8883b5ff-41a3-4189-b085-3a51606d437d}</Project>

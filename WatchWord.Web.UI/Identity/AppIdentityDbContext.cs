@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Practices.Unity;
 using WatchWord.DependencyResolution;
-using WatchWord.Domain.Common;
+using WatchWord.Domain;
 using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
