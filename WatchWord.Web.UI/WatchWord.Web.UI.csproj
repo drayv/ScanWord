@@ -209,6 +209,7 @@
     <Compile Include="Identity\AppIdentityDbContext.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Identity\ScanWordUserValidator.cs" />
+    <Compile Include="Infrastructure\Helpers\AccountHelpers.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
     <Compile Include="Models\Materials\AddMaterialViewModel.cs" />

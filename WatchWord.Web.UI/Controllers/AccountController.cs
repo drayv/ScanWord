@@ -7,6 +7,7 @@ using Microsoft.Owin.Security;
 using WatchWord.Web.UI.Identity;
 using WatchWord.Web.UI.Models.Account;
 using WatchWord.Web.UI.Models.Identity;
+using System.Linq;
 
 namespace WatchWord.Web.UI.Controllers
 {
@@ -93,7 +94,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>
         /// Action result <see cref="ActionResult"/>.
         /// </returns>
-        public ActionResult Login(string returnUrl = "")
+        public ActionResult LogIn(string returnUrl = "")
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
@@ -162,6 +163,26 @@ namespace WatchWord.Web.UI.Controllers
             AuthenticationManager.SignOut();
             ////TODO Change this
             return RedirectToAction("Add", "Materials");
+        }
+
+        /// <summary>
+        /// Cheks if login is already registered.
+        /// </summary>
+        /// <param name="login">A username from a form</param>
+        /// <returns>Json with result data</returns>
+        public JsonResult RemoteLoginValidation(string login)
+        {
+            return Json(UserManager.Users.All(n => string.Compare(login, n.UserName, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Cheks if this email is already registered.
+        /// </summary>
+        /// <param name="email">A email from a form</param>
+        /// <returns>Json with result data</returns>
+        public JsonResult RemoteEmailValidation(string email)
+        {
+            return Json(UserManager.Users.All(n => string.Compare(email, n.Email, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
         }
     }
 }
