@@ -42,7 +42,8 @@ namespace ScanWord.Data.Sql
         {
             modelBuilder.Entity<File>().HasKey(f => f.Id);
             modelBuilder.Entity<Word>().HasKey(w => w.Id);
-            modelBuilder.Entity<Composition>().HasKey(c => c.Id);
+            modelBuilder.Entity<Composition>().HasKey(c => c.Id).HasRequired(c => c.File);
+            modelBuilder.Entity<Composition>().HasRequired(c => c.Word);
         }
     }
 }

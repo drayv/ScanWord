@@ -38,7 +38,7 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return this.Id == other.Id && string.Equals(this.TheWord, other.TheWord);
+            return Id == other.Id && string.Equals(TheWord, other.TheWord);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return origin.GetType() == this.GetType() && this.Equals((Word)origin);
+            return origin.GetType() == GetType() && Equals((Word)origin);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace ScanWord.Core.Entity
         {
             unchecked
             {
-                return (this.Id * 397) ^ (this.TheWord != null ? this.TheWord.GetHashCode() : 0);
+                return (Id * 397) ^ (TheWord != null ? TheWord.GetHashCode() : 0);
             }
         }
     }

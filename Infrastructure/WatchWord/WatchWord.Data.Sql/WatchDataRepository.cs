@@ -17,9 +17,7 @@ namespace WatchWord.Data.Sql
         /// <summary>
         /// Initializes a new instance of the <see cref="WatchDataRepository"/> class.
         /// </summary>
-        /// <param name="settings">
-        /// The data base name.
-        /// </param>
+        /// <param name="settings">The data base name.</param>
         public WatchDataRepository(IProjectSettings settings)
         {
             this.dataBaseName = settings.DataBaseName;
@@ -36,9 +34,7 @@ namespace WatchWord.Data.Sql
         /// <summary>
         /// Add the account to database.
         /// </summary>
-        /// <param name="account">
-        /// The account.
-        /// </param>
+        /// <param name="account">The account.</param>
         public void AddAccount(Account account)
         {
             using (var db = new WatchDataContainer(this.dataBaseName))
@@ -51,9 +47,7 @@ namespace WatchWord.Data.Sql
         /// <summary>
         /// Add the material to database.
         /// </summary>
-        /// <param name="material">
-        /// The material.
-        /// </param>
+        /// <param name="material">The material.</param>
         public void AddMaterial(Material material)
         {
             using (var db = new WatchDataContainer(this.dataBaseName))

@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Linq;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using ScanWord.Core.Entity;
 
@@ -36,13 +37,13 @@ namespace ScanWord.Core.Data
         /// <summary>
         /// Add words to database.
         /// </summary>
-        /// <param name="words">Collection of word.</param>
+        /// <param name="words">Collection of words.</param>
         void AddWords(IEnumerable<Word> words);
 
         /// <summary>
         /// Add compositions to database.
         /// </summary>
-        /// <param name="compositions">Collection of composition.</param>
+        /// <param name="compositions">Collection of compositions.</param>
         void AddCompositions(IEnumerable<Composition> compositions);
 
         /// <summary>
@@ -52,7 +53,14 @@ namespace ScanWord.Core.Data
         ConcurrentBag<File> GetFiles();
 
         /// <summary>
-        /// Get files from database.
+        /// Get words from database where TheWord in a list.
+        /// </summary>
+        /// <param name="existingWords">List of words to compare.</param>
+        /// <returns>Words concurrent bag.</returns>
+        ConcurrentBag<Word> GetWords(IQueryable<string> existingWords);
+
+        /// <summary>
+        /// Get words from database.
         /// </summary>
         /// <returns>Words concurrent bag.</returns>
         ConcurrentBag<Word> GetWords();

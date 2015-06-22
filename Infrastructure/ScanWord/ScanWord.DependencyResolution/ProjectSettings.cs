@@ -1,6 +1,6 @@
 ﻿namespace ScanWord.DependencyResolution
 {
-    using ScanWord.Core;
+    using Core;
 
     /// <summary>
     /// The project settings.
@@ -12,7 +12,7 @@
         /// </summary>
         public ProjectSettings()
         {
-            this.DataBaseName = "ScanWord";
+            DataBaseName = "ScanWord";
         }
 
         /// <summary>

@@ -3,14 +3,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using ScanWord.Core.Common;
+using ScanWord.Core.Entity;
+using File = ScanWord.Core.Entity.File;
 
 namespace ScanWord.Parser
 {
     using System.Linq;
-
-    using Core.Common;
-    using Core.Entity;
-    using File = Core.Entity.File;
 
     /// <summary>
     /// Provides the ability to scan files and a directories for parsing words in them.
@@ -18,20 +17,39 @@ namespace ScanWord.Parser
     public class ScanWordParser : IScanWordParser
     {
         /// <summary>
+        /// The material words.
+        /// </summary>
+        private static ConcurrentBag<Word> materialWords = new ConcurrentBag<Word>();
+
+        /// <summary>
         /// Scans the location of words in the file.
         /// </summary>
         /// <param name="absolutePath">Path to the file that you want to parse.</param>
-        /// <param name="existingWords">Existing words to be used in the composition.</param>
+        /// <param name="existingWords">Existing words to compare.</param>
         /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
         /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Thread-safe, unordered collection of scan results.</returns>
         public ConcurrentBag<Composition> ParseFile(string absolutePath, ConcurrentBag<Word> existingWords)
         {
+            materialWords = existingWords;
+            return ParseFile(absolutePath);
+        }
+
+        /// <summary>
+        /// Scans the location of words in the file.
+        /// </summary>
+        /// <param name="absolutePath">Path to the file that you want to parse.</param>
+        /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <returns>Thread-safe, unordered collection of scan results.</returns>
+        public ConcurrentBag<Composition> ParseFile(string absolutePath)
+        {
             var scanFile = GetScanFileByPath(absolutePath);
             using (var stream = OpenFileStreamReader(absolutePath))
             {
-                return this.ParseFile(scanFile, existingWords, stream);
+                return ParseFile(scanFile, stream);
             }
         }
 
@@ -39,13 +57,28 @@ namespace ScanWord.Parser
         /// Scans the location of words in the StreamReader of the file.
         /// </summary>
         /// <param name="scanFile">Scan file entity.</param>
-        /// <param name="existingWords">Existing words to be used in the composition.</param>
+        /// <param name="existingWords">Existing words to compare.</param>
         /// <param name="stream">Stream reader for the text file.</param>
         /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
         /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Thread-safe, unordered collection of scan results.</returns>
         public ConcurrentBag<Composition> ParseFile(File scanFile, ConcurrentBag<Word> existingWords, StreamReader stream)
+        {
+            materialWords = existingWords;
+            return ParseFile(scanFile, stream);
+        }
+
+        /// <summary>
+        /// Scans the location of words in the StreamReader of the file.
+        /// </summary>
+        /// <param name="scanFile">Scan file entity.</param>
+        /// <param name="stream">Stream reader for the text file.</param>
+        /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <returns>Thread-safe, unordered collection of scan results.</returns>
+        public ConcurrentBag<Composition> ParseFile(File scanFile, StreamReader stream)
         {
             var lines = new Dictionary<int, string>();
 
@@ -81,7 +114,7 @@ namespace ScanWord.Parser
                         }
                         else if (word.Length > 0 && char.IsLetter(word[0]))
                         {
-                            AddWordToCompositions(compositions, existingWords, scanFile, word, line.Key, column);
+                            AddWordToCompositions(compositions, scanFile, word, line.Key, column);
                             word = string.Empty;
                         }
                         else
@@ -90,7 +123,7 @@ namespace ScanWord.Parser
                         }
                     }
 
-                    AddWordToCompositions(compositions, existingWords, scanFile, word, line.Key, column);
+                    AddWordToCompositions(compositions, scanFile, word, line.Key, column);
                 });
 
             return compositions;
@@ -129,14 +162,12 @@ namespace ScanWord.Parser
         /// Add word info to concurrent bag of compositions.
         /// </summary>
         /// <param name="compositions">The concurrent bag of compositions.</param>
-        /// <param name="existingWords">Existing words to be used in the composition.</param>
         /// <param name="scanFile">File entity.</param>
         /// <param name="word">Word entity.</param>
         /// <param name="line">Serial number of the line that contains the word.</param>
         /// <param name="column">Position of the first character in word, from the beginning of the line.</param>
         private static void AddWordToCompositions(
             ConcurrentBag<Composition> compositions,
-            ConcurrentBag<Word> existingWords,
             File scanFile,
             string word,
             int line,
@@ -147,7 +178,7 @@ namespace ScanWord.Parser
                 return;
             }
 
-            var scanWord = GetScanWordByText(word, existingWords);
+            var scanWord = GetScanWordByText(word);
             var composition = new Composition { File = scanFile, Word = scanWord, Line = line, Сolumn = column };
 
             compositions.Add(composition);
@@ -159,7 +190,7 @@ namespace ScanWord.Parser
         /// <param name="absolutePath">Absolute path.</param>
         /// <returns>
         /// <exception cref="System.NotSupportedException">If file from absolute path don't support read or a security error is detected.</exception>
-        /// File entity. <see cref="ScanWord.Core.Entity.File"/>.
+        /// The <see cref="ScanWord.Core.Entity.File"/> entity.
         /// </returns>
         private static File GetScanFileByPath(string absolutePath)
         {
@@ -184,18 +215,17 @@ namespace ScanWord.Parser
         /// Get word entity by text.
         /// </summary>
         /// <param name="wordText">The word text.</param>
-        /// <param name="existingWords">Existing words to be used in the composition.</param>
-        /// <returns>Word entity. <see cref="ScanWord.Core.Entity.Word"/>.</returns>
-        private static Word GetScanWordByText(string wordText, ConcurrentBag<Word> existingWords)
+        /// <returns>The <see cref="ScanWord.Core.Entity.Word"/> entity.</returns>
+        private static Word GetScanWordByText(string wordText)
         {
-            var existingWord = existingWords.FirstOrDefault(w => w.TheWord.Equals(wordText));
-            if (existingWord != null)
+            var existingWord = materialWords.FirstOrDefault(w => w.TheWord == wordText);
+            if (existingWord != null && !existingWord.Equals(default(Word)))
             {
                 return existingWord;
             }
 
             var scanWord = new Word { TheWord = wordText };
-            existingWords.Add(scanWord);
+            materialWords.Add(scanWord);
             return scanWord;
         }
     }

@@ -1,14 +1,13 @@
 using System;
 using Microsoft.Practices.Unity;
+using ScanWord.Core;
 using ScanWord.Core.Common;
+using ScanWord.Core.Data;
+using ScanWord.Data.Sql;
 using ScanWord.Parser;
 
 namespace ScanWord.DependencyResolution
 {
-    using ScanWord.Core;
-    using ScanWord.Core.Data;
-    using ScanWord.Data.Sql;
-
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -38,9 +37,7 @@ namespace ScanWord.DependencyResolution
         /// <summary>
         /// Registers the type mappings with the Unity container.
         /// </summary>
-        /// <param name="container">
-        /// The unity container to configure.
-        /// </param>
+        /// <param name="container">The unity container to configure.</param>
         /// <remarks>
         /// There is no need to register concrete types such as controllers or API controllers (unless you want to 
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.
@@ -50,6 +47,7 @@ namespace ScanWord.DependencyResolution
             container.RegisterType<IProjectSettings, ProjectSettings>(new ContainerControlledLifetimeManager(), new InjectionFactory(c => new ProjectSettings()));
             container.RegisterType<IScanWordParser, ScanWordParser>();
             container.RegisterType<IScanDataRepository, ScanDataRepository>();
+            container.RegisterType<IScanWordDataHandler, ScanWordDataHandler>();
         }
     }
 }

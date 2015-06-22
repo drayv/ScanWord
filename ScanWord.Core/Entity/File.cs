@@ -48,8 +48,8 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return this.Id == other.Id && string.Equals(this.Path, other.Path)
-                   && string.Equals(this.Filename, other.Filename) && string.Equals(this.Extension, other.Extension);
+            return Id == other.Id && string.Equals(Path, other.Path)
+                   && string.Equals(Filename, other.Filename) && string.Equals(Extension, other.Extension);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return origin.GetType() == this.GetType() && this.Equals((File)origin);
+            return origin.GetType() == GetType() && Equals((File)origin);
         }
 
         /// <summary>
@@ -86,10 +86,10 @@ namespace ScanWord.Core.Entity
         {
             unchecked
             {
-                var hashCode = this.Id;
-                hashCode = (hashCode * 397) ^ (this.Path != null ? this.Path.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Filename != null ? this.Filename.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (this.Extension != null ? this.Extension.GetHashCode() : 0);
+                var hashCode = Id;
+                hashCode = (hashCode * 397) ^ (Path != null ? Path.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Filename != null ? Filename.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Extension != null ? Extension.GetHashCode() : 0);
                 return hashCode;
             }
         }

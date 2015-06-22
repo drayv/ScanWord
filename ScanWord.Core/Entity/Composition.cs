@@ -15,7 +15,7 @@ namespace ScanWord.Core.Entity
         /// <summary>
         /// Gets or sets link to a table of Files.
         /// </summary>
-        public File File { get; set; }
+        public virtual File File { get; set; }
 
         /// <summary>
         /// Gets or sets the serial number of the line that contains the word.
@@ -25,7 +25,7 @@ namespace ScanWord.Core.Entity
         /// <summary>
         /// Gets or sets link to a table of Words.
         /// </summary>
-        public Word Word { get; set; }
+        public virtual Word Word { get; set; }
 
         /// <summary>
         /// Gets or sets the position of the first character in word, from the beginning of the line.
@@ -53,8 +53,8 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return this.Id == other.Id && this.File.Equals(other.File) && this.Сolumn == other.Сolumn
-                   && this.Line == other.Line && this.Word.Equals(other.Word);
+            return Id == other.Id && File.Equals(other.File) && Сolumn == other.Сolumn
+                   && Line == other.Line && Word.Equals(other.Word);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return origin.GetType() == this.GetType() && this.Equals((Composition)origin);
+            return origin.GetType() == GetType() && Equals((Composition)origin);
         }
 
         /// <summary>
@@ -91,11 +91,11 @@ namespace ScanWord.Core.Entity
         {
             unchecked
             {
-                var hashCode = this.Id;
-                hashCode = (hashCode * 397) ^ (this.File != null ? this.File.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ this.Сolumn;
-                hashCode = (hashCode * 397) ^ this.Line;
-                hashCode = (hashCode * 397) ^ (this.Word != null ? this.Word.GetHashCode() : 0);
+                var hashCode = Id;
+                hashCode = (hashCode * 397) ^ (File != null ? File.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Сolumn;
+                hashCode = (hashCode * 397) ^ Line;
+                hashCode = (hashCode * 397) ^ (Word != null ? Word.GetHashCode() : 0);
                 return hashCode;
             }
         }

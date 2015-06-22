@@ -89,7 +89,7 @@ namespace ScanWord.Data.Sql
         /// <summary>
         /// Add words to database.
         /// </summary>
-        /// <param name="words">Collection of word.</param>
+        /// <param name="words">Collection of words.</param>
         public void AddWords(IEnumerable<Word> words)
         {
             using (var db = new ScanDataContainer(this.dataBaseName))
@@ -102,12 +102,39 @@ namespace ScanWord.Data.Sql
         /// <summary>
         /// Add compositions to database.
         /// </summary>
-        /// <param name="compositions">Collection of composition.</param>
+        /// <param name="compositions">Collection of compositions.</param>
         public void AddCompositions(IEnumerable<Composition> compositions)
         {
             using (var db = new ScanDataContainer(this.dataBaseName))
             {
-                db.Compositions.AddRange(compositions);
+                var enumerable = compositions as IList<Composition> ?? compositions.ToList();
+                foreach (var composition in enumerable)
+                {
+                    if (composition.Word.Id != 0)
+                    {
+                        db.Words.Attach(composition.Word);
+                    }
+
+                    if (composition.File.Id != 0)
+                    {
+                        db.Files.Attach(composition.File);
+                    }
+                }
+
+                /*
+                var words =
+                    from e in enumerable
+                    where e.Word.Id != 0
+                    group e by e.Word.Id into g
+                    orderby g.Key
+                    select g;
+
+                foreach (var word in words)
+                {
+                    db.Words.Attach(word.First().Word);    
+                }*/
+
+                db.Compositions.AddRange(enumerable);
                 db.SaveChanges();
             }
         }
@@ -129,7 +156,24 @@ namespace ScanWord.Data.Sql
         }
 
         /// <summary>
-        /// Get files from database.
+        /// Get words from database where TheWord in a list.
+        /// </summary>
+        /// <param name="existingWords">List of words to compare.</param>
+        /// <returns>Words concurrent bag.</returns>
+        public ConcurrentBag<Word> GetWords(IQueryable<string> existingWords)
+        {
+            ConcurrentBag<Word> ret;
+            using (var db = new ScanDataContainer(this.dataBaseName))
+            {
+                var words = db.Words.Where(w => existingWords.Contains(w.TheWord)).AsEnumerable();
+                ret = new ConcurrentBag<Word>(words);
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Get words from database.
         /// </summary>
         /// <returns>Words concurrent bag.</returns>
         public ConcurrentBag<Word> GetWords()

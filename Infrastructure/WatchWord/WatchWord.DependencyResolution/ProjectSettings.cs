@@ -12,7 +12,7 @@ namespace WatchWord.DependencyResolution
         /// </summary>
         public ProjectSettings()
         {
-            this.DataBaseName = "WatchWord";
+            DataBaseName = "WatchWord";
         }
 
         /// <summary>

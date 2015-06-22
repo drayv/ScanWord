@@ -11,9 +11,7 @@ namespace WatchWord.Data.Sql
         /// <summary>
         /// Initializes a new instance of the <see cref="WatchDataContainer"/> class.
         /// </summary>
-        /// <param name="dataBaseName">
-        /// The data base name.
-        /// </param>
+        /// <param name="dataBaseName">The database name.</param>
         public WatchDataContainer(string dataBaseName)
             : base("name=" + dataBaseName)
         {
