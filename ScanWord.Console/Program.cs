@@ -26,24 +26,10 @@ namespace ScanWord.Console
         {
             var repository = Container.Resolve<IScanDataRepository>();
             var parser = Container.Resolve<IScanWordParser>();
-            /*var dataHandler = Container.Resolve<IScanWordDataHandler>();*/
 
             var start = Environment.TickCount;
             var compositions = parser.ParseFile("C:/Interstellar.srt");
-            var materialWords = compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
             Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start);
-
-            start = Environment.TickCount;
-            var existingWords = repository.GetWords(materialWords);
-            Console.WriteLine("Get Words time: {0} ms.", Environment.TickCount - start);
-
-            start = Environment.TickCount;
-            compositions = parser.ParseFile("C:/Interstellar.srt", existingWords);
-            Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start);
-
-            /*start = Environment.TickCount;
-            dataHandler.MergeWithExisting(compositions);
-            Console.WriteLine("Merge With Existing time: {0} ms.", Environment.TickCount - start);*/
 
             Console.WriteLine("All words: " + compositions.Count);
             var uniqueWords = compositions.GroupBy(w => w.Word.TheWord).Count();

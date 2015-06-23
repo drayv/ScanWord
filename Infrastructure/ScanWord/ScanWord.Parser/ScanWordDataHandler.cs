@@ -1,13 +1,8 @@
-﻿using System.Collections.Concurrent;
-using ScanWord.Core.Common;
-using ScanWord.Core.Entity;
+﻿using ScanWord.Core.Common;
+using ScanWord.Core.Data;
 
 namespace ScanWord.Parser
 {
-    using System.Linq;
-
-    using ScanWord.Core.Data;
-
     /// <summary>
     /// Provides batch work with ScanWord data.
     /// </summary>
@@ -16,6 +11,7 @@ namespace ScanWord.Parser
         /// <summary>
         /// Gets or sets the database name.
         /// </summary>
+        // ReSharper disable once NotAccessedField.Local
         private readonly IScanDataRepository repository;
 
         /// <summary>
@@ -33,21 +29,6 @@ namespace ScanWord.Parser
         // ReSharper disable once UnusedMember.Local
         private ScanWordDataHandler()
         {
-        }
-
-        /// <summary>
-        /// Merge compositions with related and existing entities in database.
-        /// </summary>
-        /// <param name="compositions">The compositions concurrent bag.</param>
-        public void MergeWithExisting(ConcurrentBag<Composition> compositions)
-        {
-            var materialWords = compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
-            var databaseWords = repository.GetWords(materialWords).ToDictionary(w => w.TheWord);
-
-            foreach (var composition in compositions.Where(composition => databaseWords.ContainsKey(composition.Word.TheWord)))
-            {
-                composition.Word.Id = databaseWords[composition.Word.TheWord].Id;
-            }
         }
     }
 }

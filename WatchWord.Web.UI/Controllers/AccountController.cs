@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -7,7 +8,6 @@ using Microsoft.Owin.Security;
 using WatchWord.Web.UI.Identity;
 using WatchWord.Web.UI.Models.Account;
 using WatchWord.Web.UI.Models.Identity;
-using System.Linq;
 
 namespace WatchWord.Web.UI.Controllers
 {
@@ -166,20 +166,20 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>
-        /// Cheks if login is already registered.
+        /// Check if login is already registered.
         /// </summary>
         /// <param name="login">A username from a form</param>
-        /// <returns>Json with result data</returns>
+        /// <returns>JSON with result data</returns>
         public JsonResult RemoteLoginValidation(string login)
         {
             return Json(UserManager.Users.All(n => string.Compare(login, n.UserName, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
-        /// Cheks if this email is already registered.
+        /// Check if this email is already registered.
         /// </summary>
         /// <param name="email">A email from a form</param>
-        /// <returns>Json with result data</returns>
+        /// <returns>JSON with result data</returns>
         public JsonResult RemoteEmailValidation(string email)
         {
             return Json(UserManager.Users.All(n => string.Compare(email, n.Email, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);

@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Linq;
 using ScanWord.Core.Entity;
 
 namespace ScanWord.Core.Data
@@ -32,19 +31,19 @@ namespace ScanWord.Core.Data
         /// Add files to database.
         /// </summary>
         /// <param name="files">Collection of files.</param>
-        void AddFiles(IEnumerable<File> files);
+        void AddFiles(ConcurrentBag<File> files);
 
         /// <summary>
         /// Add words to database.
         /// </summary>
         /// <param name="words">Collection of words.</param>
-        void AddWords(IEnumerable<Word> words);
+        void AddWords(ConcurrentBag<Word> words);
 
         /// <summary>
         /// Add compositions to database.
         /// </summary>
         /// <param name="compositions">Collection of compositions.</param>
-        void AddCompositions(IEnumerable<Composition> compositions);
+        void AddCompositions(ConcurrentBag<Composition> compositions);
 
         /// <summary>
         /// Get files from database.

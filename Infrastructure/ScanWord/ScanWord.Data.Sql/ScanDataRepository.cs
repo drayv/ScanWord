@@ -7,6 +7,8 @@ using ScanWord.Core.Entity;
 
 namespace ScanWord.Data.Sql
 {
+    using System.Data.Entity;
+
     /// <summary>
     /// Provides CRUD operations for ScanWord database.
     /// </summary>
@@ -77,7 +79,7 @@ namespace ScanWord.Data.Sql
         /// Add files to database.
         /// </summary>
         /// <param name="files">Collection of files.</param>
-        public void AddFiles(IEnumerable<File> files)
+        public void AddFiles(ConcurrentBag<File> files)
         {
             using (var db = new ScanDataContainer(this.dataBaseName))
             {
@@ -90,7 +92,7 @@ namespace ScanWord.Data.Sql
         /// Add words to database.
         /// </summary>
         /// <param name="words">Collection of words.</param>
-        public void AddWords(IEnumerable<Word> words)
+        public void AddWords(ConcurrentBag<Word> words)
         {
             using (var db = new ScanDataContainer(this.dataBaseName))
             {
@@ -103,39 +105,39 @@ namespace ScanWord.Data.Sql
         /// Add compositions to database.
         /// </summary>
         /// <param name="compositions">Collection of compositions.</param>
-        public void AddCompositions(IEnumerable<Composition> compositions)
+        public void AddCompositions(ConcurrentBag<Composition> compositions)
         {
+            MergeWithExisting(compositions);
             using (var db = new ScanDataContainer(this.dataBaseName))
             {
-                var enumerable = compositions as IList<Composition> ?? compositions.ToList();
-                foreach (var composition in enumerable)
+                foreach (var composition in compositions)
                 {
-                    if (composition.Word.Id != 0)
-                    {
-                        db.Words.Attach(composition.Word);
-                    }
-
-                    if (composition.File.Id != 0)
-                    {
-                        db.Files.Attach(composition.File);
-                    }
+                    db.Compositions.Attach(composition);
+                    db.Entry(composition.File).State = composition.File.Id == 0 ? EntityState.Added : EntityState.Detached;
+                    db.Entry(composition.Word).State = composition.Word.Id == 0 ? EntityState.Added : EntityState.Detached;
+                    db.Entry(composition).State = EntityState.Added;    
                 }
 
-                /*
-                var words =
-                    from e in enumerable
-                    where e.Word.Id != 0
-                    group e by e.Word.Id into g
-                    orderby g.Key
-                    select g;
-
-                foreach (var word in words)
-                {
-                    db.Words.Attach(word.First().Word);    
-                }*/
-
-                db.Compositions.AddRange(enumerable);
                 db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Merge compositions with related and existing entities in database.
+        /// </summary>
+        /// <param name="compositions">The compositions concurrent bag for merging.</param>
+        private void MergeWithExisting(IEnumerable<Composition> compositions)
+        {
+            var enumerable = compositions as Composition[] ?? compositions.ToArray();
+            var materialWords = enumerable.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
+            var databaseWords = GetWords(materialWords);
+            foreach (var composition in enumerable)
+            {
+                var first = databaseWords.FirstOrDefault(w => w.TheWord == composition.Word.TheWord);
+                if (first != null)
+                {
+                    composition.Word.Id = first.Id;
+                }
             }
         }
 
