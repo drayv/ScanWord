@@ -11,9 +11,7 @@ namespace ScanWord.Data.Sql
         /// <summary>
         /// Initializes a new instance of the <see cref="ScanDataContainer"/> class.
         /// </summary>
-        /// <param name="dataBaseName">
-        /// The database name.
-        /// </param>
+        /// <param name="dataBaseName">The database name.</param>
         public ScanDataContainer(string dataBaseName)
             : base("name=" + dataBaseName)
         {
@@ -42,8 +40,11 @@ namespace ScanWord.Data.Sql
         {
             modelBuilder.Entity<File>().HasKey(f => f.Id);
             modelBuilder.Entity<Word>().HasKey(w => w.Id);
-            modelBuilder.Entity<Composition>().HasKey(c => c.Id).HasRequired(c => c.File);
-            modelBuilder.Entity<Composition>().HasRequired(c => c.Word);
+            modelBuilder.Entity<Composition>().HasKey(c => c.Id);
+            ////TODO: File full name index
+
+            modelBuilder.Entity<Composition>().HasRequired<File>(s => s.File).WithMany(f => f.Compositions).HasForeignKey(c => c.FileId);
+            modelBuilder.Entity<Composition>().HasRequired<Word>(s => s.Word).WithMany(w => w.Compositions).HasForeignKey(c => c.WordId);
         }
     }
 }

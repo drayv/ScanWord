@@ -13,19 +13,29 @@ namespace ScanWord.Core.Entity
         public int Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the file id.
+        /// </summary>
+        public int FileId { get; set; }
+        
+        /// <summary>
         /// Gets or sets link to a table of Files.
         /// </summary>
         public virtual File File { get; set; }
 
         /// <summary>
-        /// Gets or sets the serial number of the line that contains the word.
+        /// Gets or sets the word id.
         /// </summary>
-        public int Line { get; set; }
+        public int WordId { get; set; }
 
         /// <summary>
         /// Gets or sets link to a table of Words.
         /// </summary>
         public virtual Word Word { get; set; }
+
+        /// <summary>
+        /// Gets or sets the serial number of the line that contains the word.
+        /// </summary>
+        public int Line { get; set; }
 
         /// <summary>
         /// Gets or sets the position of the first character in word, from the beginning of the line.
@@ -35,12 +45,8 @@ namespace ScanWord.Core.Entity
         /// <summary>
         /// Equals of composition entities.
         /// </summary>
-        /// <param name="other">
-        /// Composition to compare.
-        /// </param>
-        /// <returns>
-        /// Equals result. <see cref="bool"/>.
-        /// </returns>
+        /// <param name="other">Composition to compare.</param>
+        /// <returns>Equals result <see cref="bool"/>.</returns>
         public bool Equals(Composition other)
         {
             if (ReferenceEquals(null, other))
@@ -53,19 +59,15 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return Id == other.Id && File.Equals(other.File) && Сolumn == other.Сolumn
-                   && Line == other.Line && Word.Equals(other.Word);
+            return Id == other.Id && FileId == other.FileId && File.Equals(other.File)
+                && WordId == other.WordId && Word.Equals(other.Word) && Line == other.Line && Сolumn == other.Сolumn;
         }
 
         /// <summary>
         /// Equals of composition entities.
         /// </summary>
-        /// <param name="origin">
-        /// Object to compare.
-        /// </param>
-        /// <returns>
-        /// Equals result. <see cref="bool"/>.
-        /// </returns>
+        /// <param name="origin">Object to compare.</param>
+        /// <returns>Equals result <see cref="bool"/>.</returns>
         public override bool Equals(object origin)
         {
             if (ReferenceEquals(null, origin))
@@ -84,18 +86,18 @@ namespace ScanWord.Core.Entity
         /// <summary>
         /// Get hash code.
         /// </summary>
-        /// <returns>
-        /// Hash code of the composition entity <see cref="int"/>.
-        /// </returns>
+        /// <returns>Hash code of the composition entity <see cref="int"/>.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
                 var hashCode = Id;
+                hashCode = (hashCode * 397) ^ FileId;
                 hashCode = (hashCode * 397) ^ (File != null ? File.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ WordId;
+                hashCode = (hashCode * 397) ^ (Word != null ? Word.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Сolumn;
                 hashCode = (hashCode * 397) ^ Line;
-                hashCode = (hashCode * 397) ^ (Word != null ? Word.GetHashCode() : 0);
                 return hashCode;
             }
         }

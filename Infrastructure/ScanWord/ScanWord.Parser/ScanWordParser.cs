@@ -9,8 +9,6 @@ using File = ScanWord.Core.Entity.File;
 
 namespace ScanWord.Parser
 {
-    using System.Linq;
-
     /// <summary>
     /// Provides the ability to scan files and a directories for parsing words in them.
     /// </summary>
@@ -19,7 +17,7 @@ namespace ScanWord.Parser
         /// <summary>
         /// The material words.
         /// </summary>
-        private static readonly ConcurrentBag<Word> MaterialWords = new ConcurrentBag<Word>();
+        private static readonly ConcurrentDictionary<string, Word> MaterialWords = new ConcurrentDictionary<string, Word>();
 
         /// <summary>
         /// Scans the location of words in the file.
@@ -170,7 +168,8 @@ namespace ScanWord.Parser
                 {
                     Filename = fileInfo.Name,
                     Extension = fileInfo.Extension,
-                    Path = fileInfo.DirectoryName
+                    Path = fileInfo.DirectoryName,
+                    FullName = fileInfo.FullName
                 };
                 return scanFile;
             }
@@ -187,14 +186,13 @@ namespace ScanWord.Parser
         /// <returns>The <see cref="ScanWord.Core.Entity.Word"/> entity.</returns>
         private static Word GetScanWordByText(string wordText)
         {
-            var existingWord = MaterialWords.FirstOrDefault(w => w.TheWord == wordText);
-            if (existingWord != null && !existingWord.Equals(default(Word)))
+            if (MaterialWords.ContainsKey(wordText))
             {
-                return existingWord;
+                return MaterialWords[wordText];
             }
 
             var scanWord = new Word { TheWord = wordText };
-            MaterialWords.Add(scanWord);
+            MaterialWords.TryAdd(wordText, scanWord);
             return scanWord;
         }
     }

@@ -36,8 +36,13 @@ namespace ScanWord.Console
             Console.WriteLine("Unique words: " + uniqueWords);
 
             start = Environment.TickCount;
-            repository.AddCompositions(compositions);
-            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start);
+            repository.BulkAddCompositionsAsync(compositions).Wait();
+            Console.WriteLine("Bulk Add Compositions time: {0} ms.", Environment.TickCount - start);
+
+            //// If compositions count < 1256, choice simple insert ;) 
+            /*start = Environment.TickCount;
+            repository.AddCompositionsAsync(compositions).Wait();
+            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start);*/
 
             Console.ReadLine();
         }
