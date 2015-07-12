@@ -4,31 +4,23 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScanWord.Core.Common;
 using ScanWord.Core.Entity;
-using ScanWord.DependencyResolution;
+using ScanWord.Domain.Common;
+using ScanWord.Infrastructure;
 
 namespace ScanWord.Parser.Tests
 {
-    /// <summary>
-    /// The parser test.
-    /// </summary>
+    /// <summary>The parser test.</summary>
     [TestClass]
     public class ParserTest
     {
-        /// <summary>
-        /// Unity container.
-        /// </summary>
+        /// <summary>Unity container.</summary>
         private static readonly IUnityContainer Container = UnityConfig.GetConfiguredContainer();
 
-        /// <summary>
-        /// The parser.
-        /// </summary>
+        /// <summary>The parser.</summary>
         private static readonly IScanWordParser Parser = Container.Resolve<IScanWordParser>();
 
-        /// <summary>
-        /// Parse russian text test
-        /// </summary>
+        /// <summary>Parse russian text test.</summary>
         [TestMethod]
         public void ParseRussianTextTest()
         {
@@ -65,9 +57,7 @@ namespace ScanWord.Parser.Tests
             Assert.AreEqual(1, count, "Wrong count of specific word!");
         }
 
-        /// <summary>
-        /// Parse english text test
-        /// </summary>
+        /// <summary>Parse english text test.</summary>
         [TestMethod]
         public void ParseEnglishTextTest()
         {
@@ -104,9 +94,7 @@ but the mind isn't always so resilient");
             Assert.AreEqual(1, count, "Wrong count of specific word!");
         }
 
-        /// <summary>
-        /// Parse multilanguage text test
-        /// </summary>
+        /// <summary>Parse multilanguage text test.</summary>
         [TestMethod]
         public void ParseMultilanguageTextTest()
         {
@@ -145,62 +133,38 @@ but the mind isn't always so resilient");
             Assert.AreEqual(1, count, "Wrong count of specific word!");
         }
 
-        /// <summary>
-        /// Calculate unique words.
-        /// </summary>
-        /// <param name="words">
-        /// Composition entity.
-        /// </param>
-        /// <returns>
-        /// Count of the unique words. <see cref="int"/>.
-        /// </returns>
+        /// <summary>Calculate unique words.</summary>
+        /// <param name="words">Composition entity.</param>
+        /// <returns>Count of the unique words. <see cref="int"/>.</returns>
         private static int CalcUniqueWords(IEnumerable<Composition> words)
         {
             return words.GroupBy(w => w.Word.TheWord).Count();
         }
 
-        /// <summary>
-        /// Return line of word in scan words result.
-        /// </summary>
-        /// <param name="compositions">
-        /// The words compositions.
-        /// </param>
+        /// <summary>Return line of word in scan words result.</summary>
+        /// <param name="compositions">The words compositions.</param>
         /// <param name="word">Search word.</param>
-        /// <returns>
-        /// The line.<see cref="int"/>.
-        /// </returns>
+        /// <returns>The line.<see cref="int"/>.</returns>
         private static int ReturnLineOfWord(IEnumerable<Composition> compositions, string word)
         {
             var composition = compositions.FirstOrDefault(w => w.Word.TheWord == word.ToLower());
             return composition != null ? composition.Line : 0;
         }
 
-        /// <summary>
-        /// Return column of word in scan words result.
-        /// </summary>
-        /// <param name="compositions">
-        /// The words compositions.
-        /// </param>
+        /// <summary>Return column of word in scan words result.</summary>
+        /// <param name="compositions">The words compositions.</param>
         /// <param name="word">Search word.</param>
-        /// <returns>
-        /// The column.<see cref="int"/>.
-        /// </returns>
+        /// <returns>The column.<see cref="int"/>.</returns>
         private static int ReturnСolumnOfWord(IEnumerable<Composition> compositions, string word)
         {
             var composition = compositions.FirstOrDefault(w => w.Word.TheWord == word.ToLower());
             return composition != null ? composition.Сolumn : 0;   
         }
 
-        /// <summary>
-        /// Return count of word in scan words result.
-        /// </summary>
-        /// <param name="compositions">
-        /// The words compositions.
-        /// </param>
+        /// <summary>Return count of word in scan words result.</summary>
+        /// <param name="compositions">The words compositions.</param>
         /// <param name="word">Search word.</param>
-        /// <returns>
-        /// Count of word.<see cref="int"/>.
-        /// </returns>
+        /// <returns>Count of word.<see cref="int"/>.</returns>
         private static int ReturnCountOfWord(IEnumerable<Composition> compositions, string word)
         {
             var words = compositions.Where(w => w.Word.TheWord == word.ToLower());

@@ -57,13 +57,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\ScanWord\ScanWord.DependencyResolution\ScanWord.DependencyResolution.csproj">
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Infrastructure\ScanWord.Infrastructure.csproj">
       <Project>{A7736679-D6C7-487E-A309-ADA4D8582136}</Project>
-      <Name>ScanWord.DependencyResolution</Name>
+      <Name>ScanWord.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ScanWord.Core\ScanWord.Core.csproj">
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Domain\ScanWord.Domain.csproj">
       <Project>{12d6a9fe-1939-4cf4-b45b-8ebc64fb862f}</Project>
-      <Name>ScanWord.Core</Name>
+      <Name>ScanWord.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
