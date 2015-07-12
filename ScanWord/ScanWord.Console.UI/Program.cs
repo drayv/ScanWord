@@ -33,6 +33,20 @@ namespace ScanWord.Console.UI
             repository.AddCompositionsAsync(compositions).Wait();
             Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start);
 
+            ////TODO: check error
+
+            /*var start2 = Environment.TickCount;
+            var compositions2 = parser.ParseFile("C:/Interstellar.txt");
+            Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start2);
+
+            Console.WriteLine("All words: " + compositions2.Count);
+            var uniqueWords2 = compositions2.GroupBy(w => w.Word.TheWord).Count();
+            Console.WriteLine("Unique words: " + uniqueWords2);
+
+            start2 = Environment.TickCount;
+            repository.AddCompositionsAsync(compositions2).Wait();
+            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start2);*/
+
             Console.ReadLine();
         }
     }

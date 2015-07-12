@@ -19,7 +19,7 @@ namespace ScanWord.Data.Sql
         /// <param name="settings">Project settings.</param>
         public ScanDataRepository(IProjectSettings settings)
         {
-            this.dataBaseName = settings.DataBaseName;
+            dataBaseName = settings.DataBaseName;
         }
 
         /// <summary>Prevents a default instance of the <see cref="ScanDataRepository"/> class from being created.</summary>
@@ -32,7 +32,7 @@ namespace ScanWord.Data.Sql
         /// <param name="file">The file.</param>
         public void AddFile(File file)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 db.Files.Add(file);
                 db.SaveChanges();
@@ -43,7 +43,7 @@ namespace ScanWord.Data.Sql
         /// <param name="word">The word.</param>
         public void AddWord(Word word)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 db.Words.Add(word);
                 db.SaveChanges();
@@ -54,12 +54,11 @@ namespace ScanWord.Data.Sql
         /// <param name="composition">The composition.</param>
         public void AddComposition(Composition composition)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
-                db.Compositions.Attach(composition);
-                db.Entry(composition.File).State = composition.File.Id == 0 ? EntityState.Added : EntityState.Modified;
-                db.Entry(composition.Word).State = composition.Word.Id == 0 ? EntityState.Added : EntityState.Modified;
                 db.Entry(composition).State = EntityState.Added;
+                db.Entry(composition.File).State = composition.File.Id > 0 ? EntityState.Unchanged : EntityState.Added;
+                db.Entry(composition.Word).State = composition.Word.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                 db.SaveChanges();
             }
         }
@@ -67,51 +66,51 @@ namespace ScanWord.Data.Sql
         /// <summary>Add files to database.</summary>
         /// <param name="files">Collection of files.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task AddFilesAsync(ConcurrentBag<File> files)
+        public async Task<int> AddFilesAsync(ConcurrentBag<File> files)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
                 db.Files.AddRange(files);
                 db.ChangeTracker.DetectChanges();
-                await db.SaveChangesAsync();
+                return await db.SaveChangesAsync();
             }
         }
 
         /// <summary>Add words to database.</summary>
         /// <param name="words">Collection of words.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task AddWordsAsync(ConcurrentBag<Word> words)
+        public async Task<int> AddWordsAsync(ConcurrentBag<Word> words)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
                 db.Words.AddRange(words);
                 db.ChangeTracker.DetectChanges();
-                await db.SaveChangesAsync();
+                return await db.SaveChangesAsync();
             }
         }
 
         /// <summary>Add compositions to database.</summary>
         /// <param name="compositions">Collection of compositions.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task AddCompositionsAsync(ConcurrentBag<Composition> compositions)
+        public async Task<int> AddCompositionsAsync(ConcurrentBag<Composition> compositions)
         {
-            ////TODO: Add delete compositions logic if file exist.
-            await this.MergeWithExistingAsync(compositions);
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            ////TODO: Delete file and related compositions if file exist.
+            await MergeWithExistingAsync(compositions);
+
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
                 foreach (var composition in compositions)
                 {
-                    db.Compositions.Attach(composition);
-                    db.Entry(composition.File).State = composition.File.Id == default(int) ? EntityState.Added : EntityState.Unchanged;
-                    db.Entry(composition.Word).State = composition.Word.Id == default(int) ? EntityState.Added : EntityState.Unchanged;
-                    db.Entry(composition).State = composition.Id == default(int) ? EntityState.Added : EntityState.Unchanged;  
+                    db.Entry(composition).State = EntityState.Added;
+                    db.Entry(composition.File).State = composition.File.Id > 0 ? EntityState.Unchanged : EntityState.Added;
+                    db.Entry(composition.Word).State = composition.Word.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                 }
 
                 db.ChangeTracker.DetectChanges();
-                await db.SaveChangesAsync();
+                return await db.SaveChangesAsync();
             }
         }
 
@@ -121,7 +120,7 @@ namespace ScanWord.Data.Sql
         private async Task MergeWithExistingAsync(ConcurrentBag<Composition> compositions)
         {
             var materialFiles = compositions.GroupBy(w => w.File.FullName).Select(c => c.Key).AsQueryable();
-            var databaseFiles = await this.GetFilesAsync(materialFiles);
+            var databaseFiles = await GetFilesAsync(materialFiles);
             foreach (var composition in compositions)
             {
                 var first = databaseFiles.FirstOrDefault(w => w.FullName == composition.File.FullName);
@@ -130,12 +129,11 @@ namespace ScanWord.Data.Sql
                     continue;
                 }
 
-                composition.File.Id = first.Id;
-                composition.FileId = first.Id;
+                composition.File.Id = composition.FileId = first.Id;
             }
 
             var materialWords = compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
-            var databaseWords = await this.GetWordsAsync(materialWords);
+            var databaseWords = await GetWordsAsync(materialWords);
             foreach (var composition in compositions)
             {
                 var first = databaseWords.FirstOrDefault(w => w.TheWord == composition.Word.TheWord);
@@ -144,8 +142,7 @@ namespace ScanWord.Data.Sql
                     continue;
                 }
 
-                composition.Word.Id = first.Id;
-                composition.WordId = first.Id;
+                composition.Word.Id = composition.WordId = first.Id;
             }
         }
 
@@ -153,7 +150,7 @@ namespace ScanWord.Data.Sql
         /// <returns>The list of files <see cref="Task"/>.</returns>
         public async Task<List<File>> GetFilesAsync()
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 return await db.Files.ToListAsync();
             }
@@ -164,7 +161,7 @@ namespace ScanWord.Data.Sql
         /// <returns>The list of files <see cref="Task"/>.</returns>
         public async Task<List<File>> GetFilesAsync(IQueryable<string> existingFiles)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 return await db.Files.Where(f => existingFiles.Contains(f.FullName)).ToListAsync();
             }
@@ -174,7 +171,7 @@ namespace ScanWord.Data.Sql
         /// <returns>The list of words <see cref="Task"/>.</returns>
         public async Task<List<Word>> GetWordsAsync()
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 return await db.Words.ToListAsync();
             }
@@ -185,7 +182,7 @@ namespace ScanWord.Data.Sql
         /// <returns>The list of words <see cref="Task"/>.</returns>
         public async Task<List<Word>> GetWordsAsync(IQueryable<string> existingWords)
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 return await db.Words.Where(w => existingWords.Contains(w.TheWord)).ToListAsync();
             }
@@ -195,7 +192,7 @@ namespace ScanWord.Data.Sql
         /// <returns>The list of compositions <see cref="Task"/>.</returns>
         public async Task<List<Composition>> GetCompositionsAsync()
         {
-            using (var db = new ScanDataContainer(this.dataBaseName))
+            using (var db = new ScanDataContainer(dataBaseName))
             {
                 return await db.Compositions.ToListAsync();
             }

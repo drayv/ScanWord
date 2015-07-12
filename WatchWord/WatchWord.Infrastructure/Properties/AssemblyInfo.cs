@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WatchWord.DependencyResolution")]
+[assembly: AssemblyTitle("WatchWord.Infrastructure")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Maksym Shchyhol, Sergey Martinenko")]
-[assembly: AssemblyProduct("WatchWord.DependencyResolution")]
+[assembly: AssemblyProduct("WatchWord.Infrastructure")]
 [assembly: AssemblyCopyright("Copyright © Maksym Shchyhol, Sergey Martinenko 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

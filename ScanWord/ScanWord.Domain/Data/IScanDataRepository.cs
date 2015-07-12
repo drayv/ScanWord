@@ -26,17 +26,17 @@ namespace ScanWord.Domain.Data
         /// <summary>Add files to database.</summary>
         /// <param name="files">Collection of files.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        Task AddFilesAsync(ConcurrentBag<File> files);
+        Task<int> AddFilesAsync(ConcurrentBag<File> files);
 
         /// <summary>Add words to database.</summary>
         /// <param name="words">Collection of words.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        Task AddWordsAsync(ConcurrentBag<Word> words);
+        Task<int> AddWordsAsync(ConcurrentBag<Word> words);
 
         /// <summary>Add compositions to database.</summary>
         /// <param name="compositions">Collection of compositions.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        Task AddCompositionsAsync(ConcurrentBag<Composition> compositions);
+        Task<int> AddCompositionsAsync(ConcurrentBag<Composition> compositions);
 
         /// <summary>Get files from database.</summary>
         /// <returns>The list of files <see cref="Task"/>.</returns>

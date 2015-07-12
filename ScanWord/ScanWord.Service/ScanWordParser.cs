@@ -13,7 +13,10 @@ namespace ScanWord.Service
     public class ScanWordParser : IScanWordParser
     {
         /// <summary>The material words.</summary>
-        private static readonly ConcurrentDictionary<string, Word> MaterialWords = new ConcurrentDictionary<string, Word>();
+        private static readonly Dictionary<string, Word> MaterialWords = new Dictionary<string, Word>();
+
+        /// <summary>The lock object.</summary>
+        private static readonly object Loc = new object();
 
         /// <summary>Scans the location of words in the file.</summary>
         /// <param name="absolutePath">Path to the file that you want to parse.</param>
@@ -170,13 +173,18 @@ namespace ScanWord.Service
         /// <returns>The <see cref="ScanWord.Core.Entity.Word"/> entity.</returns>
         private static Word GetScanWordByText(string wordText)
         {
-            if (MaterialWords.ContainsKey(wordText))
+            Word scanWord;
+            lock (Loc)
             {
-                return MaterialWords[wordText];
+                if (MaterialWords.ContainsKey(wordText))
+                {
+                    return MaterialWords[wordText];
+                }
+
+                scanWord = new Word { TheWord = wordText };
+                MaterialWords.Add(wordText, scanWord);
             }
 
-            var scanWord = new Word { TheWord = wordText };
-            MaterialWords.TryAdd(wordText, scanWord);
             return scanWord;
         }
     }
