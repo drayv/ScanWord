@@ -57,13 +57,13 @@ namespace WatchWord.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
-            var result = await this.UserManager.CreateAsync(new AppUser { UserName = model.Login, Email = model.Email }, model.Password);
+            var result = await UserManager.CreateAsync(new AppUser { UserName = model.Login, Email = model.Email }, model.Password);
             if (result.Succeeded)
             {
-                return this.RedirectToAction("Login");
+                return RedirectToAction("Login");
             }
 
             AddModelErrors(result);
@@ -81,7 +81,7 @@ namespace WatchWord.Web.UI.Controllers
         {
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError(string.Empty, error);
+                ModelState.AddModelError(string.Empty, error);
             }
         }
 
@@ -111,22 +111,22 @@ namespace WatchWord.Web.UI.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
             var user = await this.UserManager.FindAsync(model.Login, model.Password);
             if (user != null)
             {
-                var identity = await this.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-                this.AuthenticationManager.SignOut();
-                this.AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = model.IsPersistent }, identity);
+                var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                AuthenticationManager.SignOut();
+                AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = model.IsPersistent }, identity);
 
-                return this.Redirect(this.GetLocalUrl(model.ReturnUrl));
+                return Redirect(this.GetLocalUrl(model.ReturnUrl));
             }
 
-            this.ModelState.AddModelError(string.Empty, "Invalid login or password");
+            ModelState.AddModelError(string.Empty, "Invalid login or password");
 
             return View(model);
         }
