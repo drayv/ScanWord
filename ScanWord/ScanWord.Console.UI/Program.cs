@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading;
 using Microsoft.Practices.Unity;
 using ScanWord.Domain.Common;
 using ScanWord.Domain.Data;
@@ -18,36 +19,49 @@ namespace ScanWord.Console.UI
         /// <param name="args">Console arguments.</param>
         public static void Main(string[] args)
         {
+            var t1 = new Thread(TestThread1);
+            var t2 = new Thread(TestThread2);
+
+            t1.Start();
+            t2.Start();
+
+            Console.ReadLine();
+        }
+
+        private static void TestThread1()
+        {
             var repository = Container.Resolve<IScanDataRepository>();
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
             var compositions = parser.ParseFile("E:/true_detective.txt");
-            Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start);
+            Console.WriteLine("(T1) Parse File time: {0} ms.", Environment.TickCount - start);
 
-            Console.WriteLine("All words: " + compositions.Count);
+            Console.WriteLine("(T1) All words: " + compositions.Count);
             var uniqueWords = compositions.GroupBy(w => w.Word.TheWord).Count();
-            Console.WriteLine("Unique words: " + uniqueWords);
+            Console.WriteLine("(T1) Unique words: " + uniqueWords);
 
             start = Environment.TickCount;
             repository.AddCompositionsAsync(compositions).Wait();
-            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start);
+            Console.WriteLine("(T1) Add Compositions time: {0} ms.", Environment.TickCount - start);
+        }
 
-            ////TODO: check error
+        private static void TestThread2()
+        {
+            var repository = Container.Resolve<IScanDataRepository>();
+            var parser = Container.Resolve<IScanWordParser>();
 
-            var start2 = Environment.TickCount;
-            var compositions2 = parser.ParseFile("E:/Mad_RUS.srt");
-            Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start2);
+            var start = Environment.TickCount;
+            var compositions = parser.ParseFile("E:/true_detective.txt");
+            Console.WriteLine("(T2) Parse File time: {0} ms.", Environment.TickCount - start);
 
-            Console.WriteLine("All words: " + compositions2.Count);
-            var uniqueWords2 = compositions2.GroupBy(w => w.Word.TheWord).Count();
-            Console.WriteLine("Unique words: " + uniqueWords2);
+            Console.WriteLine("(T2) All words: " + compositions.Count);
+            var uniqueWords2 = compositions.GroupBy(w => w.Word.TheWord).Count();
+            Console.WriteLine("(T2) Unique words: " + uniqueWords2);
 
-            start2 = Environment.TickCount;
-            repository.AddCompositionsAsync(compositions2).Wait();
-            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start2);
-
-            Console.ReadLine();
+            start = Environment.TickCount;
+            repository.AddCompositionsAsync(compositions).Wait();
+            Console.WriteLine("(T2) Add Compositions time: {0} ms.", Environment.TickCount - start);
         }
     }
 }
