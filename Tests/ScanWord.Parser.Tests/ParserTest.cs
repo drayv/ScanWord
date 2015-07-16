@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScanWord.Core.Entity;
 using ScanWord.Domain.Common;
+using ScanWord.Domain.Entity;
 using ScanWord.Infrastructure;
 
 namespace ScanWord.Parser.Tests

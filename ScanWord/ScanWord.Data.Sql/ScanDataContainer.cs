@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using ScanWord.Core.Entity;
+using ScanWord.Domain.Entity;
 
 namespace ScanWord.Data.Sql
 {
@@ -42,9 +42,6 @@ namespace ScanWord.Data.Sql
             modelBuilder.Entity<Word>().HasKey(w => w.Id);
             modelBuilder.Entity<Composition>().HasKey(c => c.Id);
             ////TODO: File full name index
-
-            modelBuilder.Entity<Composition>().HasRequired<File>(s => s.File).WithMany(f => f.Compositions).HasForeignKey(c => c.FileId);
-            modelBuilder.Entity<Composition>().HasRequired<Word>(s => s.Word).WithMany(w => w.Compositions).HasForeignKey(c => c.WordId);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ScanWord.Console.UI
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
-            var compositions = parser.ParseFile("C:/Interstellar.srt");
+            var compositions = parser.ParseFile("E:/true_detective.txt");
             Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start);
 
             Console.WriteLine("All words: " + compositions.Count);
@@ -35,8 +35,8 @@ namespace ScanWord.Console.UI
 
             ////TODO: check error
 
-            /*var start2 = Environment.TickCount;
-            var compositions2 = parser.ParseFile("C:/Interstellar.txt");
+            var start2 = Environment.TickCount;
+            var compositions2 = parser.ParseFile("E:/Mad_RUS.srt");
             Console.WriteLine("Parse File time: {0} ms.", Environment.TickCount - start2);
 
             Console.WriteLine("All words: " + compositions2.Count);
@@ -45,7 +45,7 @@ namespace ScanWord.Console.UI
 
             start2 = Environment.TickCount;
             repository.AddCompositionsAsync(compositions2).Wait();
-            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start2);*/
+            Console.WriteLine("Add Compositions time: {0} ms.", Environment.TickCount - start2);
 
             Console.ReadLine();
         }

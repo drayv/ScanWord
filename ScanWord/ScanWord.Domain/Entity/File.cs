@@ -1,26 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ScanWord.Core.Entity
+namespace ScanWord.Domain.Entity
 {
     /// <summary>
     /// The Path, the Name and the Extension.
     /// </summary>
     public class File : IEquatable<File>
     {
-        /// <summary>
-        /// The compositions link.
-        /// </summary>
-        private ICollection<Composition> compositions;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="File"/> class.
-        /// </summary>
-        public File()
-        {
-            this.compositions = new HashSet<Composition>();
-        }
-
         /// <summary>
         /// Gets or sets file Id.
         /// </summary>
@@ -47,22 +33,6 @@ namespace ScanWord.Core.Entity
         public string FullName { get; set; }
 
         /// <summary>
-        /// Gets or sets the compositions.
-        /// </summary>
-        public virtual ICollection<Composition> Compositions
-        {
-            get
-            {
-                return this.compositions;
-            }
-
-            set
-            {
-                this.compositions = value;
-            }
-        }
-
-        /// <summary>
         /// Equals of file entities.
         /// </summary>
         /// <param name="other">File to compare.</param>
@@ -80,7 +50,7 @@ namespace ScanWord.Core.Entity
             }
 
             return Id == other.Id && string.Equals(Path, other.Path) && string.Equals(Filename, other.Filename)
-                && string.Equals(Extension, other.Extension) && string.Equals(FullName, other.FullName) && Compositions.Equals(other.Compositions);
+                && string.Equals(Extension, other.Extension) && string.Equals(FullName, other.FullName);
         }
 
         /// <summary>
@@ -116,7 +86,6 @@ namespace ScanWord.Core.Entity
                 hashCode = (hashCode * 397) ^ (Filename != null ? Filename.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (Extension != null ? Extension.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ (FullName != null ? FullName.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Compositions != null ? Compositions.GetHashCode() : 0);
                 return hashCode;
             }
         }

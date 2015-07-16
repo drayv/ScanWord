@@ -1,4 +1,4 @@
-﻿namespace ScanWord.Core
+﻿namespace ScanWord.Domain
 {
     /// <summary>
     /// The ProjectSettings interface.

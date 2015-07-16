@@ -1,4 +1,4 @@
-﻿using ScanWord.Core;
+﻿using ScanWord.Domain;
 
 namespace ScanWord.Infrastructure
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScanWord.Core.Entity
+namespace ScanWord.Domain.Entity
 {
     /// <summary>
     /// A pointer to a specific word in the file.
@@ -13,19 +13,9 @@ namespace ScanWord.Core.Entity
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the file id.
-        /// </summary>
-        public int FileId { get; set; }
-        
-        /// <summary>
         /// Gets or sets link to a table of Files.
         /// </summary>
         public virtual File File { get; set; }
-
-        /// <summary>
-        /// Gets or sets the word id.
-        /// </summary>
-        public int WordId { get; set; }
 
         /// <summary>
         /// Gets or sets link to a table of Words.
@@ -59,8 +49,7 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return Id == other.Id && FileId == other.FileId && File.Equals(other.File)
-                && WordId == other.WordId && Word.Equals(other.Word) && Line == other.Line && Сolumn == other.Сolumn;
+            return Id == other.Id && File.Equals(other.File) && Word.Equals(other.Word) && Line == other.Line && Сolumn == other.Сolumn;
         }
 
         /// <summary>
@@ -92,9 +81,7 @@ namespace ScanWord.Core.Entity
             unchecked
             {
                 var hashCode = Id;
-                hashCode = (hashCode * 397) ^ FileId;
                 hashCode = (hashCode * 397) ^ (File != null ? File.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ WordId;
                 hashCode = (hashCode * 397) ^ (Word != null ? Word.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ Сolumn;
                 hashCode = (hashCode * 397) ^ Line;

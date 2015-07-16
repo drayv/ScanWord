@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ScanWord.Core.Entity;
+using ScanWord.Domain.Entity;
 
 namespace ScanWord.Domain.Data
 {

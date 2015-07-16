@@ -38,12 +38,12 @@ namespace WatchWord.Web.UI.Identity
         {
             if (UserNameMinLength > 0 && item.UserName.Length < UserNameMinLength)
             {
-                return IdentityResult.Failed(string.Format("Login length must be longer then {0}.", this.UserNameMinLength));
+                return IdentityResult.Failed(string.Format("Login length must be longer then {0}.", UserNameMinLength));
             }
 
             var result = await base.ValidateAsync(item);
             var errors = result.Errors.ToList();
-            if (this.UserNameStartsWithDigit == false && item.UserName.Length > 0 && char.IsDigit(item.UserName[0]))
+            if (UserNameStartsWithDigit == false && item.UserName.Length > 0 && char.IsDigit(item.UserName[0]))
             {
                 errors.Add("Login can't starts with digit.");
             }

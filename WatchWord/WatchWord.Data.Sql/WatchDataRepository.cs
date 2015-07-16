@@ -20,7 +20,7 @@ namespace WatchWord.Data.Sql
         /// <param name="settings">The data base name.</param>
         public WatchDataRepository(IProjectSettings settings)
         {
-            this.dataBaseName = settings.DataBaseName;
+            dataBaseName = settings.DataBaseName;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace WatchWord.Data.Sql
         /// <param name="account">The account.</param>
         public void AddAccount(Account account)
         {
-            using (var db = new WatchDataContainer(this.dataBaseName))
+            using (var db = new WatchDataContainer(dataBaseName))
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
@@ -50,7 +50,7 @@ namespace WatchWord.Data.Sql
         /// <param name="material">The material.</param>
         public void AddMaterial(Material material)
         {
-            using (var db = new WatchDataContainer(this.dataBaseName))
+            using (var db = new WatchDataContainer(dataBaseName))
             {
                 db.Materials.Add(material);
                 db.SaveChanges();

@@ -1,26 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ScanWord.Core.Entity
+namespace ScanWord.Domain.Entity
 {
     /// <summary>
     /// Word Entity.
     /// </summary>
     public class Word : IEquatable<Word>
     {
-        /// <summary>
-        /// The compositions link.
-        /// </summary>
-        private ICollection<Composition> compositions;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Word"/> class.
-        /// </summary>
-        public Word()
-        {
-            this.compositions = new HashSet<Composition>();
-        }
-
         /// <summary>
         /// Gets or sets the id.
         /// </summary>
@@ -30,22 +16,6 @@ namespace ScanWord.Core.Entity
         /// Gets or sets the Good, the bad and the word.
         /// </summary>
         public string TheWord { get; set; }
-
-        /// <summary>
-        /// Gets or sets the compositions.
-        /// </summary>
-        public virtual ICollection<Composition> Compositions
-        {
-            get
-            {
-                return this.compositions;
-            }
-
-            set
-            {
-                this.compositions = value;
-            }
-        }
 
         /// <summary>
         /// Equals of word entities.
@@ -64,7 +34,7 @@ namespace ScanWord.Core.Entity
                 return true;
             }
 
-            return Id == other.Id && string.Equals(TheWord, other.TheWord) && Compositions.Equals(other.Compositions);
+            return Id == other.Id && string.Equals(TheWord, other.TheWord);
         }
 
         /// <summary>
@@ -97,7 +67,6 @@ namespace ScanWord.Core.Entity
             {
                 var hashCode = Id;
                 hashCode = (hashCode * 397) ^ (TheWord != null ? TheWord.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Compositions != null ? Compositions.GetHashCode() : 0);
                 return hashCode;
             }
         }

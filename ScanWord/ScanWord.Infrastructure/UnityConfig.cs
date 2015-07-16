@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
-using ScanWord.Core;
 using ScanWord.Data.Sql;
+using ScanWord.Domain;
 using ScanWord.Domain.Common;
 using ScanWord.Domain.Data;
 using ScanWord.Service;

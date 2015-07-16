@@ -2,10 +2,11 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
-using ScanWord.Core.Entity;
 using ScanWord.Domain.Common;
-using File = ScanWord.Core.Entity.File;
+using ScanWord.Domain.Entity;
+using File = ScanWord.Domain.Entity.File;
 
 namespace ScanWord.Service
 {
@@ -18,7 +19,7 @@ namespace ScanWord.Service
         /// <summary>The lock object.</summary>
         private static readonly object Loc = new object();
 
-        /// <summary>Scans the location of words in the file.</summary>
+        /// <summary>Scans the location of words in the file with default Windows-1251 character encoding.</summary>
         /// <param name="absolutePath">Path to the file that you want to parse.</param>
         /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
@@ -27,9 +28,25 @@ namespace ScanWord.Service
         public ConcurrentBag<Composition> ParseFile(string absolutePath)
         {
             var scanFile = GetScanFileByPath(absolutePath);
-            using (var stream = OpenFileStreamReader(absolutePath))
+            using (var stream = OpenFileStreamReader(absolutePath, Encoding.GetEncoding("Windows-1251")))
             {
-                return this.ParseFile(scanFile, stream);
+                return ParseFile(scanFile, stream);
+            }
+        }
+
+        /// <summary>Scans the location of words in the file with custom character encoding.</summary>
+        /// <param name="absolutePath">Path to the file that you want to parse.</param>
+        /// <param name="encoding">Character encoding.</param>
+        /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
+        /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <returns>Thread-safe, unordered collection of scan results.</returns>
+        public ConcurrentBag<Composition> ParseFile(string absolutePath, Encoding encoding)
+        {
+            var scanFile = GetScanFileByPath(absolutePath);
+            using (var stream = OpenFileStreamReader(absolutePath, encoding))
+            {
+                return ParseFile(scanFile, stream);
             }
         }
 
@@ -93,15 +110,16 @@ namespace ScanWord.Service
 
         /// <summary>Get stream reader for the file.</summary>
         /// <param name="absolutePath">The absolute path to the file.</param>
+        /// <param name="encoding">Character encoding.</param>
         /// <exception cref="System.IO.FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="System.IO.DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
         /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>The <see cref="StreamReader"/> of the file.</returns>
-        private static StreamReader OpenFileStreamReader(string absolutePath)
+        private static StreamReader OpenFileStreamReader(string absolutePath, Encoding encoding)
         {
             try
             {
-                var streamReader = new StreamReader(absolutePath, true);
+                var streamReader = new StreamReader(absolutePath, encoding);
                 return streamReader;
             }
             catch (FileNotFoundException ex)
@@ -146,7 +164,7 @@ namespace ScanWord.Service
         /// <param name="absolutePath">Absolute path.</param>
         /// <returns>
         /// <exception cref="System.NotSupportedException">If file from absolute path don't support read or a security error is detected.</exception>
-        /// The <see cref="ScanWord.Core.Entity.File"/> entity.
+        /// The <see cref="File"/> entity.
         /// </returns>
         private static File GetScanFileByPath(string absolutePath)
         {
@@ -170,7 +188,7 @@ namespace ScanWord.Service
 
         /// <summary>Get word entity by text.</summary>
         /// <param name="wordText">The word text.</param>
-        /// <returns>The <see cref="ScanWord.Core.Entity.Word"/> entity.</returns>
+        /// <returns>The <see cref="Word"/> entity.</returns>
         private static Word GetScanWordByText(string wordText)
         {
             Word scanWord;
