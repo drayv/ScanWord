@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity.Mvc;
-
+using WatchWord.Infrastructure;
 using WatchWord.Web.UI;
 using WebActivatorEx;
 
@@ -10,8 +10,6 @@ using WebActivatorEx;
 
 namespace WatchWord.Web.UI
 {
-    using WatchWord.Infrastructure;
-
     /// <summary>
     /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.
     /// </summary>
@@ -22,7 +20,7 @@ namespace WatchWord.Web.UI
         /// </summary>
         public static void Start()
         {
-            var container = UnityConfig.GetConfiguredContainer();
+            var container = WatchUnityConfig.GetConfiguredContainer();
 
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
             FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
@@ -35,7 +33,7 @@ namespace WatchWord.Web.UI
         /// </summary>
         public static void Shutdown()
         {
-            var container = UnityConfig.GetConfiguredContainer();
+            var container = WatchUnityConfig.GetConfiguredContainer();
             container.Dispose();
         }
     }

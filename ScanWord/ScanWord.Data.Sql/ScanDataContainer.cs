@@ -3,38 +3,26 @@ using ScanWord.Domain.Entity;
 
 namespace ScanWord.Data.Sql
 {
-    /// <summary>
-    /// Represents a Unit Of Work with ScanWord database.
-    /// </summary>
+    /// <summary>Represents a Unit Of Work with ScanWord database.</summary>
     public class ScanDataContainer : DbContext
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ScanDataContainer"/> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="ScanDataContainer"/> class.</summary>
         /// <param name="dataBaseName">The database name.</param>
         public ScanDataContainer(string dataBaseName)
             : base("name=" + dataBaseName)
         {
         }
 
-        /// <summary>
-        /// Gets or sets the files.
-        /// </summary>
+        /// <summary>Gets or sets the files.</summary>
         public DbSet<File> Files { get; set; }
 
-        /// <summary>
-        /// Gets or sets the words.
-        /// </summary>
+        /// <summary>Gets or sets the words.</summary>
         public DbSet<Word> Words { get; set; }
 
-        /// <summary>
-        /// Gets or sets the compositions.
-        /// </summary>
+        /// <summary>Gets or sets the compositions.</summary>
         public DbSet<Composition> Compositions { get; set; }
 
-        /// <summary>
-        /// Configure model with fluent API.
-        /// </summary>
+        /// <summary>Configure model with fluent API.</summary>
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

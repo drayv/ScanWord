@@ -1,24 +1,22 @@
-﻿using System.IO;
-using System.Linq;
-using ScanWord.Domain.Common;
-using System.Text;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using WatchWord.Domain.Common;
+using WatchWord.Domain.Entity;
 using WatchWord.Web.UI.Models.Materials;
-using File = ScanWord.Domain.Entity.File;
 
 namespace WatchWord.Web.UI.Controllers
 {
     /// <summary>The materials controller.</summary>
-    public class MaterialsController : Controller
+    public class MaterialsController : AsyncController
     {
         /// <summary>The parser.</summary>
-        private readonly IScanWordParser _parser;
+        private readonly IMaterialsService _service;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
-        /// <param name="parser">ScanWord parser.</param>
-        public MaterialsController(IScanWordParser parser)
+        /// <param name="service">material service.</param>
+        public MaterialsController(IMaterialsService service)
         {
-            _parser = parser;
+            _service = service;
         }
 
         /// <summary>Creates a form for adding a new material to the site.</summary>
@@ -40,15 +38,43 @@ namespace WatchWord.Web.UI.Controllers
                 return View(model);
             }
 
-            using (var streamReader = new StreamReader(model.File.InputStream, Encoding.GetEncoding("Windows-1251")))
+            // TODO: get userId
+            var material = _service.CreateMaterial(model.File.InputStream, model.Type, model.Name, model.Description, 0);
+
+            TempData["SaveMaterialModel"] = material; //TODO: fix this to redirect to save action with model
+            return RedirectToAction("Save");
+        }
+
+        public ActionResult Save()
+        {
+            var material = TempData["SaveMaterialModel"] as Material;
+            TempData["SaveMaterialModel"] = material;
+
+            if (material == null || material.Compositions == null || material.Compositions.Count == 0)
             {
-                var file = new File { Path = "TODO", Filename = model.File.FileName, Extension = "TODO" };
-                var composition = _parser.ParseFile(file, streamReader);
-                model.Words = composition.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsEnumerable();
+                return RedirectToAction("Add");
             }
 
-            // TODO: Add database logic and Redirect to the material page.
-            return View(model);
+            return View(material);
+        }
+
+        //// Test method, while ajax method don't exist. Delete this after job done.
+        [HttpPost]
+        public async Task<ActionResult> Save(Material material)
+        {
+            //TODO fix this when ajax done.
+            if (TempData["SaveMaterialModel"] != null)
+            {
+                material = TempData["SaveMaterialModel"] as Material;
+            }
+
+            if (material == null || material.Compositions == null || material.Compositions.Count == 0)
+            {
+                return RedirectToAction("Add");
+            }
+
+            await _service.SaveMaterial(material); //TODO: and redirect to material.
+            return View(material);
         }
     }
 }

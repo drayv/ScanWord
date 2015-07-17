@@ -13,7 +13,7 @@ namespace ScanWord.Console.UI
     public class Program
     {
         /// <summary>Unity container.</summary>
-        private static readonly IUnityContainer Container = UnityConfig.GetConfiguredContainer();
+        private static readonly IUnityContainer Container = ScanUnityConfig.GetConfiguredContainer();
 
         /// <summary>Entry point of the test console program.</summary>
         /// <param name="args">Console arguments.</param>
@@ -22,8 +22,9 @@ namespace ScanWord.Console.UI
             var t1 = new Thread(TestThread1);
             var t2 = new Thread(TestThread2);
 
+            //TODO: add transaction's to avoid situation like this:
             t1.Start();
-            t2.Start();
+            //t2.Start(); <- try this error
 
             Console.ReadLine();
         }

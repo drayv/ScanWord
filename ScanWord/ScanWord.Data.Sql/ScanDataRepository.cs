@@ -17,7 +17,7 @@ namespace ScanWord.Data.Sql
 
         /// <summary>Initializes a new instance of the <see cref="ScanDataRepository"/> class.</summary>
         /// <param name="settings">Project settings.</param>
-        public ScanDataRepository(IProjectSettings settings)
+        public ScanDataRepository(IScanProjectSettings settings)
         {
             _dataBaseName = settings.DataBaseName;
         }
@@ -27,6 +27,8 @@ namespace ScanWord.Data.Sql
         private ScanDataRepository()
         {
         }
+
+        #region CREATE
 
         /// <summary>Add the file to database.</summary>
         /// <param name="file">The file.</param>
@@ -96,8 +98,11 @@ namespace ScanWord.Data.Sql
         /// <returns>The <see cref="Task"/>.</returns>
         public async Task<int> AddCompositionsAsync(ConcurrentBag<Composition> compositions)
         {
-            ////TODO: Delete file and related compositions if file exist.
-            await MergeWithExistingAsync(compositions);
+            await MergeWithExistingFilesAsync(compositions);
+            await MergeWithExistingWordsAsync(compositions);
+
+            var files = compositions.Where(c => c.File.Id != 0).GroupBy(c => c.File.Id).Select(c => c.Key).AsQueryable();
+            if (files.Any()) await DeleteCompositionsByFileIdAsync(files);
 
             using (var db = new ScanDataContainer(_dataBaseName))
             {
@@ -114,37 +119,9 @@ namespace ScanWord.Data.Sql
             }
         }
 
-        /// <summary>Merge compositions with related and existing entities in database.</summary>
-        /// <param name="compositions">The compositions enumerable for merging.</param>
-        /// <returns>The <see cref="Task"/>.</returns>
-        private async Task MergeWithExistingAsync(ConcurrentBag<Composition> compositions)
-        {
-            var materialFiles = compositions.GroupBy(w => w.File.FullName).Select(c => c.Key).AsQueryable();
-            var databaseFiles = await GetFilesAsync(materialFiles);
-            foreach (var composition in compositions)
-            {
-                var first = databaseFiles.FirstOrDefault(w => w.FullName == composition.File.FullName);
-                if (first == null)
-                {
-                    continue;
-                }
+        #endregion
 
-                composition.File.Id = first.Id;
-            }
-
-            var materialWords = compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
-            var databaseWords = await GetWordsAsync(materialWords);
-            foreach (var composition in compositions)
-            {
-                var first = databaseWords.FirstOrDefault(w => w.TheWord == composition.Word.TheWord);
-                if (first == null)
-                {
-                    continue;
-                }
-
-                composition.Word.Id = first.Id;
-            }
-        }
+        #region READ
 
         /// <summary>Get files from database.</summary>
         /// <returns>The list of files <see cref="Task"/>.</returns>
@@ -195,6 +172,64 @@ namespace ScanWord.Data.Sql
             using (var db = new ScanDataContainer(_dataBaseName))
             {
                 return await db.Compositions.ToListAsync();
+            }
+        }
+
+        #endregion
+
+        #region UPDATE
+        #endregion
+
+        #region DELETE
+
+        public async Task<int> DeleteCompositionsByFileIdAsync(IQueryable<int> fileIdList)
+        {
+            using (var db = new ScanDataContainer(_dataBaseName))
+            {
+                db.Configuration.AutoDetectChangesEnabled = false;
+                db.Compositions.RemoveRange(db.Compositions.Where(c => fileIdList.Contains(c.File.Id)));
+                db.ChangeTracker.DetectChanges();
+                return await db.SaveChangesAsync();
+            }
+        }
+
+        #endregion
+
+        /// <summary>Merge compositions with related and existing Words in database.</summary>
+        /// <param name="compositions">The compositions enumerable for merging.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
+        private async Task MergeWithExistingWordsAsync(ConcurrentBag<Composition> compositions)
+        {
+            var materialWords = compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
+            var databaseWords = await GetWordsAsync(materialWords);
+            foreach (var composition in compositions)
+            {
+                var first = databaseWords.FirstOrDefault(w => w.TheWord == composition.Word.TheWord);
+                if (first == null)
+                {
+                    continue;
+                }
+
+                composition.Word.Id = first.Id;
+            }
+        }
+
+        /// <summary>Merge compositions with related and existing Files in database.</summary>
+        /// <param name="compositions">The compositions enumerable for merging.</param>
+        /// <returns>The <see cref="Task"/>.</returns>
+        private async Task MergeWithExistingFilesAsync(ConcurrentBag<Composition> compositions)
+        {
+            var materialFiles = compositions.GroupBy(w => w.File.FullName).Select(c => c.Key).AsQueryable();
+            var databaseFiles = await GetFilesAsync(materialFiles);
+            foreach (var composition in compositions)
+            {
+                var first = databaseFiles.FirstOrDefault(w => w.FullName == composition.File.FullName);
+                if (first == null)
+                {
+                    continue;
+                }
+
+                composition.File.Id = first.Id;
             }
         }
     }

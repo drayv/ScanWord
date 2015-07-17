@@ -16,7 +16,7 @@ namespace WatchWord.Web.UI.Identity
         /// <summary>
         /// Unity container.
         /// </summary>
-        private static readonly IUnityContainer Container = UnityConfig.GetConfiguredContainer();
+        private static readonly IUnityContainer Container = WatchUnityConfig.GetConfiguredContainer();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppIdentityDbContext"/> class.
@@ -37,7 +37,7 @@ namespace WatchWord.Web.UI.Identity
         /// </returns>
         public static AppIdentityDbContext Create()
         {
-            var projectSettings = Container.Resolve<IProjectSettings>();
+            var projectSettings = Container.Resolve<IWatchProjectSettings>();
             return new AppIdentityDbContext(projectSettings.DataBaseName);
         }
     }

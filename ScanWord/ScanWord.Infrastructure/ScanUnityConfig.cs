@@ -9,7 +9,7 @@ using ScanWord.Service;
 namespace ScanWord.Infrastructure
 {
     /// <summary>Specifies the Unity configuration for the main container.</summary>
-    public class UnityConfig
+    public class ScanUnityConfig
     {
         /// <summary>Unity container.</summary>
         private static readonly Lazy<IUnityContainer> Container = new Lazy<IUnityContainer>(() =>
@@ -32,9 +32,9 @@ namespace ScanWord.Infrastructure
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<IProjectSettings, ProjectSettings>(
+            container.RegisterType<IScanProjectSettings, ScanProjectSettings>(
                 new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new ProjectSettings()));
+                new InjectionFactory(c => new ScanProjectSettings()));
             container.RegisterType<IScanWordParser, ScanWordParser>();
             container.RegisterType<IScanDataRepository, ScanDataRepository>();
             container.RegisterType<IScanWordDataHandler, ScanWordDataHandler>();

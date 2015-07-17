@@ -15,7 +15,7 @@ namespace ScanWord.Parser.Tests
     public class ParserTest
     {
         /// <summary>Unity container.</summary>
-        private static readonly IUnityContainer Container = UnityConfig.GetConfiguredContainer();
+        private static readonly IUnityContainer Container = ScanUnityConfig.GetConfiguredContainer();
 
         /// <summary>The parser.</summary>
         private static readonly IScanWordParser Parser = Container.Resolve<IScanWordParser>();

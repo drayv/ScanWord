@@ -1,0 +1,25 @@
+﻿@model WatchWord.Domain.Entity.Material
+
+@using (Html.BeginForm("Save", "Materials", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            <br />
+            @Html.LabelFor(m => m.Description)
+            <br />
+
+            <input type="submit" value="Save material" class="btn btn-default" />
+
+            <div class="words">
+                @if (Model != null && Model.Compositions != null)
+                {
+                    foreach (var word in Model.Compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key))
+                    {
+                        <div class="word">@word</div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

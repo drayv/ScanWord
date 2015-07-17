@@ -3,10 +3,10 @@
 namespace WatchWord.Infrastructure
 {
     /// <summary>The project settings.</summary>
-    public class ProjectSettings : IProjectSettings
+    public class WatchProjectSettings : IWatchProjectSettings
     {
-        /// <summary>Initializes a new instance of the <see cref="ProjectSettings"/> class.</summary>
-        public ProjectSettings()
+        /// <summary>Initializes a new instance of the <see cref="WatchProjectSettings"/> class.</summary>
+        public WatchProjectSettings()
         {
             DataBaseName = "WatchWord";
         }

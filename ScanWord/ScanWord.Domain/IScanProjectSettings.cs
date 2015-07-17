@@ -3,7 +3,7 @@
     /// <summary>
     /// The ProjectSettings interface.
     /// </summary>
-    public interface IProjectSettings
+    public interface IScanProjectSettings
     {
         /// <summary>
         /// Gets database name.

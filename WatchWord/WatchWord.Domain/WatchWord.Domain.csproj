@@ -34,8 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\IMaterialHandler.cs" />
-    <Compile Include="IProjectSettings.cs" />
+    <Compile Include="Common\IMaterialsService.cs" />
+    <Compile Include="IWatchProjectSettings.cs" />
     <Compile Include="Data\IWatchDataRepository.cs" />
     <Compile Include="Entity\Material.cs" />
     <Compile Include="Entity\Account.cs" />
