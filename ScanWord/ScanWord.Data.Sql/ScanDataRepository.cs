@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using EntityFramework.Extensions;
 using ScanWord.Domain;
 using ScanWord.Domain.Data;
 using ScanWord.Domain.Entity;
@@ -187,7 +188,7 @@ namespace ScanWord.Data.Sql
             using (var db = new ScanDataContainer(_dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
-                db.Compositions.RemoveRange(db.Compositions.Where(c => fileIdList.Contains(c.File.Id)));
+                db.Compositions.Where(c => fileIdList.Contains(c.File.Id)).Delete();
                 db.ChangeTracker.DetectChanges();
                 return await db.SaveChangesAsync();
             }
