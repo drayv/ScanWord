@@ -7,7 +7,7 @@ using WatchWord.Web.UI.Models.Materials;
 namespace WatchWord.Web.UI.Controllers
 {
     /// <summary>The materials controller.</summary>
-    public class MaterialsController : AsyncController
+    public class MaterialsController : Controller
     {
         /// <summary>The parser.</summary>
         private readonly IMaterialsService _service;
@@ -19,12 +19,11 @@ namespace WatchWord.Web.UI.Controllers
             _service = service;
         }
 
-        /// <summary>Creates a form for adding a new material to the site.</summary>
-        /// <returns>The <see cref="ActionResult"/>.</returns>
-        public ActionResult Add()
+        /// <summary>Index action</summary>
+        /// <returns>The <see cref="ActionResult"/>View which displays form for file search on user's computer.</returns>
+        public ActionResult Index()
         {
-            var addViewModel = new AddMaterialViewModel();
-            return View(addViewModel);
+            return View();
         }
 
         /// <summary>HttpPost of the AddViewModel.</summary>

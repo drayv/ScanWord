@@ -1,0 +1,51 @@
+﻿@model WatchWord.Web.UI.Models.Materials.AddMaterialViewModel
+
+<div class="fileForm">
+    @using (Html.BeginForm("Index", "Materials", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
+    {
+    <input type="file" />
+    <div class="input-group col-md-8">
+        <input class="form-control" type="text" readonly/>
+        <span class="input-group-btn">
+            <button id="fileLoader" type="button" class="btn btn-primary"><span class="glyphicon glyphicon glyphicon-file"></span> Load</button>
+        </span>
+    </div>
+    }
+</div>
+
+@section Scripts{
+<script>
+    $(function () {
+        var fileInput = $("#file-form > input:file");
+        var btns = $("<input>").attr({ type: "submit", value: "Upload file", type: "button", id: "formUpload" }).addClass("btn btn-primary")
+            .add($("<button>").attr({ type: "button", id: "formRemove" }).addClass("btn btn-primary").text("Remove file")
+            .on("click", function () {
+                $("#file-form .form-control").val("");
+                fileInput.val("");
+                switchButtons(false);
+            }));
+
+        if (fileInput.val()) {
+            btns.prependTo($("#file-form .input-group-btn"));
+        }
+
+        $("#fileLoader").on("click", function () {
+            fileInput.click();
+        });
+
+        fileInput.on("change", function () {
+            $("#file-form .form-control").val(fileInput.val());
+            switchButtons(true);
+        })
+
+        function switchButtons(add) {
+            if (add && btns) {
+                btns.prependTo($("#file-form .input-group-btn"));
+                btns = null;
+            } else if (!add && !btns) {
+                btns = $("#formUpload").add("#formRemove").detach();
+            }
+        }
+    });
+</script>
+}
