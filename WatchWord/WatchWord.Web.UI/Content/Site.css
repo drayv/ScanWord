@@ -41,12 +41,27 @@ body {
     padding-left: 5px;
 }
 
-#file-form > input[type=file] {
-    visibility: hidden;
+#file-form  input[type=file] {
+    display: none;
 }
 
 #file-form input[readonly]{
     background-color: white !important;
+}
+
+#series {
+    display: none;
+}
+
+#file-form{
+    margin-top: 5px;
+    padding: 20px 30px;
+    border: .3px solid #000;
+    border-radius: 5px;
+    -moz-box-shadow: 1px 1px 2px 2px gray;
+    -webkit-box-shadow: 1px 1px 3px 1px #a19d9d;
+    box-shadow: 1px 1px 3px 1px #a19d9d;
+    background-color: #fff;
 }
 
 

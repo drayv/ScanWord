@@ -1,0 +1,132 @@
+﻿@using WatchWord.Web.UI.Models.Materials
+@using WatchWord.Domain.Entity
+@model AddMaterialViewModel
+
+@{
+    var defaultType = Enum.GetName(typeof(MaterialType), default(MaterialType));
+    Func<string, bool> IsChecked = (value) => StringComparer.InvariantCulture.Compare(value, defaultType) == 0;
+}
+<div class="fileForm col-xs-6">
+    @using (Html.BeginForm("Index", "Materials", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
+    {
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(n => n.Name)
+                @Html.TextBoxFor(n => n.Name, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-10">
+                <input type="file" />
+                <div class="input-group">
+                    <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.Image)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div id="radioGroup" class="btn-group" data-toggle="buttons">
+                    @foreach (var value in Enum.GetNames(typeof(MaterialType)))
+                    {
+                        <label class="btn btn-primary @(IsChecked(value)? "active": "")">
+                            @Html.RadioButtonFor(n => n.Type, value, new { @checked = IsChecked(value) }) @value
+                        </label>
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="series">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(n => n.SeasonNumber, new { @class = "control-label" })
+                    @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(n => n.EpisodeNumber, new { @class = "control-label" })
+                    @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-10">
+                <input type="file" />
+                <div class="input-group ">
+                    <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.File)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-10">
+                @Html.LabelFor(n => n.Description, new { @class = "form-label" })
+                @Html.TextAreaFor(n => n.Description, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <input type="submit" value="Send" class="btn btn-primary" />
+            </div>
+        </div>
+
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+            $(".form-group input:file").each(function () {
+                var formGroup = $(this).closest(".form-group");
+                var file = formGroup.find("input:file");
+                var input = formGroup.find("input.form-control");
+                var removeButton = $("<button>").attr("type", "button").addClass("btn btn-primary removeButton").text("Remove");
+
+                if (file.val()) {
+                    addRemoveButton();
+                }
+
+                formGroup.on("click", ".removeButton", function () {
+                    file.val("");
+                    input.val("");
+                    removeButton = $(this).detach(".removeButton");
+                })
+
+                formGroup.find(".fileHandler").on("click", function () {
+                    file.click();
+                });
+
+                file.on("change", function () {
+                    input.val(file.val());
+                    if (removeButton) {
+                        addRemoveButton();
+                    }
+                })
+
+                function addRemoveButton() {
+                    formGroup.find(".input-group-btn").prepend(removeButton);
+                    removeButton = null;
+                }
+            });
+
+            $("#radioGroup label").each(function () {
+                var elem = $(this);
+                var series = $("#series");
+                if (elem.hasClass("active")) {
+                    elem.on("click", function () {
+                        series.slideUp();
+                    });
+                } else {
+                    elem.on("click", function () {
+                        series.slideDown();
+                    });
+                }
+            });
+        });
+    </script>
+}

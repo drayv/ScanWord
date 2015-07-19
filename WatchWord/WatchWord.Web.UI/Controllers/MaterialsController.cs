@@ -21,7 +21,7 @@ namespace WatchWord.Web.UI.Controllers
 
         /// <summary>Index action</summary>
         /// <returns>The <see cref="ActionResult"/>View which displays form for file search on user's computer.</returns>
-        public ActionResult Index()
+        public ActionResult ParseMaterial()
         {
             return View();
         }
@@ -29,20 +29,20 @@ namespace WatchWord.Web.UI.Controllers
         /// <summary>HttpPost of the AddViewModel.</summary>
         /// <param name="model">The AddViewModel.</param>
         /// <returns>The <see cref="ActionResult"/>.</returns>
-        [HttpPost]
-        public ActionResult Add(AddMaterialViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //public ActionResult Add(AddMaterialViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            // TODO: get userId
-            var material = _service.CreateMaterial(model.File.InputStream, model.Type, model.Name, model.Description, 0);
+        //    // TODO: get userId
+        //    var material = _service.CreateMaterial(model.File.InputStream, model.Type, model.Name, model.Description, 0);
 
-            TempData["SaveMaterialModel"] = material; //TODO: fix this to redirect to save action with model
-            return RedirectToAction("Save");
-        }
+        //    TempData["SaveMaterialModel"] = material; //TODO: fix this to redirect to save action with model
+        //    return RedirectToAction("Save");
+        //}
 
         public ActionResult Save()
         {
