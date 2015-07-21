@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using ScanWord.Domain.Entity;
+using ScanWord.Core.Entity;
 
 namespace ScanWord.Data.Sql
 {

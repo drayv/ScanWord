@@ -1,74 +1,56 @@
 ﻿using System;
 
-namespace ScanWord.Domain.Entity
+namespace ScanWord.Core.Entity
 {
-    /// <summary>
-    /// Word Entity.
-    /// </summary>
+    /// <summary>Word in the file Entity.</summary>
     public class Word : IEquatable<Word>
     {
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
+        /// <summary>Gets or sets the id.</summary>
         public int Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Good, the bad and the word.
-        /// </summary>
+        /// <summary>Gets or sets the file.</summary>
+        public File File { get; set; }
+
+        /// <summary>Gets or sets the Good, the bad and the word.</summary>
         public string TheWord { get; set; }
 
-        /// <summary>
-        /// Equals of word entities.
-        /// </summary>
-        /// <param name="other">Word to compare.</param>
-        /// <returns>Equals result <see cref="bool"/>.</returns>
+        /// <summary>Gets or sets count of words in file.</summary>
+        public int Count { get; set; }
+
         public bool Equals(Word other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Id == other.Id && string.Equals(TheWord, other.TheWord);
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Count == other.Count && Id == other.Id && Equals(File, other.File) && string.Equals(TheWord, other.TheWord);
         }
 
-        /// <summary>
-        /// Equals of word entities.
-        /// </summary>
-        /// <param name="origin">Object to compare.</param>
-        /// <returns>Equals result <see cref="bool"/>.</returns>
-        public override bool Equals(object origin)
+        public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, origin))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, origin))
-            {
-                return true;
-            }
-
-            return origin.GetType() == GetType() && Equals((Word)origin);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((Word) obj);
         }
 
-        /// <summary>
-        /// Get hash code.
-        /// </summary>
-        /// <returns>Hash code of the word entity <see cref="int"/>.</returns>
         public override int GetHashCode()
         {
             unchecked
             {
-                var hashCode = Id;
-                hashCode = (hashCode * 397) ^ (TheWord != null ? TheWord.GetHashCode() : 0);
+                var hashCode = Count;
+                hashCode = (hashCode*397) ^ Id;
+                hashCode = (hashCode*397) ^ (File != null ? File.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (TheWord != null ? TheWord.GetHashCode() : 0);
                 return hashCode;
             }
+        }
+
+        public static bool operator ==(Word left, Word right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Word left, Word right)
+        {
+            return !Equals(left, right);
         }
     }
 }

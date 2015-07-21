@@ -67,9 +67,9 @@
       <Project>{A7736679-D6C7-487E-A309-ADA4D8582136}</Project>
       <Name>ScanWord.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScanWord.Domain\ScanWord.Domain.csproj">
+    <ProjectReference Include="..\ScanWord.Domain\ScanWord.Core.csproj">
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
-      <Name>ScanWord.Domain</Name>
+      <Name>ScanWord.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
