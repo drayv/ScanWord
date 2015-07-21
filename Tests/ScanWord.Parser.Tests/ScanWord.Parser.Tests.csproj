@@ -61,7 +61,7 @@
       <Project>{A7736679-D6C7-487E-A309-ADA4D8582136}</Project>
       <Name>ScanWord.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ScanWord\ScanWord.Domain\ScanWord.Core.csproj">
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12d6a9fe-1939-4cf4-b45b-8ebc64fb862f}</Project>
       <Name>ScanWord.Core</Name>
     </ProjectReference>

@@ -1,7 +1,6 @@
 ﻿using ScanWord.Core.Abstract;
 using ScanWord.Core.Data;
 
-//TODO: change path from "ScanWord\ScanWord\ScanWord.Domain" to "ScanWord\ScanWord\ScanWord.Core" in project(!)
 namespace ScanWord.Core.Concrete
 {
     /// <summary>Provides batch work with ScanWord data.</summary>

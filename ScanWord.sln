@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{773F6828-B664-4B10-9E59-86F4A5E98DDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Core", "ScanWord\ScanWord.Domain\ScanWord.Core.csproj", "{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Core", "ScanWord\ScanWord.Core\ScanWord.Core.csproj", "{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Console.UI", "ScanWord\ScanWord.Console.UI\ScanWord.Console.UI.csproj", "{FB32CF6D-B8CA-45BF-87A4-52A6A6FB3BF3}"
 EndProject
