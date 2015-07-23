@@ -1,13 +1,12 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ScanWord.Domain.Common;
-using ScanWord.Domain.Data;
+using ScanWord.Core.Abstract;
+using ScanWord.Core.Data;
 using WatchWord.Domain.Common;
 using WatchWord.Domain.Data;
 using WatchWord.Domain.Entity;
-using File = ScanWord.Domain.Entity.File;
+using File = ScanWord.Core.Entity.File;
 
 namespace WatchWord.Service.EntityServices
 {
@@ -32,24 +31,22 @@ namespace WatchWord.Service.EntityServices
 
         public Material CreateMaterial(Stream stream, MaterialType type, string name, string description, int userId)
         {
+            //TODO: this material exist
             var material = new Material { Description = description, Name = name, Type = type };
 
             using (var streamReader = new StreamReader(stream, Encoding.GetEncoding("Windows-1251")))
             {
                 var file = new File { Path = userId.ToString(), Filename = name, Extension = type.ToString(), FullName = userId + name + type };
-                material.Compositions = _parser.ParseFile(file, streamReader);
+                material.Words = _parser.ParseUnigueWordsInFile(file, streamReader);
+                material.File = file;
             }
-
-            var firstOrDefault = material.Compositions.FirstOrDefault();
-            if (firstOrDefault != null)
-                material.File = firstOrDefault.File;
 
             return material;
         }
 
         public async Task<int> SaveMaterial(Material material)
         {
-            await _scanRepository.AddCompositionsAsync(material.Compositions);
+            await _scanRepository.AddWordsAsync(material.Words);
             return await _watchRepository.AddMaterialAsync(material);
         }
     }

@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
+using ScanWord.Core.Abstract;
+using ScanWord.Core.Concrete;
 using ScanWord.Data.Sql;
 using ScanWord.Domain;
-using ScanWord.Domain.Common;
-using ScanWord.Domain.Data;
-using ScanWord.Service;
+using ScanWord.Core.Data;
 using WatchWord.Data.Sql;
 using WatchWord.Domain;
 using WatchWord.Domain.Common;

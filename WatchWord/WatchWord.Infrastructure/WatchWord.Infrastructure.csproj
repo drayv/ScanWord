@@ -61,10 +61,6 @@
       <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>
       <Name>WatchWord.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ScanWord\ScanWord.Service\ScanWord.Service.csproj">
-      <Project>{8883B5FF-41A3-4189-B085-3A51606D437D}</Project>
-      <Name>ScanWord.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WatchWord.Service\WatchWord.Service.csproj">
       <Project>{5873fae6-3795-4dbd-b656-5b128efc78be}</Project>
       <Name>WatchWord.Service</Name>

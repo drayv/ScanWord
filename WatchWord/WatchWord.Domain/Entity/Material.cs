@@ -1,5 +1,5 @@
-﻿using System.Collections.Concurrent;
-using ScanWord.Domain.Entity;
+﻿using System.Collections.Generic;
+using ScanWord.Core.Entity;
 
 namespace WatchWord.Domain.Entity
 {
@@ -17,7 +17,7 @@ namespace WatchWord.Domain.Entity
     {
         public Material()
         {
-            Compositions = new ConcurrentBag<Composition>();
+            Words = new List<Word>();
         }
 
         /// <summary>Gets or sets material Id.</summary>
@@ -29,8 +29,8 @@ namespace WatchWord.Domain.Entity
         /// <summary>Gets or sets ScanWord file.</summary>
         public File File { get; set; }
 
-        /// <summary>Gets or sets ScanWord compositions list.</summary>
-        public ConcurrentBag<Composition> Compositions { get; set; }
+        /// <summary>Gets or sets ScanWord words list.</summary>
+        public List<Word> Words { get; set; }
 
         /// <summary>Gets or sets name of material.</summary>
         public string Name { get; set; }

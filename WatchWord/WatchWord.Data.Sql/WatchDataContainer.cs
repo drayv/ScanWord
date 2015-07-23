@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using ScanWord.Domain.Entity;
+using ScanWord.Core.Entity;
 using WatchWord.Domain.Entity;
 
 namespace WatchWord.Data.Sql
@@ -42,7 +42,7 @@ namespace WatchWord.Data.Sql
             #endregion
 
             modelBuilder.Entity<Account>().HasKey(a => a.Id);
-            modelBuilder.Entity<Material>().HasKey(m => m.Id).Ignore(m => m.Compositions);
+            modelBuilder.Entity<Material>().HasKey(m => m.Id).Ignore(m => m.Words);
         }
     }
 }

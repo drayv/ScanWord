@@ -8,7 +8,7 @@ using WatchWord.Domain.Entity;
 namespace ScanWord.Web.UI.Tests
 {
     [TestClass]
-    public class NotNullOrZeroIf_Tests
+    public class NotNullOrZeroIfTests
     {
         public static ValidationContext GetContext(MaterialType value)
         {

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.ComponentModel.DataAnnotations;
 using WatchWord.Web.UI.Models.Materials;
 using WatchWord.Web.UI.Infrastructure.ValidationAttributes;
@@ -9,7 +8,7 @@ using Moq;
 namespace ScanWord.Web.UI.Tests
 {
     [TestClass]
-    public class HttpPostedFileRequired_Tests
+    public class HttpPostedFileRequiredTests
     {
         public static ValidationContext GetContext()
         {

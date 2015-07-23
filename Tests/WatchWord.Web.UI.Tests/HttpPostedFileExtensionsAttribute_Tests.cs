@@ -4,13 +4,11 @@ using WatchWord.Web.UI.Models.Materials;
 using WatchWord.Web.UI.Infrastructure.ValidationAttributes;
 using System.Web;
 using Moq;
-using System.Linq;
-using System.Web.ModelBinding;
 
 namespace ScanWord.Web.UI.Tests
 {
     [TestClass]
-    public class HttpPostedFileExtensionsAttribute_Tests
+    public class HttpPostedFileExtensionsAttributeTests
     {
         public static ValidationContext GetContext()
         {
@@ -18,7 +16,7 @@ namespace ScanWord.Web.UI.Tests
             return new ValidationContext(model);
         }
 
-        public static HttpPostedFileExtensionsAttribute getInstance(string extensions)
+        public static HttpPostedFileExtensionsAttribute GetInstance(string extensions)
         {
             return new HttpPostedFileExtensionsAttribute() { Extensions = extensions };
         }
@@ -35,7 +33,7 @@ namespace ScanWord.Web.UI.Tests
         {
             var ctx = GetContext();
             var file = GetFile("somefile.txt");
-            var instance = getInstance(".txt");
+            var instance = GetInstance(".txt");
 
             var result = instance.GetValidationResult(file, ctx);
 
@@ -47,7 +45,7 @@ namespace ScanWord.Web.UI.Tests
         {
             var ctx = GetContext();
             var file = GetFile("somefile.txt");
-            var instance = getInstance(".txt, .ass");
+            var instance = GetInstance(".txt, .ass");
 
             var result = instance.GetValidationResult(file, ctx);
 
@@ -59,7 +57,7 @@ namespace ScanWord.Web.UI.Tests
         {
             var ctx = GetContext();
             var file = GetFile("somefile.jpg");
-            var instance = getInstance(".txt, .ass");
+            var instance = GetInstance(".txt, .ass");
 
             var result = instance.GetValidationResult(file, ctx);
 
@@ -70,7 +68,7 @@ namespace ScanWord.Web.UI.Tests
         public void Check_if_file_does_not_exist()
         {
             var ctx = GetContext();
-            var instance = getInstance(".txt, .ass");
+            var instance = GetInstance(".txt, .ass");
 
             var result = instance.GetValidationResult(null, ctx);
 

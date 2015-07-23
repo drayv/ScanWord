@@ -12,11 +12,11 @@
             <input type="submit" value="Save material" class="btn btn-default" />
 
             <div class="words">
-                @if (Model != null && Model.Compositions != null)
+                @if (Model != null && Model.Words != null)
                 {
-                    foreach (var word in Model.Compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key))
+                    foreach (var word in Model.Words)
                     {
-                        <div class="word">@word</div>
+                        <div class="word">@word.TheWord</div>
                     }
                 }
             </div>

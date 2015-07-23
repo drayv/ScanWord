@@ -12,7 +12,7 @@ namespace ScanWord.Parser.Tests
 {
     /// <summary>The parser test.</summary>
     [TestClass]
-    public class ParserTest
+    public class ParserTests
     {
         /// <summary>Unity container.</summary>
         private static readonly IUnityContainer Container = ScanUnityConfig.GetConfiguredContainer();

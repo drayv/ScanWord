@@ -49,7 +49,7 @@ namespace WatchWord.Web.UI.Controllers
             var material = TempData["SaveMaterialModel"] as Material;
             TempData["SaveMaterialModel"] = material;
 
-            if (material == null || material.Compositions == null || material.Compositions.Count == 0)
+            if (material == null || material.Words == null || material.Words.Count == 0)
             {
                 return RedirectToAction("Add");
             }
@@ -67,7 +67,7 @@ namespace WatchWord.Web.UI.Controllers
                 material = TempData["SaveMaterialModel"] as Material;
             }
 
-            if (material == null || material.Compositions == null || material.Compositions.Count == 0)
+            if (material == null || material.Words == null || material.Words.Count == 0)
             {
                 return RedirectToAction("Add");
             }

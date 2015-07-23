@@ -8,7 +8,7 @@ using WatchWord.Web.UI.Models.Materials;
 namespace ScanWord.Web.UI.Tests
 {
     [TestClass]
-    public class MaxFileSize_Tests
+    public class MaxFileSizeTests
     {
         public static HttpPostedFileBase GetFile(int fileSize)
         {
