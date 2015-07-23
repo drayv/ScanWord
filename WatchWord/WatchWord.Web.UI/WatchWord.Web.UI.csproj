@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -208,6 +209,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\npm.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\spinBox.js" />
     <Content Include="Views\Materials\ParseMaterial.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -230,7 +232,11 @@
     <Compile Include="Identity\AppIdentityDbContext.cs" />
     <Compile Include="Identity\AppUserManager.cs" />
     <Compile Include="Identity\UserValidator.cs" />
-    <Compile Include="Infrastructure\Helpers\AccountHelpers.cs" />
+    <Compile Include="Infrastructure\Helpers\CustomHelpers.cs" />
+    <Compile Include="Infrastructure\ValidationAttributes\HttpPostedFileExtensionsAttribute.cs" />
+    <Compile Include="Infrastructure\ValidationAttributes\HttpPostedFileRequiredAttribute.cs" />
+    <Compile Include="Infrastructure\ValidationAttributes\MaxFileSizeAttribute.cs" />
+    <Compile Include="Infrastructure\ValidationAttributes\NotNullOrZeroIfAttribute.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
     <Compile Include="Models\Materials\ParseMaterialViewModel.cs" />
@@ -269,7 +275,7 @@
       <Project>{5873FAE6-3795-4DBD-B656-5B128EFC78BE}</Project>
       <Name>WatchWord.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ScanWord\ScanWord.Domain\ScanWord.Domain.csproj">
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
       <Name>ScanWord.Domain</Name>
     </ProjectReference>

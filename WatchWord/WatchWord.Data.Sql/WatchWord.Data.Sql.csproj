@@ -52,7 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ScanWord\ScanWord.Domain\ScanWord.Domain.csproj">
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12d6a9fe-1939-4cf4-b45b-8ebc64fb862f}</Project>
       <Name>ScanWord.Domain</Name>
     </ProjectReference>
