@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using Microsoft.Practices.Unity;
-using ScanWord.Domain.Common;
-using ScanWord.Domain.Data;
+using ScanWord.Core.Abstract;
+using ScanWord.Core.Data;
 using ScanWord.Infrastructure;
 
 namespace ScanWord.Console.UI
@@ -22,9 +22,8 @@ namespace ScanWord.Console.UI
             var t1 = new Thread(TestThread1);
             var t2 = new Thread(TestThread2);
 
-            //TODO: add transaction's to avoid situation like this:
             t1.Start();
-            //t2.Start(); <- try this error
+            t2.Start();
 
             Console.ReadLine();
         }
@@ -35,7 +34,7 @@ namespace ScanWord.Console.UI
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
-            var compositions = parser.ParseFile("E:/true_detective.txt");
+            var compositions = parser.ParseAllWordsInFile("E:/true_detective.txt");
             Console.WriteLine("(T1) Parse File time: {0} ms.", Environment.TickCount - start);
 
             Console.WriteLine("(T1) All words: " + compositions.Count);
@@ -53,15 +52,15 @@ namespace ScanWord.Console.UI
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
-            var compositions = parser.ParseFile("E:/true_detective.txt");
+            var words = parser.ParseUnigueWordsInFile("E:/true_detective.txt");
             Console.WriteLine("(T2) Parse File time: {0} ms.", Environment.TickCount - start);
+            Console.WriteLine("(T2) Unique words: " + words.Count);
 
-            Console.WriteLine("(T2) All words: " + compositions.Count);
-            var uniqueWords2 = compositions.GroupBy(w => w.Word.TheWord).Count();
-            Console.WriteLine("(T2) Unique words: " + uniqueWords2);
+            var allWordsCount = words.Aggregate(0, (current, word) => current + word.Count);
+            Console.WriteLine("(T2) But all words: " + allWordsCount);
 
             start = Environment.TickCount;
-            repository.AddCompositionsAsync(compositions).Wait();
+            repository.AddWordsAsync(words).Wait();
             Console.WriteLine("(T2) Add Compositions time: {0} ms.", Environment.TickCount - start);
         }
     }

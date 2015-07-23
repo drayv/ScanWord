@@ -56,9 +56,9 @@
     <Compile Include="ScanDataRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScanWord.Domain\ScanWord.Domain.csproj">
+    <ProjectReference Include="..\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
-      <Name>ScanWord.Domain</Name>
+      <Name>ScanWord.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

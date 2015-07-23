@@ -13,11 +13,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ScanWord.Domain")]
+[assembly: AssemblyTitle("ScanWord.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("ScanWord.Domain")]
+[assembly: AssemblyProduct("ScanWord.Core")]
 [assembly: AssemblyCopyright("Copyright © Maksym Shchyhol 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

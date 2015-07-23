@@ -1,12 +1,11 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using EntityFramework.Extensions;
+using ScanWord.Core.Data;
+using ScanWord.Core.Entity;
 using ScanWord.Domain;
-using ScanWord.Domain.Data;
-using ScanWord.Domain.Entity;
 
 namespace ScanWord.Data.Sql
 {
@@ -48,7 +47,8 @@ namespace ScanWord.Data.Sql
         {
             using (var db = new ScanDataContainer(_dataBaseName))
             {
-                db.Words.Add(word);
+                db.Entry(word).State = EntityState.Added;
+                db.Entry(word.File).State = word.File.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                 db.SaveChanges();
             }
         }
@@ -60,7 +60,6 @@ namespace ScanWord.Data.Sql
             using (var db = new ScanDataContainer(_dataBaseName))
             {
                 db.Entry(composition).State = EntityState.Added;
-                db.Entry(composition.File).State = composition.File.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                 db.Entry(composition.Word).State = composition.Word.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                 db.SaveChanges();
             }
@@ -69,7 +68,7 @@ namespace ScanWord.Data.Sql
         /// <summary>Add files to database.</summary>
         /// <param name="files">Collection of files.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task<int> AddFilesAsync(ConcurrentBag<File> files)
+        public async Task<int> AddFilesAsync(IEnumerable<File> files)
         {
             using (var db = new ScanDataContainer(_dataBaseName))
             {
@@ -83,12 +82,17 @@ namespace ScanWord.Data.Sql
         /// <summary>Add words to database.</summary>
         /// <param name="words">Collection of words.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task<int> AddWordsAsync(ConcurrentBag<Word> words)
+        public async Task<int> AddWordsAsync(IEnumerable<Word> words)
         {
             using (var db = new ScanDataContainer(_dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
-                db.Words.AddRange(words);
+                foreach (var word in words)
+                {
+                    db.Entry(word).State = EntityState.Added;
+                    db.Entry(word.File).State = word.File.Id > 0 ? EntityState.Unchanged : EntityState.Added;
+                }
+
                 db.ChangeTracker.DetectChanges();
                 return await db.SaveChangesAsync();
             }
@@ -97,21 +101,14 @@ namespace ScanWord.Data.Sql
         /// <summary>Add compositions to database.</summary>
         /// <param name="compositions">Collection of compositions.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task<int> AddCompositionsAsync(ConcurrentBag<Composition> compositions)
+        public async Task<int> AddCompositionsAsync(IEnumerable<Composition> compositions)
         {
-            await MergeWithExistingFilesAsync(compositions);
-            await MergeWithExistingWordsAsync(compositions);
-
-            var files = compositions.Where(c => c.File.Id != 0).GroupBy(c => c.File.Id).Select(c => c.Key).AsQueryable();
-            if (files.Any()) await DeleteCompositionsByFileIdAsync(files);
-
             using (var db = new ScanDataContainer(_dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
                 foreach (var composition in compositions)
                 {
                     db.Entry(composition).State = EntityState.Added;
-                    db.Entry(composition.File).State = composition.File.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                     db.Entry(composition.Word).State = composition.Word.Id > 0 ? EntityState.Unchanged : EntityState.Added;
                 }
 
@@ -188,50 +185,12 @@ namespace ScanWord.Data.Sql
             using (var db = new ScanDataContainer(_dataBaseName))
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
-                db.Compositions.Where(c => fileIdList.Contains(c.File.Id)).Delete();
+                db.Compositions.Where(c => fileIdList.Contains(c.Word.File.Id)).Delete();
                 db.ChangeTracker.DetectChanges();
                 return await db.SaveChangesAsync();
             }
         }
 
         #endregion
-
-        /// <summary>Merge compositions with related and existing Words in database.</summary>
-        /// <param name="compositions">The compositions enumerable for merging.</param>
-        /// <returns>The <see cref="Task"/>.</returns>
-        private async Task MergeWithExistingWordsAsync(ConcurrentBag<Composition> compositions)
-        {
-            var materialWords = compositions.GroupBy(w => w.Word.TheWord).Select(c => c.Key).AsQueryable();
-            var databaseWords = await GetWordsAsync(materialWords);
-            foreach (var composition in compositions)
-            {
-                var first = databaseWords.FirstOrDefault(w => w.TheWord == composition.Word.TheWord);
-                if (first == null)
-                {
-                    continue;
-                }
-
-                composition.Word.Id = first.Id;
-            }
-        }
-
-        /// <summary>Merge compositions with related and existing Files in database.</summary>
-        /// <param name="compositions">The compositions enumerable for merging.</param>
-        /// <returns>The <see cref="Task"/>.</returns>
-        private async Task MergeWithExistingFilesAsync(ConcurrentBag<Composition> compositions)
-        {
-            var materialFiles = compositions.GroupBy(w => w.File.FullName).Select(c => c.Key).AsQueryable();
-            var databaseFiles = await GetFilesAsync(materialFiles);
-            foreach (var composition in compositions)
-            {
-                var first = databaseFiles.FirstOrDefault(w => w.FullName == composition.File.FullName);
-                if (first == null)
-                {
-                    continue;
-                }
-
-                composition.File.Id = first.Id;
-            }
-        }
     }
 }

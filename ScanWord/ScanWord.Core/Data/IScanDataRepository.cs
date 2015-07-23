@@ -1,14 +1,11 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ScanWord.Domain.Entity;
+using ScanWord.Core.Entity;
 
-namespace ScanWord.Domain.Data
+namespace ScanWord.Core.Data
 {
-    /// <summary>
-    /// Provides logic for working with database.
-    /// </summary>
+    /// <summary>Provides logic for working with database.</summary>
     public interface IScanDataRepository
     {
         /// <summary>Add the file to database.</summary>
@@ -26,17 +23,17 @@ namespace ScanWord.Domain.Data
         /// <summary>Add files to database.</summary>
         /// <param name="files">Collection of files.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        Task<int> AddFilesAsync(ConcurrentBag<File> files);
+        Task<int> AddFilesAsync(IEnumerable<File> files);
 
         /// <summary>Add words to database.</summary>
         /// <param name="words">Collection of words.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        Task<int> AddWordsAsync(ConcurrentBag<Word> words);
+        Task<int> AddWordsAsync(IEnumerable<Word> words);
 
         /// <summary>Add compositions to database.</summary>
         /// <param name="compositions">Collection of compositions.</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        Task<int> AddCompositionsAsync(ConcurrentBag<Composition> compositions);
+        Task<int> AddCompositionsAsync(IEnumerable<Composition> compositions);
 
         /// <summary>Get files from database.</summary>
         /// <returns>The list of files <see cref="Task"/>.</returns>

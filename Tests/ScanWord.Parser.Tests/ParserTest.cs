@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScanWord.Domain.Common;
-using ScanWord.Domain.Entity;
+using ScanWord.Core.Abstract;
+using ScanWord.Core.Entity;
 using ScanWord.Infrastructure;
 
 namespace ScanWord.Parser.Tests
@@ -32,7 +32,7 @@ namespace ScanWord.Parser.Tests
 Джей Си Дентон: Я сдаюсь.");              
             }
 
-            var compositions = Parser.ParseFile(myTempFile);
+            var compositions = Parser.ParseAllWordsInFile(myTempFile);
             Assert.AreEqual(22, compositions.Count, "Wrong result of count words!");
 
             var uniqueWords = CalcUniqueWords(compositions);
@@ -69,7 +69,7 @@ namespace ScanWord.Parser.Tests
 but the mind isn't always so resilient");
             }
 
-            var compositions = Parser.ParseFile(myTempFile);
+            var compositions = Parser.ParseAllWordsInFile(myTempFile);
             Assert.AreEqual(11, compositions.Count, "Wrong result of count words!");
 
             var uniqueWords = CalcUniqueWords(compositions);
@@ -108,7 +108,7 @@ but the mind isn't always so resilient");
 безопасности типов.");
             }
 
-            var compositions = Parser.ParseFile(myTempFile);
+            var compositions = Parser.ParseAllWordsInFile(myTempFile);
             Assert.AreEqual(23, compositions.Count, "Wrong result of count words!");
 
             var uniqueWords = CalcUniqueWords(compositions);
