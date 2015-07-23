@@ -3,8 +3,8 @@ using System.Web.Mvc.Html;
 
 namespace WatchWord.Web.UI.Infrastructure.Helpers
 {
-    /// <summary>The account helpers.</summary>
-    public static class AccountHelpers
+    /// <summary>The custom helpers.</summary>
+    public static class CustomHelpers
     {
         /// <summary>Returns HTML markup with bootstrap classes for form validation.</summary>
         /// <param name="helper">HTML helper.</param>

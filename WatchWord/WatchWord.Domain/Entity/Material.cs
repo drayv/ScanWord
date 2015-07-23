@@ -8,7 +8,6 @@ namespace WatchWord.Domain.Entity
     {
         /// <summary>The film.</summary>
         Film,
-
         /// <summary>The series.</summary>
         Series
     }

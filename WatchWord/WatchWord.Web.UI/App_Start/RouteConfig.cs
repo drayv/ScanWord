@@ -18,10 +18,7 @@ namespace WatchWord.Web.UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Materials", action = "Add", id = UrlParameter.Optional });
+            routes.MapRoute(null, "{controller}/{action}", new { controller = "Materials", action = "ParseMaterial" });
         }
     }
 }

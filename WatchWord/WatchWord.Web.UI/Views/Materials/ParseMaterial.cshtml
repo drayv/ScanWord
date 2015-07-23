@@ -1,38 +1,41 @@
-﻿@using WatchWord.Web.UI.Models.Materials
-@using WatchWord.Domain.Entity
-@model AddMaterialViewModel
+﻿@using WatchWord.Domain.Entity
+@using WatchWord.Web.UI.Models.Materials
+@model ParseMaterialViewModel
 
 @{
     var defaultType = Enum.GetName(typeof(MaterialType), default(MaterialType));
-    Func<string, bool> IsChecked = (value) => StringComparer.InvariantCulture.Compare(value, defaultType) == 0;
+    Func<string, bool> IsChecked = (value) => StringComparer.InvariantCultureIgnoreCase.Compare(value, defaultType) == 0;
 }
-<div class="fileForm col-xs-6">
-    @using (Html.BeginForm("Index", "Materials", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
+<div class="fileForm col-xs-5 fuelux">
+    @using (Html.BeginForm("ParseMaterial", "Materials", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
     {
         <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group">
                 @Html.LabelFor(n => n.Name)
                 @Html.TextBoxFor(n => n.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(n => n.Name)
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-10">
-                <input type="file" />
-                <div class="input-group">
+            <div class="form-group">
+                @Html.LabelFor(n => n.Image, new { @class = "control-label" })
+                @Html.TextBoxFor(n => n.Image, new { type = "file" })
+                <div class="input-group ">
                     <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.Image)" />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
                     </span>
                 </div>
+                @Html.ValidationMessageFor(n => n.Image)
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group">
                 <div id="radioGroup" class="btn-group" data-toggle="buttons">
                     @foreach (var value in Enum.GetNames(typeof(MaterialType)))
                     {
-                        <label class="btn btn-primary @(IsChecked(value)? "active": "")">
-                            @Html.RadioButtonFor(n => n.Type, value, new { @checked = IsChecked(value) }) @value
+                        <label class="btn btn-primary @(IsChecked(value)? "active" : "")">
+                            @Html.RadioButton("type", value.ToString(), IsChecked(value)) @value
                         </label>
                     }
                 </div>
@@ -40,37 +43,65 @@
         </div>
         <div id="series">
             <div class="row">
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(n => n.SeasonNumber, new { @class = "control-label" })
-                    @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-4">
-                    @Html.LabelFor(n => n.EpisodeNumber, new { @class = "control-label" })
-                    @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control" })
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        @Html.LabelFor(n => n.SeasonNumber, new { @class = "control-label" })
+                        <div class="form-group">
+                            <div class="spinbox" data-initialize="spinbox">
+                                @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control input-mini spinbox-input" })
+                                <div class="spinbox-buttons btn-group btn-group-vertical">
+                                    <button type="button" class="btn btn-default spinbox-up btn-xs">
+                                        <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default spinbox-down btn-xs">
+                                        <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+                                    </button>
+                                </div>
+                                @Html.ValidationMessageFor(n => n.SeasonNumber)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        @Html.LabelFor(n => n.EpisodeNumber, new { @class = "control-label" })
+                        <div class="form-group">
+                            <div class="spinbox" data-initialize="spinbox">
+                                @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control input-mini spinbox-input" })
+                                <div class="spinbox-buttons btn-group btn-group-vertical">
+                                    <button type="button" class="btn btn-default spinbox-up btn-xs">
+                                        <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default spinbox-down btn-xs">
+                                        <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
+                                    </button>
+                                </div>
+                                @Html.ValidationMessageFor(n => n.EpisodeNumber)
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-10">
-                <input type="file" />
+            <div class="form-group">
+                @Html.LabelFor(n => n.File, new { @class = "control-label" })
+                @Html.TextBoxFor(n => n.File, new { type = "file" })
                 <div class="input-group ">
                     <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.File)" />
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
                     </span>
                 </div>
+                @Html.ValidationMessageFor(n => n.File)
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-10">
+            <div class="form-group">
                 @Html.LabelFor(n => n.Description, new { @class = "form-label" })
                 @Html.TextAreaFor(n => n.Description, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-group">
                 <input type="submit" value="Send" class="btn btn-primary" />
             </div>
         </div>
@@ -78,7 +109,13 @@
     }
 </div>
 
+@section Css{
+    <link href="//www.fuelcdn.com/fuelux/3.6.3/css/fuelux.min.css" rel="stylesheet">
+}
+
 @section Scripts{
+    @Scripts.Render("~/Scripts/validation")
+    <script src="~/Scripts/spinBox.js"></script>
     <script>
         $(function () {
             $(".form-group input:file").each(function () {
@@ -114,19 +151,22 @@
                 }
             });
 
-            $("#radioGroup label").each(function () {
-                var elem = $(this);
-                var series = $("#series");
-                if (elem.hasClass("active")) {
-                    elem.on("click", function () {
-                        series.slideUp();
-                    });
-                } else {
-                    elem.on("click", function () {
-                        series.slideDown();
-                    });
-                }
+            var series = $("#series");
+
+            toggleSeries(series, $("#radioGroup input:radio[checked]").val());
+
+            $("#radioGroup label").on("click", function () {
+                var value = $(this).find("input:radio").val();
+                toggleSeries(series, value);
             });
+
+            function toggleSeries(series, value) {
+                if (value == "Series") {
+                    series.show();
+                } else {
+                    series.hide();
+                }
+            }
         });
     </script>
 }
