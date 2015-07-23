@@ -12,7 +12,7 @@ namespace ScanWord.Web.UI.Tests
     {
         public static HttpPostedFileBase GetFile(int fileSize)
         {
-            Mock<HttpPostedFileBase> moq = new Mock<HttpPostedFileBase>();
+            var moq = new Mock<HttpPostedFileBase>();
             moq.Setup(n => n.ContentLength).Returns(fileSize);
 
             return moq.Object;

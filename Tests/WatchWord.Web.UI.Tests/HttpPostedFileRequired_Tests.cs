@@ -21,9 +21,9 @@ namespace ScanWord.Web.UI.Tests
             return new HttpPostedFileRequiredAttribute();
         }
 
-        public HttpPostedFile GetFile(int contentLength)
+        public HttpPostedFileBase GetFile(int contentLength)
         {
-            Mock<HttpPostedFile> file = new Mock<HttpPostedFile>();
+            var file = new Mock<HttpPostedFileBase>();
             file.Setup(n => n.ContentLength).Returns(contentLength);
 
             return file.Object;

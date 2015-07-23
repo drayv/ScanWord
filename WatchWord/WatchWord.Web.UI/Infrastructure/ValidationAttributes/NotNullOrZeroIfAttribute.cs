@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
 {
-
     public class NotNullOrZeroIfAttribute : ValidationAttribute, IClientValidatable
     {
 
-        private string _field;
-
-        private string _value;
+        private readonly string _field;
+        private readonly string _value;
 
         /// <summary>
         ///Initializes a new instance of the <see cref="NotNullOrZeroIfAttribute" /> class.
@@ -34,9 +30,8 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         /// <returns>The list of validation rules</returns>
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
-            var rule = new ModelClientValidationRule();
+            var rule = new ModelClientValidationRule { ErrorMessage = FormatErrorMessage(metadata.GetDisplayName()) };
 
-            rule.ErrorMessage = FormatErrorMessage(metadata.GetDisplayName());
             rule.ValidationParameters.Add("field", _field);
             rule.ValidationParameters.Add("val", _value);
             rule.ValidationType = "reqif";
@@ -62,18 +57,14 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
                 throw new ArgumentException("Wrong argument value: value");
             }
 
-            if (CheckEquality(requiredValue, _value))
+            if (!CheckEquality(requiredValue, _value)) return ValidationResult.Success;
+            if (DataExist(value))
             {
-                if (DataExist(value))
-                {
-                    return ValidationResult.Success;
-                }
-
-                var errorMessage = FormatErrorMessage(validationContext.DisplayName);
-                return new ValidationResult(errorMessage);
+                return ValidationResult.Success;
             }
 
-            return ValidationResult.Success;
+            var errorMessage = FormatErrorMessage(validationContext.DisplayName);
+            return new ValidationResult(errorMessage);
         }
 
         /// <summary>
@@ -82,7 +73,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         /// <param name="first">The first value.</param>
         /// <param name="second">The second value.</param>
         /// <returns>The result of compare.</returns>
-        private bool CheckEquality(object first, string second)
+        private static bool CheckEquality(object first, string second)
         {
             var stringValue = first.ToString();
 
@@ -94,11 +85,11 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         /// </summary>
         /// <param name="value">The value to check.</param>
         /// <returns>The result of checking.</returns>
-        private bool DataExist(object value)
+        private static bool DataExist(object value)
         {
             if (value != null)
             {
-                return (Int32)value > 0;
+                return (int)value > 0;
             }
 
             return false;
