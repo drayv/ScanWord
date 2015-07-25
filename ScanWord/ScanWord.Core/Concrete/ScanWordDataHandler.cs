@@ -8,13 +8,13 @@ namespace ScanWord.Core.Concrete
     {
         /// <summary>Gets or sets the database repository.</summary>
         // ReSharper disable once NotAccessedField.Local
-        private readonly IScanDataRepository _repository;
+        private readonly IScanDataUnitOfWork _repositories;
 
         /// <summary>Initializes a new instance of the <see cref="ScanWordDataHandler"/> class.</summary>
-        /// <param name="repository">ScanWord data repository.</param>
-        public ScanWordDataHandler(IScanDataRepository repository)
+        /// <param name="repositories">UnitOfWork for ScanWord data repositories.</param>
+        public ScanWordDataHandler(IScanDataUnitOfWork repositories)
         {
-            _repository = repository;
+            _repositories = repositories;
         }
 
         /// <summary>Prevents a default instance of the <see cref="ScanWordDataHandler"/> class from being created.</summary>

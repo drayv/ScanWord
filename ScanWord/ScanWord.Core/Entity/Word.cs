@@ -1,13 +1,11 @@
 ﻿using System;
+using ScanWord.Core.Entity.Common;
 
 namespace ScanWord.Core.Entity
 {
     /// <summary>Word in the file Entity.</summary>
-    public class Word : IEquatable<Word>
+    public class Word : Entity<int>, IEquatable<Word>
     {
-        /// <summary>Gets or sets the id.</summary>
-        public int Id { get; set; }
-
         /// <summary>Gets or sets the file.</summary>
         public File File { get; set; }
 

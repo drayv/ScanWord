@@ -22,7 +22,7 @@ namespace ScanWord.Parser.Tests
 
         /// <summary>Parse russian text test.</summary>
         [TestMethod]
-        public void ParseRussianTextTest()
+        public void Parse_russian_text()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseRussianTextTest.txt");
             using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
@@ -59,7 +59,7 @@ namespace ScanWord.Parser.Tests
 
         /// <summary>Parse english text test.</summary>
         [TestMethod]
-        public void ParseEnglishTextTest()
+        public void Parse_english_text()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseEnglishTextTest.txt");
             using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))
@@ -96,7 +96,7 @@ but the mind isn't always so resilient");
 
         /// <summary>Parse multilanguage text test.</summary>
         [TestMethod]
-        public void ParseMultilanguageTextTest()
+        public void Parse_multilanguage_text()
         {
             var myTempFile = Path.Combine(Path.GetTempPath(), "ParseMultilanguageTextTest.txt");
             using (var sw = new StreamWriter(myTempFile, false, new UnicodeEncoding()))

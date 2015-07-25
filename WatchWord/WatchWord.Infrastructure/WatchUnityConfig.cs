@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
+using ScanWord.Core.Data;
 using ScanWord.Data.Sql;
 using ScanWord.Domain;
-using ScanWord.Core.Data;
 using WatchWord.Data.Sql;
 using WatchWord.Domain;
 using WatchWord.Domain.Common;
@@ -47,8 +48,11 @@ namespace WatchWord.Infrastructure
                 new InjectionFactory(c => new WatchProjectSettings()));
 
             container.RegisterType<IScanWordParser, ScanWordParser>();
+            container.RegisterType<IScanDataUnitOfWork, ScanDataUnitOfWork>();
+
             container.RegisterType<IMaterialsService, MaterialsService>();
-            container.RegisterType<IScanDataRepository, ScanDataRepository>();
+
+            container.RegisterType<DbContext, WatchDataContainer>();
             container.RegisterType<IWatchDataRepository, WatchDataRepository>();
         }
     }

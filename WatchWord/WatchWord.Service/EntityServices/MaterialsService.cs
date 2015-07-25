@@ -13,7 +13,7 @@ namespace WatchWord.Service.EntityServices
     public class MaterialsService : IMaterialsService
     {
         private readonly IWatchDataRepository _watchRepository;
-        private readonly IScanDataRepository _scanRepository;
+        private readonly IScanDataUnitOfWork _scanRepositories;
         private readonly IScanWordParser _parser;
 
         /// <summary>Prevents a default instance of the <see cref="MaterialsService"/> class from being created.</summary>
@@ -22,10 +22,10 @@ namespace WatchWord.Service.EntityServices
         {
         }
 
-        public MaterialsService(IWatchDataRepository watchRepository, IScanDataRepository scanRepository, IScanWordParser parser)
+        public MaterialsService(IWatchDataRepository watchRepository, IScanDataUnitOfWork scanRepositories, IScanWordParser parser)
         {
             _watchRepository = watchRepository;
-            _scanRepository = scanRepository;
+            _scanRepositories = scanRepositories;
             _parser = parser;
         }
 
@@ -46,7 +46,9 @@ namespace WatchWord.Service.EntityServices
 
         public async Task<int> SaveMaterial(Material material)
         {
-            await _scanRepository.AddWordsAsync(material.Words);
+            _scanRepositories.WordsRepository().Insert(material.Words);
+            await _scanRepositories.CommitAsync();
+
             return await _watchRepository.AddMaterialAsync(material);
         }
     }

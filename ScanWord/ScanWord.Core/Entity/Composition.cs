@@ -1,13 +1,11 @@
 ﻿using System;
+using ScanWord.Core.Entity.Common;
 
 namespace ScanWord.Core.Entity
 {
     /// <summary>A pointer to a specific word in the file.</summary>
-    public class Composition : IEquatable<Composition>
+    public class Composition : Entity<int>, IEquatable<Composition>
     {
-        /// <summary>Gets or sets composition Id.</summary>
-        public int Id { get; set; }
-
         /// <summary>Gets or sets link to a table of Words.</summary>
         public virtual Word Word { get; set; }
 

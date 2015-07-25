@@ -30,7 +30,7 @@ namespace ScanWord.Console.UI
 
         private static void TestThread1()
         {
-            var repository = Container.Resolve<IScanDataRepository>();
+            var repositories = Container.Resolve<IScanDataUnitOfWork>();
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
@@ -42,13 +42,15 @@ namespace ScanWord.Console.UI
             Console.WriteLine("(T1) Unique words: " + uniqueWords);
 
             start = Environment.TickCount;
-            repository.AddCompositionsAsync(compositions).Wait();
+            repositories.CompositionsRepository().Insert(compositions);
+            repositories.Commit();
+
             Console.WriteLine("(T1) Add Compositions time: {0} ms.", Environment.TickCount - start);
         }
 
         private static void TestThread2()
         {
-            var repository = Container.Resolve<IScanDataRepository>();
+            var repositories = Container.Resolve<IScanDataUnitOfWork>();
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
@@ -60,7 +62,9 @@ namespace ScanWord.Console.UI
             Console.WriteLine("(T2) But all words: " + allWordsCount);
 
             start = Environment.TickCount;
-            repository.AddWordsAsync(words).Wait();
+            repositories.WordsRepository().Insert(words);
+            repositories.Commit();
+
             Console.WriteLine("(T2) Add Compositions time: {0} ms.", Environment.TickCount - start);
         }
     }

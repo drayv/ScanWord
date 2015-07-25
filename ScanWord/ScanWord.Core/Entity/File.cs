@@ -1,13 +1,11 @@
 ﻿using System;
+using ScanWord.Core.Entity.Common;
 
 namespace ScanWord.Core.Entity
 {
     /// <summary>The Path, the Name and the Extension.</summary>
-    public class File : IEquatable<File>
+    public class File : Entity<int>, IEquatable<File>
     {
-        /// <summary>Gets or sets file Id.</summary>
-        public int Id { get; set; }
-
         /// <summary>Gets or sets filename extension.</summary>
         public string Extension { get; set; }
 

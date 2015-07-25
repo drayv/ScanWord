@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using ScanWord.Core.Entity;
+using WatchWord.Domain;
 using WatchWord.Domain.Entity;
 
 namespace WatchWord.Data.Sql
@@ -8,9 +9,9 @@ namespace WatchWord.Data.Sql
     public class WatchDataContainer : DbContext
     {
         /// <summary>Initializes a new instance of the <see cref="WatchDataContainer"/> class.</summary>
-        /// <param name="dataBaseName">The database name.</param>
-        public WatchDataContainer(string dataBaseName)
-            : base("name=" + dataBaseName)
+        /// <param name="projectSettings">The project settings.</param>
+        public WatchDataContainer(IWatchProjectSettings projectSettings)
+            : base("name=" + projectSettings.DataBaseName)
         {
         }
 

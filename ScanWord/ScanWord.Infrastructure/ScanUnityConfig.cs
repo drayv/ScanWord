@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
@@ -42,7 +43,8 @@ namespace ScanWord.Infrastructure
                 new ContainerControlledLifetimeManager(),
                 new InjectionFactory(c => new ScanWordParser()));
 
-            container.RegisterType<IScanDataRepository, ScanDataRepository>();
+            container.RegisterType<DbContext, ScanDataContainer>();
+            container.RegisterType<IScanDataUnitOfWork, ScanDataUnitOfWork>();
             container.RegisterType<IScanWordDataHandler, ScanWordDataHandler>();
         }
     }

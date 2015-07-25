@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using ScanWord.Core.Entity;
+using ScanWord.Domain;
 
 namespace ScanWord.Data.Sql
 {
@@ -7,9 +8,9 @@ namespace ScanWord.Data.Sql
     public class ScanDataContainer : DbContext
     {
         /// <summary>Initializes a new instance of the <see cref="ScanDataContainer"/> class.</summary>
-        /// <param name="dataBaseName">The database name.</param>
-        public ScanDataContainer(string dataBaseName)
-            : base("name=" + dataBaseName)
+        /// <param name="projectSettings">The project settings.</param>
+        public ScanDataContainer(IScanProjectSettings projectSettings)
+            : base("name=" + projectSettings.DataBaseName)
         {
         }
 
