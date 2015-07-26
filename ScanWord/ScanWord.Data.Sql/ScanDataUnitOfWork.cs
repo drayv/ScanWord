@@ -7,13 +7,14 @@ using ScanWord.Data.Sql.Repositories;
 
 namespace ScanWord.Data.Sql
 {
+    /// <summary>Represents unit of work pattern for ScanWord repositories.</summary>
     public class ScanDataUnitOfWork : IScanDataUnitOfWork
     {
-        /// <summary>The DbContext.</summary>
+        /// <summary>Entity framework context.</summary>
         private DbContext _dbContext;
 
-        /// <summary>Initializes a new instance of the ScanDataUnitOfWork class.</summary>
-        /// <param name="context">The object context</param>
+        /// <summary>Initializes a new instance of the <see cref="ScanDataUnitOfWork"/> class.</summary>
+        /// <param name="context">>Entity framework context.</param>
         public ScanDataUnitOfWork(DbContext context)
         {
             _dbContext = context;

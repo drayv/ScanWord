@@ -7,52 +7,52 @@ using ScanWord.Core.Entity.Common;
 namespace ScanWord.Core.Data.Repositories.Generic
 {
     /// <summary>Generic repository for entities.</summary>
-    /// <typeparam name="TE">Type of entity.</typeparam>
-    /// <typeparam name="TI">Type of entity Id.</typeparam>
-    public interface IScanGenericRepository<TE, in TI> : IDisposable where TE : Entity<TI>
+    /// <typeparam name="TEntity">Type of entity.</typeparam>
+    /// <typeparam name="TId">Type of entity Id.</typeparam>
+    public interface IScanGenericRepository<TEntity, in TId> : IDisposable where TEntity : Entity<TId>
     {
-        /// <summary>Insert or update entity.</summary>
+        /// <summary>Inserts or updates entity.</summary>
         /// <param name="entity">The entity.</param>
-        void InsertOrUpdate(TE entity);
+        void InsertOrUpdate(TEntity entity);
 
-        /// <summary>Insert entities.</summary>
+        /// <summary>Inserts entities.</summary>
         /// <param name="entities">The entities enumerable.</param>
-        void Insert(IEnumerable<TE> entities);
+        void Insert(IEnumerable<TEntity> entities);
 
-        /// <summary>Get entities from database asynchronously.</summary>
+        /// <summary>Gets entities from database asynchronously.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns>The list of entities.</returns>
-        Task<List<TE>> GetAllAsync(Expression<Func<TE, bool>> whereProperties = null,
-            params Expression<Func<TE, object>>[] includeProperties);
+        Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
-        /// <summary>Get entities from database.</summary>
+        /// <summary>Gets entities from database.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns>The list of entities.</returns>
-        List<TE> GetAll(Expression<Func<TE, bool>> whereProperties = null,
-            params Expression<Func<TE, object>>[] includeProperties);
+        List<TEntity> GetAll(Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
-        /// <summary>Find entity by id.</summary>
+        /// <summary>Finds entity by id.</summary>
         /// <param name="id">The id.</param>
-        /// <returns>The operation <see cref="TE"/>.</returns>
-        TE GetById(TI id);
+        /// <returns>The operation <see cref="TEntity"/>.</returns>
+        TEntity GetById(TId id);
 
-        /// <summary>Update entity in database.</summary>
+        /// <summary>Updates entity in database.</summary>
         /// <param name="entityToUpdate">Entity to update.</param>
-        void Update(TE entityToUpdate);
+        void Update(TEntity entityToUpdate);
 
         /// <summary>Deletes entity from database by id.</summary>
         /// <param name="id">Entity id.</param>
-        void Delete(TI id);
+        void Delete(TId id);
 
         /// <summary>Deletes entity from database.</summary>
         /// <param name="entityToDelete">Entity to delete.</param>
-        void Delete(TE entityToDelete);
+        void Delete(TEntity entityToDelete);
 
         /// <summary>Deletes entities from database.</summary>
         /// <param name="entitiesToDelete">Entities to delete.</param>
-        void Delete(IEnumerable<TE> entitiesToDelete);
+        void Delete(IEnumerable<TEntity> entitiesToDelete);
 
         /// <summary>Saves all pending changes.</summary>
         /// <returns>The number of objects in an Added, Modified, or Deleted state.</returns>

@@ -11,9 +11,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         private readonly string _field;
         private readonly string _value;
 
-        /// <summary>
-        ///Initializes a new instance of the <see cref="NotNullOrZeroIfAttribute" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="NotNullOrZeroIfAttribute" /> class.</summary>
         /// <param name="field">The name of the field that contains value.</param>
         /// <param name="value">The value to compare.</param>
         public NotNullOrZeroIfAttribute(string field, string value)
@@ -22,12 +20,10 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
             _value = value;
         }
 
-        /// <summary>
-        /// Applies validation rules for client validation.
-        /// </summary>
+        /// <summary>Applies validation rules for client validation.</summary>
         /// <param name="metadata">Metadata.</param>
-        /// <param name="context">The controller context</param>
-        /// <returns>The list of validation rules</returns>
+        /// <param name="context">The controller context.</param>
+        /// <returns>The list of validation rules.</returns>
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
             var rule = new ModelClientValidationRule { ErrorMessage = FormatErrorMessage(metadata.GetDisplayName()) };
@@ -39,10 +35,8 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
             yield return rule;
         }
 
-        /// <summary>
-        /// Validating the property.
-        /// </summary>
-        /// <param name="value">The property value</param>
+        /// <summary>Validating the property.</summary>
+        /// <param name="value">The property value.</param>
         /// <param name="validationContext">The validation context.</param>
         /// <returns>The validation result.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -67,9 +61,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
             return new ValidationResult(errorMessage);
         }
 
-        /// <summary>
-        /// Checks equality of two values.
-        /// </summary>
+        /// <summary>Checks equality of two values.</summary>
         /// <param name="first">The first value.</param>
         /// <param name="second">The second value.</param>
         /// <returns>The result of compare.</returns>
@@ -80,9 +72,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
             return StringComparer.InvariantCulture.Compare(stringValue.Trim(), second.Trim()) == 0;
         }
 
-        /// <summary>
-        /// Checks if value is not null and more then zero.
-        /// </summary>
+        /// <summary>Checks if value is not null and more then zero.</summary>
         /// <param name="value">The value to check.</param>
         /// <returns>The result of checking.</returns>
         private static bool DataExist(object value)

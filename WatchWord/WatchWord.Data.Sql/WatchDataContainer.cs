@@ -9,9 +9,8 @@ namespace WatchWord.Data.Sql
     public class WatchDataContainer : DbContext
     {
         /// <summary>Initializes a new instance of the <see cref="WatchDataContainer"/> class.</summary>
-        /// <param name="projectSettings">The project settings.</param>
-        public WatchDataContainer(IWatchProjectSettings projectSettings)
-            : base("name=" + projectSettings.DataBaseName)
+        public WatchDataContainer()
+            : base("name=WatchWord")
         {
         }
 

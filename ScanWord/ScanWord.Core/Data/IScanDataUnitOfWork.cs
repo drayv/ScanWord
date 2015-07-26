@@ -4,9 +4,7 @@ using ScanWord.Core.Data.Repositories;
 
 namespace ScanWord.Core.Data
 {
-    /// <summary>
-    /// Represents unit of work pattern for ScanWord repositories.
-    /// </summary>
+    /// <summary>Represents unit of work pattern for ScanWord repositories.</summary>
     public interface IScanDataUnitOfWork : IDisposable
     {
         /// <summary>Gets compositions repository with unique context.</summary>

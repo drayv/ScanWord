@@ -106,8 +106,8 @@ namespace WatchWord.Web.UI.Controllers
         {
             if (string.IsNullOrEmpty(url) || !Url.IsLocalUrl(url))
             {
-                ////TODO Change this later
-                url = Url.Action("Add", "Materials");
+                ////TODO Change this to "main page" later
+                url = Url.Action("ParseMaterial", "Materials");
             }
 
             return url;
@@ -119,8 +119,8 @@ namespace WatchWord.Web.UI.Controllers
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
-            ////TODO Change this
-            return RedirectToAction("Add", "Materials");
+            ////TODO Change this to "main page" later
+            return RedirectToAction("ParseMaterial", "Materials");
         }
 
         /// <summary>Check if login is already registered.</summary>

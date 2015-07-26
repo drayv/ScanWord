@@ -5,7 +5,6 @@ using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
 using ScanWord.Core.Data;
 using ScanWord.Data.Sql;
-using ScanWord.Domain;
 
 namespace ScanWord.Infrastructure
 {
@@ -33,11 +32,6 @@ namespace ScanWord.Infrastructure
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            //// Settings can be singleton.
-            container.RegisterType<IScanProjectSettings, ScanProjectSettings>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new ScanProjectSettings()));
-
             //// Parser can be singleton.
             container.RegisterType<IScanWordParser, ScanWordParser>(
                 new ContainerControlledLifetimeManager(),

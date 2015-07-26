@@ -48,7 +48,6 @@
     <Compile Include="Entity\Enumerables.cs" />
     <Compile Include="Entity\File.cs" />
     <Compile Include="Entity\Word.cs" />
-    <Compile Include="IScanProjectSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Abstract\IScanWordParser.cs" />
   </ItemGroup>

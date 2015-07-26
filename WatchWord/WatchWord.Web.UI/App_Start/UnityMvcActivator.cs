@@ -10,14 +10,10 @@ using WebActivatorEx;
 
 namespace WatchWord.Web.UI
 {
-    /// <summary>
-    /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.
-    /// </summary>
+    /// <summary>Provides the bootstrapping for integrating Unity with ASP.NET MVC.</summary>
     public static class UnityWebActivator
     {
-        /// <summary>
-        /// Integrates Unity when the application starts.
-        /// </summary>
+        /// <summary>ntegrates Unity when the application starts.</summary>
         public static void Start()
         {
             var container = WatchUnityConfig.GetConfiguredContainer();
@@ -28,9 +24,7 @@ namespace WatchWord.Web.UI
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
 
-        /// <summary>
-        /// Disposes the Unity container when the application is shut down.
-        /// </summary>
+        /// <summary>Disposes the Unity container when the application is shut down.</summary>
         public static void Shutdown()
         {
             var container = WatchUnityConfig.GetConfiguredContainer();

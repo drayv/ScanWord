@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using WatchWord.Domain;
 using WatchWord.Domain.Data;
 using WatchWord.Domain.Entity;
 
@@ -13,29 +12,13 @@ namespace WatchWord.Data.Sql
     /// <summary>Provides CRUD operations for WatchWord database.</summary>
     public class WatchDataRepository : IWatchDataRepository
     {
-        /// <summary>Gets or sets the database name.</summary>
-        private readonly IWatchProjectSettings _settings;
-
-        /// <summary>Initializes a new instance of the <see cref="WatchDataRepository"/> class.</summary>
-        /// <param name="settings">The data base name.</param>
-        public WatchDataRepository(IWatchProjectSettings settings)
-        {
-            _settings = settings;
-        }
-
-        /// <summary>Prevents a default instance of the <see cref="WatchDataRepository"/> class from being created.</summary>
-        // ReSharper disable once UnusedMember.Local
-        private WatchDataRepository()
-        {
-        }
-
         #region CREATE
 
         /// <summary>Add the account to database.</summary>
         /// <param name="account">The account.</param>
         public void AddAccount(Account account)
         {
-            using (var db = new WatchDataContainer(_settings))
+            using (var db = new WatchDataContainer())
             {
                 db.Accounts.Add(account);
                 db.SaveChanges();
@@ -46,7 +29,7 @@ namespace WatchWord.Data.Sql
         /// <param name="material">The material.</param>
         public async Task<int> AddMaterialAsync(Material material)
         {
-            using (var db = new WatchDataContainer(_settings))
+            using (var db = new WatchDataContainer())
             {
                 db.Configuration.AutoDetectChangesEnabled = false;
                 db.Entry(material.File).State = EntityState.Unchanged;
@@ -67,7 +50,7 @@ namespace WatchWord.Data.Sql
         public async Task<List<Account>> GetAccountsAsync(Expression<Func<Account, bool>> whereProperties,
             params Expression<Func<Account, object>>[] includeProperties)
         {
-            using (var db = new WatchDataContainer(_settings))
+            using (var db = new WatchDataContainer())
             {
                 return await MakeQuery(db.Accounts.AsNoTracking(), whereProperties, includeProperties).ToListAsync();
             }
@@ -80,7 +63,7 @@ namespace WatchWord.Data.Sql
         public List<Account> GetAccounts(Expression<Func<Account, bool>> whereProperties,
             params Expression<Func<Account, object>>[] includeProperties)
         {
-            using (var db = new WatchDataContainer(_settings))
+            using (var db = new WatchDataContainer())
             {
                 return MakeQuery(db.Accounts.AsNoTracking(), whereProperties, includeProperties).ToList();
             }
@@ -93,7 +76,7 @@ namespace WatchWord.Data.Sql
         public async Task<List<Material>> GetMaterialsAsync(Expression<Func<Material, bool>> whereProperties,
             params Expression<Func<Material, object>>[] includeProperties)
         {
-            using (var db = new WatchDataContainer(_settings))
+            using (var db = new WatchDataContainer())
             {
                 return await MakeQuery(db.Materials.AsNoTracking(), whereProperties, includeProperties).ToListAsync();
             }
@@ -106,7 +89,7 @@ namespace WatchWord.Data.Sql
         public List<Material> GetMaterials(Expression<Func<Material, bool>> whereProperties,
             params Expression<Func<Material, object>>[] includeProperties)
         {
-            using (var db = new WatchDataContainer(_settings))
+            using (var db = new WatchDataContainer())
             {
                 return MakeQuery(db.Materials.AsNoTracking(), whereProperties, includeProperties).ToList();
             }

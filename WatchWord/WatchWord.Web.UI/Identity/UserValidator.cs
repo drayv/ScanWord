@@ -5,30 +5,20 @@ using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
 {
-    /// <summary>
-    /// The scan word user validator.
-    /// </summary>
+    /// <summary>The scan word user validator.</summary>
     public class UserValidator : UserValidator<AppUser>
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserValidator"/> class.
-        /// </summary>
-        /// <param name="manager">
-        /// The manager.
-        /// </param>
+        /// <summary>Initializes a new instance of the <see cref="UserValidator"/> class.</summary>
+        /// <param name="manager">User manager.</param>
         public UserValidator(UserManager<AppUser, string> manager)
             : base(manager)
         {
         }
 
-        /// <summary>
-        /// Gets or sets the user name min length.
-        /// </summary>
+        /// <summary>Gets or sets the user name min length.</summary>
         public int UserNameMinLength { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether user name starts with digit.
-        /// </summary>
+        /// <summary>Gets or sets a value indicating whether user name starts with digit.</summary>
         public bool UserNameStartsWithDigit { get; set; }
 
         /// <summary>Validate user asynchronous.</summary>

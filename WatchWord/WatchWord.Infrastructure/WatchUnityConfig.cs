@@ -5,9 +5,7 @@ using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
 using ScanWord.Core.Data;
 using ScanWord.Data.Sql;
-using ScanWord.Domain;
 using WatchWord.Data.Sql;
-using WatchWord.Domain;
 using WatchWord.Domain.Common;
 using WatchWord.Domain.Data;
 using WatchWord.Service.EntityServices;
@@ -38,15 +36,6 @@ namespace WatchWord.Infrastructure
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            container.RegisterType<IWatchProjectSettings, WatchProjectSettings>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new WatchProjectSettings()));
-
-            //// Hello ScanWord! Work with us, it will be funny ;)
-            container.RegisterType<IScanProjectSettings, WatchProjectSettings>(
-                new ContainerControlledLifetimeManager(),
-                new InjectionFactory(c => new WatchProjectSettings()));
-
             container.RegisterType<IScanWordParser, ScanWordParser>();
             container.RegisterType<IScanDataUnitOfWork, ScanDataUnitOfWork>();
 

@@ -5,7 +5,7 @@ using WatchWord.Web.UI.Infrastructure.ValidationAttributes;
 
 namespace WatchWord.Web.UI.Models.Materials
 {
-    /// <summary>The ViewModel for the parsematerial view./></summary>
+    /// <summary>The ViewModel for the parse material view./></summary>
     public class ParseMaterialViewModel
     {
         /// <summary>Gets or sets the file.</summary>

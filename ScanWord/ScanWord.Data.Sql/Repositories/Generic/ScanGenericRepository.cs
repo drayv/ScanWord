@@ -10,33 +10,33 @@ using ScanWord.Core.Entity.Common;
 namespace ScanWord.Data.Sql.Repositories.Generic
 {
     /// <summary>Generic repository for entities.</summary>
-    /// <typeparam name="TE">Type of entity.</typeparam>
-    /// <typeparam name="TI">Type of entity Id.</typeparam>
-    public abstract class ScanGenericRepository<TE, TI> : IScanGenericRepository<TE, TI> where TE : Entity<TI>
+    /// <typeparam name="TEntity">Type of entity.</typeparam>
+    /// <typeparam name="TId">Type of entity Id.</typeparam>
+    public abstract class ScanGenericRepository<TEntity, TId> : IScanGenericRepository<TEntity, TId> where TEntity : Entity<TId>
     {
         private DbContext _context;
-        private readonly DbSet<TE> _dbSet;
+        private readonly DbSet<TEntity> _dbSet;
 
-        /// <summary>Initializes a new instance of the <see cref="ScanGenericRepository{TE,TI}"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="ScanGenericRepository{TEntity,TId}"/> class.</summary>
         /// <param name="context">Entity framework context.</param>
         protected ScanGenericRepository(DbContext context)
         {
             _context = context;
-            _dbSet = context.Set<TE>();
+            _dbSet = context.Set<TEntity>();
         }
 
         #region CREATE
 
-        /// <summary>Insert or update entity.</summary>
+        /// <summary>Inserts or updates entity.</summary>
         /// <param name="entity">The entity.</param>
-        public virtual void InsertOrUpdate(TE entity)
+        public virtual void InsertOrUpdate(TEntity entity)
         {
-            _context.Entry(entity).State = entity.Id.Equals(default(TI)) ? EntityState.Added : EntityState.Modified;
+            _context.Entry(entity).State = entity.Id.Equals(default(TId)) ? EntityState.Added : EntityState.Modified;
         }
 
-        /// <summary>Insert entities.</summary>
+        /// <summary>Inserts entities.</summary>
         /// <param name="entities">The entities enumerable.</param>
-        public void Insert(IEnumerable<TE> entities)
+        public void Insert(IEnumerable<TEntity> entities)
         {
             _context.Configuration.AutoDetectChangesEnabled = false;
             _dbSet.AddRange(entities);
@@ -47,30 +47,30 @@ namespace ScanWord.Data.Sql.Repositories.Generic
 
         #region READ
 
-        /// <summary>Get entities from database asynchronously.</summary>
+        /// <summary>Gets entities from database asynchronously.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns>The list of entities.</returns>
-        public virtual async Task<List<TE>> GetAllAsync(Expression<Func<TE, bool>> whereProperties = null,
-            params Expression<Func<TE, object>>[] includeProperties)
+        public virtual async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return await MakeQuery(_dbSet.AsNoTracking(), whereProperties, includeProperties).ToListAsync();
         }
 
-        /// <summary>Get entities from database.</summary>
+        /// <summary>Gets entities from database.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns>The list of entities.</returns>
-        public virtual List<TE> GetAll(Expression<Func<TE, bool>> whereProperties = null,
-            params Expression<Func<TE, object>>[] includeProperties)
+        public virtual List<TEntity> GetAll(Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return MakeQuery(_dbSet.AsNoTracking(), whereProperties, includeProperties).ToList();
         }
 
-        /// <summary>Find entity by id.</summary>
+        /// <summary>Finds entity by id.</summary>
         /// <param name="id">The id.</param>
-        /// <returns>The operation <see cref="TE"/>.</returns>
-        public virtual TE GetById(TI id)
+        /// <returns>The operation <see cref="TEntity"/>.</returns>
+        public virtual TEntity GetById(TId id)
         {
             return _dbSet.Find(id);
         }
@@ -79,9 +79,9 @@ namespace ScanWord.Data.Sql.Repositories.Generic
 
         #region UPDATE
 
-        /// <summary>Update entity in database.</summary>
+        /// <summary>Updates entity in database.</summary>
         /// <param name="entityToUpdate">Entity to update.</param>
-        public virtual void Update(TE entityToUpdate)
+        public virtual void Update(TEntity entityToUpdate)
         {
             _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
@@ -93,7 +93,7 @@ namespace ScanWord.Data.Sql.Repositories.Generic
 
         /// <summary>Deletes entity from database by id.</summary>
         /// <param name="id">Entity id.</param>
-        public virtual void Delete(TI id)
+        public virtual void Delete(TId id)
         {
             var entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
@@ -101,14 +101,14 @@ namespace ScanWord.Data.Sql.Repositories.Generic
 
         /// <summary>Deletes entity from database.</summary>
         /// <param name="entityToDelete">Entity to delete.</param>
-        public virtual void Delete(TE entityToDelete)
+        public virtual void Delete(TEntity entityToDelete)
         {
             _dbSet.Remove(entityToDelete);
         }
 
         /// <summary>Deletes entities from database.</summary>
         /// <param name="entitiesToDelete">Entities to delete.</param>
-        public virtual void Delete(IEnumerable<TE> entitiesToDelete)
+        public virtual void Delete(IEnumerable<TEntity> entitiesToDelete)
         {
             _context.Configuration.AutoDetectChangesEnabled = false;
             _dbSet.RemoveRange(entitiesToDelete);
@@ -132,13 +132,13 @@ namespace ScanWord.Data.Sql.Repositories.Generic
         }
 
         /// <summary>Makes query to table by using "where" predicate and "include(join) properties".</summary>
-        /// <typeparam name="TEntity">Entity type.</typeparam>
+        /// <typeparam name="TSource">Entity type.</typeparam>
         /// <param name="table">Entity framework table.</param>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns></returns>
-        private static IQueryable<TEntity> MakeQuery<TEntity>(IQueryable<TEntity> table, Expression<Func<TEntity, bool>> whereProperties = null,
-            params Expression<Func<TEntity, object>>[] includeProperties) where TEntity : class
+        private static IQueryable<TSource> MakeQuery<TSource>(IQueryable<TSource> table, Expression<Func<TSource, bool>> whereProperties = null,
+            params Expression<Func<TSource, object>>[] includeProperties) where TSource : Entity<TId>
         {
             //TODO: IOrderedQueryable param
             var query = includeProperties.Aggregate(table, (current, includeProperty) => current.Include(includeProperty));

@@ -1,9 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
-using WatchWord.Domain.Data;
-using WatchWord.Infrastructure;
 
 namespace WatchWord.Web.UI
 {
@@ -16,11 +13,6 @@ namespace WatchWord.Web.UI
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            //// Initialize repository on first start.
-            var container = WatchUnityConfig.GetConfiguredContainer();
-            var repository = container.Resolve<IWatchDataRepository>();
-            repository.GetAccounts(a => a.Id == 0);
         }
     }
 }

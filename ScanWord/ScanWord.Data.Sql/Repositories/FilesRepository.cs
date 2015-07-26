@@ -5,8 +5,11 @@ using ScanWord.Data.Sql.Repositories.Generic;
 
 namespace ScanWord.Data.Sql.Repositories
 {
+    /// <summary>Represents repository pattern for files.</summary>
     class FilesRepository : ScanGenericRepository<File, int>, IFilesRepository
     {
+        /// <summary>Initializes a new instance of the <see cref="FilesRepository{File,int}"/> class.</summary>
+        /// <param name="context">Entity framework context.</param>
         public FilesRepository(DbContext context) : base(context)
         {
         }

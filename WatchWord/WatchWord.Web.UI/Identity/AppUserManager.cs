@@ -6,9 +6,7 @@ using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
 {
-    /// <summary>
-    /// Identity user manager.
-    /// </summary>
+    /// <summary>Identity user manager.</summary>
     public class AppUserManager : UserManager<AppUser>
     {
         /// <summary>Initializes a new instance of the <see cref="AppUserManager"/> class.</summary>

@@ -6,17 +6,11 @@ using WatchWord.Web.UI.Identity;
 
 namespace WatchWord.Web.UI
 {
-    /// <summary>
-    /// Identity framework config.
-    /// </summary>
+    /// <summary>Identity framework config.</summary>
     public class IdentityConfig
     {
-        /// <summary>
-        /// Set configuration for identity framework.
-        /// </summary>
-        /// <param name="app">
-        /// OWIN application builder.
-        /// </param>
+        /// <summary>t configuration for identity framework.</summary>
+        /// <param name="app">OWIN application builder.</param>
         public void Configuration(IAppBuilder app)
         {
             app.CreatePerOwinContext(AppIdentityDbContext.Create);
