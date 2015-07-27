@@ -1,12 +1,13 @@
-﻿namespace WatchWord.Domain.Entity
+﻿
+
+using WatchWord.Domain.Entity.Common;
+
+namespace WatchWord.Domain.Entity
 {
     /// <summary>WatchWord user account entity.</summary>
-    public class Account
+    public class Account: Entity<int>
     {
-        /// <summary>Gets or sets WatchWord account Id.</summary>
-        public int Id { get; set; }
-
-        /// <summary>Gets or sets External account Id (Identity framework, e.t.c.).</summary>
+        /// <summary>Gets or sets the user id.</summary>
         public int ExternalId { get; set; }
     }
 }

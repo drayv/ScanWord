@@ -35,7 +35,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\IMaterialsService.cs" />
-    <Compile Include="Data\IWatchDataRepository.cs" />
+    <Compile Include="DataAccess\IWatchWordUnitOfWork.cs" />
+    <Compile Include="DataAccess\Repositories\Generic\IGenericRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IAccountsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IMaterialsRepository.cs" />
+    <Compile Include="Entity\Common\IEntity.cs" />
+    <Compile Include="Entity\Common\Entity.cs" />
     <Compile Include="Entity\Material.cs" />
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

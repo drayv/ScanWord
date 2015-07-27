@@ -7,8 +7,8 @@ using ScanWord.Core.Data;
 using ScanWord.Data.Sql;
 using WatchWord.Data.Sql;
 using WatchWord.Domain.Common;
-using WatchWord.Domain.Data;
 using WatchWord.Service.EntityServices;
+using WatchWord.Domain.DataAccess;
 
 namespace WatchWord.Infrastructure
 {
@@ -42,7 +42,7 @@ namespace WatchWord.Infrastructure
             container.RegisterType<IMaterialsService, MaterialsService>();
 
             container.RegisterType<DbContext, WatchDataContainer>();
-            container.RegisterType<IWatchDataRepository, WatchDataRepository>();
+            container.RegisterType<IWatchWordUnitOfWork, WatchWordUnitOfWork>();
         }
     }
 }

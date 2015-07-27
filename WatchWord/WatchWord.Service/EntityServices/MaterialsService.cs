@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Data;
 using WatchWord.Domain.Common;
-using WatchWord.Domain.Data;
 using WatchWord.Domain.Entity;
 using File = ScanWord.Core.Entity.File;
+using WatchWord.Domain.DataAccess;
 
 namespace WatchWord.Service.EntityServices
 {
     public class MaterialsService : IMaterialsService
     {
-        private readonly IWatchDataRepository _watchRepository;
+        private readonly IWatchWordUnitOfWork _watchWordRepositories;
         private readonly IScanDataUnitOfWork _scanRepositories;
         private readonly IScanWordParser _parser;
 
@@ -22,9 +22,9 @@ namespace WatchWord.Service.EntityServices
         {
         }
 
-        public MaterialsService(IWatchDataRepository watchRepository, IScanDataUnitOfWork scanRepositories, IScanWordParser parser)
+        public MaterialsService(IWatchWordUnitOfWork watchWordRepositories, IScanDataUnitOfWork scanRepositories, IScanWordParser parser)
         {
-            _watchRepository = watchRepository;
+            _watchWordRepositories = watchWordRepositories;
             _scanRepositories = scanRepositories;
             _parser = parser;
         }
@@ -49,7 +49,8 @@ namespace WatchWord.Service.EntityServices
             _scanRepositories.WordsRepository().Insert(material.Words);
             await _scanRepositories.CommitAsync();
 
-            return await _watchRepository.AddMaterialAsync(material);
+            _watchWordRepositories.MaterialsRepository.Insert(material);
+            return await _watchWordRepositories.CommitAsync();
         }
     }
 }
