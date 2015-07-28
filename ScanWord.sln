@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Parser.Tests", "Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Web.UI.Tests", "Tests\WatchWord.Web.UI.Tests\WatchWord.Web.UI.Tests.csproj", "{E55850D4-F15F-44C3-93C3-2E599A6D32CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Data.Sql", "ScanWord\ScanWord.Data.Sql\ScanWord.Data.Sql.csproj", "{D393ABE3-885B-4D59-9F0C-956BF780FF58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.DataAccess", "ScanWord\ScanWord.DataAccess\ScanWord.DataAccess.csproj", "{D393ABE3-885B-4D59-9F0C-956BF780FF58}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanWord.Infrastructure", "ScanWord\ScanWord.Infrastructure\ScanWord.Infrastructure.csproj", "{A7736679-D6C7-487E-A309-ADA4D8582136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Data.Sql", "WatchWord\WatchWord.Data.Sql\WatchWord.Data.Sql.csproj", "{2BD81371-F8AA-4BE2-9F45-4637B1DB338B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.DataAccess", "WatchWord\WatchWord.DataAccess\WatchWord.DataAccess.csproj", "{2BD81371-F8AA-4BE2-9F45-4637B1DB338B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Infrastructure", "WatchWord\WatchWord.Infrastructure\WatchWord.Infrastructure.csproj", "{64453426-9637-42A6-994E-B1DC84737BF2}"
 EndProject
@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Domain", "WatchWo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Web.UI", "WatchWord\WatchWord.Web.UI\WatchWord.Web.UI.csproj", "{3BDB5942-0031-4E7C-8D62-BB66CBE4F55C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Service", "WatchWord\WatchWord.Service\WatchWord.Service.csproj", "{5873FAE6-3795-4DBD-B656-5B128EFC78BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchWord.Application", "WatchWord\WatchWord.Application\WatchWord.Application.csproj", "{5873FAE6-3795-4DBD-B656-5B128EFC78BE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScanWord", "ScanWord", "{E4418342-37D2-46AE-B72B-385D367F6590}"
 EndProject

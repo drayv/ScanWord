@@ -3,10 +3,12 @@ using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
-using ScanWord.Data.Sql;
-using WatchWord.Data.Sql;
-using WatchWord.Domain.Common;
-using WatchWord.Service.EntityServices;
+using ScanWord.Core.DataAccess;
+using ScanWord.DataAccess;
+using WatchWord.Application.EntityServices.Abstract;
+using WatchWord.Application.EntityServices.Concrete;
+using WatchWord.DataAccess;
+using WatchWord.Domain.DataAccess;
 
 namespace WatchWord.Infrastructure
 {
@@ -35,7 +37,7 @@ namespace WatchWord.Infrastructure
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<IScanWordParser, ScanWordParser>();
-            container.RegisterType<IScanDataUnitOfWork, ScanDataUnitOfWork>();
+            container.RegisterType<IScanWordUnitOfWork, ScanWordUnitOfWork>();
 
             container.RegisterType<IMaterialsService, MaterialsService>();
 

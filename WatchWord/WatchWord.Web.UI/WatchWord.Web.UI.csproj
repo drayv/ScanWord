@@ -270,13 +270,13 @@
       <Project>{64453426-9637-42A6-994E-B1DC84737BF2}</Project>
       <Name>WatchWord.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WatchWord.Service\WatchWord.Service.csproj">
+    <ProjectReference Include="..\WatchWord.Application\WatchWord.Application.csproj">
       <Project>{5873FAE6-3795-4DBD-B656-5B128EFC78BE}</Project>
-      <Name>WatchWord.Service</Name>
+      <Name>WatchWord.Application</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ScanWord\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
-      <Name>ScanWord.Domain</Name>
+      <Name>ScanWord.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\WatchWord.Domain\WatchWord.Domain.csproj">
       <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>

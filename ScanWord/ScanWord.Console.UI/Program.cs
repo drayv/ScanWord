@@ -2,11 +2,11 @@
 using System.Threading;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
+using ScanWord.Core.DataAccess;
 using ScanWord.Infrastructure;
 
 namespace ScanWord.Console.UI
 {
-    using Data.Sql;
     using System;
 
     /// <summary>Console for ScanWord program.</summary>
@@ -30,7 +30,7 @@ namespace ScanWord.Console.UI
 
         private static void TestThread1()
         {
-            var repositories = Container.Resolve<IScanDataUnitOfWork>();
+            var repositories = Container.Resolve<IScanWordUnitOfWork>();
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;
@@ -50,7 +50,7 @@ namespace ScanWord.Console.UI
 
         private static void TestThread2()
         {
-            var repositories = Container.Resolve<IScanDataUnitOfWork>();
+            var repositories = Container.Resolve<IScanWordUnitOfWork>();
             var parser = Container.Resolve<IScanWordParser>();
 
             var start = Environment.TickCount;

@@ -1,6 +1,5 @@
 ﻿using ScanWord.Core.Entity;
 using ScanWord.Core.Entity.Common;
-using System.Collections.Generic;
 
 namespace WatchWord.Domain.Entity
 {

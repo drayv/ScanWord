@@ -49,9 +49,9 @@
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
       <Name>ScanWord.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScanWord.Data.Sql\ScanWord.Data.Sql.csproj">
+    <ProjectReference Include="..\ScanWord.DataAccess\ScanWord.DataAccess.csproj">
       <Project>{D393ABE3-885B-4D59-9F0C-956BF780FF58}</Project>
-      <Name>ScanWord.Data.Sql</Name>
+      <Name>ScanWord.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

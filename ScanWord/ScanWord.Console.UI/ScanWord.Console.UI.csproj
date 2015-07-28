@@ -58,10 +58,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScanWord.Data.Sql\ScanWord.Data.Sql.csproj">
-      <Project>{d393abe3-885b-4d59-9f0c-956bf780ff58}</Project>
-      <Name>ScanWord.Data.Sql</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ScanWord.Infrastructure\ScanWord.Infrastructure.csproj">
       <Project>{A7736679-D6C7-487E-A309-ADA4D8582136}</Project>
       <Name>ScanWord.Infrastructure</Name>

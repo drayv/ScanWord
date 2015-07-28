@@ -3,8 +3,8 @@ using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
-using ScanWord.Core.Data;
-using ScanWord.Data.Sql;
+using ScanWord.Core.DataAccess;
+using ScanWord.DataAccess;
 
 namespace ScanWord.Infrastructure
 {
@@ -37,8 +37,8 @@ namespace ScanWord.Infrastructure
                 new ContainerControlledLifetimeManager(),
                 new InjectionFactory(c => new ScanWordParser()));
 
-            container.RegisterType<DbContext, ScanDataContainer>();
-            container.RegisterType<IScanDataUnitOfWork, ScanDataUnitOfWork>();
+            container.RegisterType<DbContext, ScanWordContainer>();
+            container.RegisterType<IScanWordUnitOfWork, ScanWordUnitOfWork>();
             container.RegisterType<IScanWordDataHandler, ScanWordDataHandler>();
         }
     }

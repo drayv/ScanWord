@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using WatchWord.Domain.Common;
+using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.Entity;
 using WatchWord.Web.UI.Models.Materials;
 
