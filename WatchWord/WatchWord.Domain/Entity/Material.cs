@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using ScanWord.Core.Entity;
-using WatchWord.Domain.Entity.Common;
+﻿using ScanWord.Core.Entity;
+using ScanWord.Core.Entity.Common;
+using System.Collections.Generic;
 
 namespace WatchWord.Domain.Entity
 {
@@ -16,19 +16,12 @@ namespace WatchWord.Domain.Entity
     /// <summary>The Material entity, a film or series with information about it.</summary>
     public class Material: Entity<int>
     {
-        public Material()
-        {
-            Words = new List<Word>();
-        }
 
         /// <summary>Gets or sets the material type.</summary>
         public MaterialType Type { get; set; }
 
         /// <summary>Gets or sets the ScanWord file.</summary>
         public File File { get; set; }
-
-        /// <summary>Gets or sets the ScanWord words list.</summary>
-        public ICollection<Word> Words { get; set; }
 
         /// <summary>Gets or sets name of material.</summary>
         public string Name { get; set; }

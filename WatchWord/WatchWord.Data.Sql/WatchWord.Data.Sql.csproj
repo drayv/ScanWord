@@ -38,8 +38,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWatchWordUnitOfWork.cs" />
     <Compile Include="Repositories\AccountsRepository.cs" />
-    <Compile Include="Repositories\Generic\WatchWordGenericRepository.cs" />
+    <Compile Include="Repositories\IAccountsRepository.cs" />
+    <Compile Include="Repositories\IMaterialsRepository.cs" />
     <Compile Include="Repositories\MaterialsRepository.cs" />
     <Compile Include="WatchDataContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,7 +50,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ScanWord\ScanWord.Core\ScanWord.Core.csproj">
       <Project>{12d6a9fe-1939-4cf4-b45b-8ebc64fb862f}</Project>
-      <Name>ScanWord.Domain</Name>
+      <Name>ScanWord.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Data.Sql\ScanWord.Data.Sql.csproj">
+      <Project>{d393abe3-885b-4d59-9f0c-956bf780ff58}</Project>
+      <Name>ScanWord.Data.Sql</Name>
     </ProjectReference>
     <ProjectReference Include="..\WatchWord.Domain\WatchWord.Domain.csproj">
       <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>
@@ -58,6 +64,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,4 @@
-﻿
-
-using WatchWord.Domain.Entity.Common;
+﻿using ScanWord.Core.Entity.Common;
 
 namespace WatchWord.Domain.Entity
 {

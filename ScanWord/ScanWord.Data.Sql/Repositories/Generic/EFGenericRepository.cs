@@ -12,14 +12,14 @@ namespace ScanWord.Data.Sql.Repositories.Generic
     /// <summary>Generic repository for entities.</summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TId">Type of entity Id.</typeparam>
-    public abstract class ScanGenericRepository<TEntity, TId> : IScanGenericRepository<TEntity, TId> where TEntity : Entity<TId>
+    public abstract class EFGenericRepository<TEntity, TId> : IGenericRepository<TEntity, TId> where TEntity : Entity<TId>
     {
         private DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
 
-        /// <summary>Initializes a new instance of the <see cref="ScanGenericRepository{TEntity,TId}"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="EFGenericRepository{TEntity,TId}"/> class.</summary>
         /// <param name="context">Entity framework context.</param>
-        protected ScanGenericRepository(DbContext context)
+        protected EFGenericRepository(DbContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

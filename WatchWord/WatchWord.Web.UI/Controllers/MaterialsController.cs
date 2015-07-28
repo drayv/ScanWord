@@ -49,11 +49,6 @@ namespace WatchWord.Web.UI.Controllers
             var material = TempData["SaveMaterialModel"] as Material;
             TempData["SaveMaterialModel"] = material;
 
-            if (material == null || material.Words == null || material.Words.Count == 0)
-            {
-                return RedirectToAction("Add");
-            }
-
             return View(material);
         }
 
@@ -65,11 +60,6 @@ namespace WatchWord.Web.UI.Controllers
             if (TempData["SaveMaterialModel"] != null)
             {
                 material = TempData["SaveMaterialModel"] as Material;
-            }
-
-            if (material == null || material.Words == null || material.Words.Count == 0)
-            {
-                return RedirectToAction("Add");
             }
 
             await _service.SaveMaterial(material); //TODO: and redirect to material.

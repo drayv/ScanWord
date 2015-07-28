@@ -1,15 +1,25 @@
 ﻿using System;
 using ScanWord.Core.Entity.Common;
+using System.Collections.Generic;
 
 namespace ScanWord.Core.Entity
 {
     /// <summary>The Path, the Name and the Extension.</summary>
     public class File : Entity<int>, IEquatable<File>
     {
-        /// <summary>Gets or sets filename extension.</summary>
+        /// <summary>Creates the new instance of the <see cref="File"/> </summary>
+        public File()
+        {
+            Words = new List<Word>();
+        }
+
+        /// <summary>Gets or sets the file extension.</summary>
         public string Extension { get; set; }
 
-        /// <summary>Gets or sets file name, actually.</summary>
+        /// <summary>Gets or sets the collection of words.</summary>
+        public ICollection<Word> Words { get; set; }
+
+        /// <summary>Gets or sets the file name, actually.</summary>
         public string Filename { get; set; }
 
         /// <summary>Gets or sets the absolute path to the file, except filename and extension.</summary>

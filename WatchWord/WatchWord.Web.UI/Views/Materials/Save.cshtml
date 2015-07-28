@@ -12,9 +12,9 @@
             <input type="submit" value="Save material" class="btn btn-default" />
 
             <div class="words">
-                @if (Model != null && Model.Words != null)
+                @if (Model != null && Model.File.Words != null)
                 {
-                    foreach (var word in Model.Words)
+                    foreach (var word in Model.File.Words)
                     {
                         <div class="word">@word.TheWord</div>
                     }

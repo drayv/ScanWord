@@ -3,12 +3,10 @@ using System.Data.Entity;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Concrete;
-using ScanWord.Core.Data;
 using ScanWord.Data.Sql;
 using WatchWord.Data.Sql;
 using WatchWord.Domain.Common;
 using WatchWord.Service.EntityServices;
-using WatchWord.Domain.DataAccess;
 
 namespace WatchWord.Infrastructure
 {

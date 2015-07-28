@@ -1,10 +1,10 @@
 ﻿using ScanWord.Core.Data.Repositories.Generic;
 using ScanWord.Core.Entity;
 
-namespace ScanWord.Core.Data.Repositories
+namespace ScanWord.Data.Sql.Repositories
 {
     /// <summary>Represents repository pattern for words.</summary>
-    public interface IWordsRepository : IScanGenericRepository<Word, int>
+    public interface IWordsRepository : IGenericRepository<Word, int>
     {
     }
 }

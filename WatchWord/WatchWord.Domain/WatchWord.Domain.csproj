@@ -35,12 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\IMaterialsService.cs" />
-    <Compile Include="DataAccess\IWatchWordUnitOfWork.cs" />
-    <Compile Include="DataAccess\Repositories\Generic\IGenericRepository.cs" />
-    <Compile Include="DataAccess\Repositories\IAccountsRepository.cs" />
-    <Compile Include="DataAccess\Repositories\IMaterialsRepository.cs" />
-    <Compile Include="Entity\Common\IEntity.cs" />
-    <Compile Include="Entity\Common\Entity.cs" />
     <Compile Include="Entity\Material.cs" />
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,6 +44,9 @@
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
       <Name>ScanWord.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

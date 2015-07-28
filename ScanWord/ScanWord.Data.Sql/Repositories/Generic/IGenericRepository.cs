@@ -9,7 +9,7 @@ namespace ScanWord.Core.Data.Repositories.Generic
     /// <summary>Generic repository for entities.</summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TId">Type of entity Id.</typeparam>
-    public interface IScanGenericRepository<TEntity, in TId> : IDisposable where TEntity : Entity<TId>
+    public interface IGenericRepository<TEntity, in TId> : IDisposable where TEntity : Entity<TId>
     {
         /// <summary>Inserts or updates entity.</summary>
         /// <param name="entity">The entity.</param>

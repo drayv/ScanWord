@@ -2,11 +2,11 @@
 using System.Threading;
 using Microsoft.Practices.Unity;
 using ScanWord.Core.Abstract;
-using ScanWord.Core.Data;
 using ScanWord.Infrastructure;
 
 namespace ScanWord.Console.UI
 {
+    using Data.Sql;
     using System;
 
     /// <summary>Console for ScanWord program.</summary>

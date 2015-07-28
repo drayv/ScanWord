@@ -1,10 +1,17 @@
 ﻿using System.Threading.Tasks;
-using WatchWord.Domain.DataAccess.Repositories;
+using WatchWord.Data.Sql.Repositories;
+using ScanWord.Data.Sql.Repositories;
 
-namespace WatchWord.Domain.DataAccess
+namespace WatchWord.Data.Sql
 {
     public interface IWatchWordUnitOfWork
     {
+        /// <summary>Gets the instance of the <see cref="IWordsRepository"/>.</summary>
+        IWordsRepository WordsRepository { get; }
+
+        /// <summary>Gets the instance of the <see cref="IFilesRepository"/>.</summary>
+        IFilesRepository FilesRepository { get; }
+
         /// <summary>Gets the instance of the <see cref="IMaterialsRepository"/>.</summary>
         IMaterialsRepository MaterialsRepository { get; }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using ScanWord.Core.Data.Repositories;
 using WatchWord.Data.Sql.Repositories;
-using WatchWord.Domain.DataAccess;
-using WatchWord.Domain.DataAccess.Repositories;
+using ScanWord.Data.Sql.Repositories;
 
 namespace WatchWord.Data.Sql
 {
@@ -27,12 +27,28 @@ namespace WatchWord.Data.Sql
             }
         }
 
+        public IFilesRepository FilesRepository
+        {
+            get
+            {
+                return new FilesRepository(_context);
+            }
+        }
+
         /// <summary>Gets the instance of the <see cref="IMaterialsRepository"/>.</summary>
         public IMaterialsRepository MaterialsRepository
         {
             get
             {
                 return new MaterialsRepository(_context);
+            }
+        }
+
+        public IWordsRepository WordsRepository
+        {
+            get
+            {
+                return new WordsRepository(_context);
             }
         }
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using ScanWord.Core.Data;
-using ScanWord.Core.Data.Repositories;
 using ScanWord.Data.Sql.Repositories;
 
 namespace ScanWord.Data.Sql

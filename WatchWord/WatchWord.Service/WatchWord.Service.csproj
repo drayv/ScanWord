@@ -42,6 +42,14 @@
       <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
       <Name>ScanWord.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Data.Sql\ScanWord.Data.Sql.csproj">
+      <Project>{d393abe3-885b-4d59-9f0c-956bf780ff58}</Project>
+      <Name>ScanWord.Data.Sql</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WatchWord.Data.Sql\WatchWord.Data.Sql.csproj">
+      <Project>{2bd81371-f8aa-4be2-9f45-4637b1db338b}</Project>
+      <Name>WatchWord.Data.Sql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WatchWord.Domain\WatchWord.Domain.csproj">
       <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>
       <Name>WatchWord.Domain</Name>

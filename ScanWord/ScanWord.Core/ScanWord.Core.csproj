@@ -37,11 +37,6 @@
     <Compile Include="Abstract\IScanWordDataHandler.cs" />
     <Compile Include="Concrete\ScanWordDataHandler.cs" />
     <Compile Include="Concrete\ScanWordParser.cs" />
-    <Compile Include="Data\Repositories\Generic\IScanGenericRepository.cs.cs" />
-    <Compile Include="Data\IScanDataUnitOfWork.cs" />
-    <Compile Include="Data\Repositories\ICompositionsRepository.cs" />
-    <Compile Include="Data\Repositories\IFilesRepository.cs" />
-    <Compile Include="Data\Repositories\IWordsRepository.cs" />
     <Compile Include="Entity\Common\Entity.cs" />
     <Compile Include="Entity\Common\IEntity.cs" />
     <Compile Include="Entity\Composition.cs" />

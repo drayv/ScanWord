@@ -38,9 +38,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IScanDataUnitOfWork.cs" />
+    <Compile Include="Repositories\Generic\IGenericRepository.cs" />
+    <Compile Include="Repositories\ICompositionsRepository.cs" />
+    <Compile Include="Repositories\IFilesRepository.cs" />
+    <Compile Include="Repositories\IWordsRepository.cs" />
     <Compile Include="Repositories\CompositionsRepository.cs" />
     <Compile Include="Repositories\FilesRepository.cs" />
-    <Compile Include="Repositories\Generic\ScanGenericRepository.cs" />
+    <Compile Include="Repositories\Generic\EFGenericRepository.cs" />
     <Compile Include="Repositories\WordsRepository.cs" />
     <Compile Include="ScanDataContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,7 +1,7 @@
-﻿using WatchWord.Domain.DataAccess.Repositories.Generic;
+﻿using ScanWord.Core.Data.Repositories.Generic;
 using WatchWord.Domain.Entity;
 
-namespace WatchWord.Domain.DataAccess.Repositories
+namespace WatchWord.Data.Sql.Repositories
 {
     public interface IAccountsRepository: IGenericRepository<Account, int>
     {

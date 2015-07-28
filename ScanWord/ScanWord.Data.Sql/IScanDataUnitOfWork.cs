@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ScanWord.Data.Sql.Repositories;
+using System;
 using System.Threading.Tasks;
-using ScanWord.Core.Data.Repositories;
 
-namespace ScanWord.Core.Data
+namespace ScanWord.Data.Sql
 {
     /// <summary>Represents unit of work pattern for ScanWord repositories.</summary>
     public interface IScanDataUnitOfWork : IDisposable
