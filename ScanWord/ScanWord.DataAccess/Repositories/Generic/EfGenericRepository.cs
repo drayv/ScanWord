@@ -12,7 +12,7 @@ namespace ScanWord.DataAccess.Repositories.Generic
     /// <summary>Represent entity framework generic repository pattern.</summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TIdentity">Type of entity Id.</typeparam>
-    public abstract class EfGenericRepository<TEntity, TIdentity> : IGenericRepository<TEntity, TIdentity> where TEntity : Entity<TIdentity>
+    public abstract class EfGenericRepository<TEntity, TIdentity> : IGenericRepository<TEntity, TIdentity> where TEntity : Entity<TIdentity>, new ()
     {
         private DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -29,9 +29,9 @@ namespace ScanWord.DataAccess.Repositories.Generic
 
         /// <summary>Inserts or updates entity.</summary>
         /// <param name="entity">The entity.</param>
-        public virtual void InsertOrUpdate(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
-            _context.Entry(entity).State = entity.Id.Equals(default(TIdentity)) ? EntityState.Added : EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Added;
         }
 
         /// <summary>Inserts entities.</summary>
@@ -83,7 +83,6 @@ namespace ScanWord.DataAccess.Repositories.Generic
         /// <param name="entityToUpdate">Entity to update.</param>
         public virtual void Update(TEntity entityToUpdate)
         {
-            _dbSet.Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
@@ -95,8 +94,10 @@ namespace ScanWord.DataAccess.Repositories.Generic
         /// <param name="id">Entity id.</param>
         public virtual void Delete(TIdentity id)
         {
-            var entityToDelete = _dbSet.Find(id);
-            Delete(entityToDelete);
+            var entity = new TEntity();
+            entity.Id = id;
+
+            _dbSet.Remove(entity);
         }
 
         /// <summary>Deletes entity from database.</summary>

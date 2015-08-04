@@ -63,7 +63,6 @@
     <Compile Include="NotNullOrZeroIf_Tests.cs" />
     <Compile Include="MaxFileSize_Tests.cs" />
     <Compile Include="HttpPostedFileExtensionsAttribute_Tests.cs" />
-    <Compile Include="HttpPostedFileRequired_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

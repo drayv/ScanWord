@@ -23,7 +23,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>The <see cref="ActionResult"/>View which displays form for file search on user's computer.</returns>
         public ActionResult ParseMaterial()
         {
-            return View();
+            return View(new ParseMaterialViewModel());
         }
 
         /// <summary>HttpPost of the AddViewModel.</summary>

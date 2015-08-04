@@ -1,11 +1,7 @@
-﻿@using WatchWord.Domain.Entity
-@using WatchWord.Web.UI.Models.Materials
+﻿@using WatchWord.Web.UI.Models.Materials
+@using WatchWord.Web.UI.Infrastructure.Helpers
 @model ParseMaterialViewModel
 
-@{
-    var defaultType = Enum.GetName(typeof(MaterialType), default(MaterialType));
-    Func<string, bool> isChecked = value => StringComparer.InvariantCultureIgnoreCase.Compare(value, defaultType) == 0;
-}
 <div class="fileForm col-xs-5 fuelux">
     @using (Html.BeginForm("ParseMaterial", "Materials", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
     {
@@ -32,12 +28,7 @@
         <div class="row">
             <div class="form-group">
                 <div id="radioGroup" class="btn-group" data-toggle="buttons">
-                    @foreach (var value in Enum.GetNames(typeof(MaterialType)))
-                    {
-                        <label class="btn btn-primary @(isChecked(value)? "active" : "")">
-                            @Html.RadioButton("type", value, isChecked(value)) @value
-                        </label>
-                    }
+                    @Html.BootstrapEnumRadioFor(n => n.Type)
                 </div>
             </div>
         </div>
@@ -136,6 +127,9 @@
                 formGroup.on("click", ".removeButton", function () {
                     file.val("");
                     input.val("");
+
+                    $("#file-form").validate().element($(file));
+
                     removeButton = $(this).detach(".removeButton");
                 });
 
@@ -145,28 +139,42 @@
 
                 file.on("change", function () {
                     input.val(file.val());
+
+                    $("#file-form").validate().element($(this));
+
                     if (removeButton) {
                         addRemoveButton();
                     }
                 });
             });
 
-            var series = $("#series");
+            $("div.spinbox").each(function () {
+                var input = $(this).find(".spinbox-input");
 
-            function toggleSeries(series, value) {
-                if (value === "Series") {
-                    series.show();
-                } else {
-                    series.hide();
-                }
-            }
-
-            toggleSeries(series, $("#radioGroup input:radio[checked]").val());
-
-            $("#radioGroup label").on("click", function () {
-                var value = $(this).find("input:radio").val();
-                toggleSeries(series, value);
+                $(this).on('changed.fu.spinbox', function () {
+                    $("#file-form").validate().element(input);
+                });
             });
+
+            (function () {
+                var series = $("#series");
+
+                function toggleSeries(series, value) {
+                    if (value === "Series") {
+                        series.show();
+                    } else {
+                        series.hide();
+                    }
+                }
+
+                toggleSeries(series, $("#radioGroup input:radio[checked]").val());
+
+                $("#radioGroup label").on("click", function () {
+                    var value = $(this).find("input:radio").val();
+
+                    toggleSeries(series, value);
+                });
+            }())
         });
     </script>
 }

@@ -43,7 +43,7 @@ namespace WatchWord.Application.EntityServices.Concrete
 
         public async Task<int> SaveMaterial(Material material)
         {
-            _watchWordUnitOfWork.MaterialsRepository.InsertOrUpdate(material);
+            _watchWordUnitOfWork.MaterialsRepository.Insert(material);
             return await _watchWordUnitOfWork.CommitAsync();
         }
     }

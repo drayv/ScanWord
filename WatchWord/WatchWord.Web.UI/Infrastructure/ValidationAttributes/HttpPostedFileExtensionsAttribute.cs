@@ -37,7 +37,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
                 ValidationType = "extension",
                 ErrorMessage = FormatErrorMessage(metadata.GetDisplayName())
             };
-            rule.ValidationParameters["extension"] = _innerAttribute.Extensions;
+            rule.ValidationParameters["extensions"] = _innerAttribute.Extensions;
             yield return rule;
         }
 

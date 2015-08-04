@@ -11,22 +11,22 @@ namespace ScanWord.Core.DataAccess
     /// <typeparam name="TId">Type of entity Id.</typeparam>
     public interface IGenericRepository<TEntity, in TId> : IDisposable where TEntity : Entity<TId>
     {
-        /// <summary>Inserts or updates entity.</summary>
+        /// <summary>Inserts the entity.</summary>
         /// <param name="entity">The entity.</param>
-        void InsertOrUpdate(TEntity entity);
+        void Insert(TEntity entity);
 
         /// <summary>Inserts entities.</summary>
         /// <param name="entities">The entities enumerable.</param>
         void Insert(IEnumerable<TEntity> entities);
 
-        /// <summary>Gets entities from database asynchronously.</summary>
+        /// <summary>Gets the entities asynchronously.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns>The list of entities.</returns>
         Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> whereProperties = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
-        /// <summary>Gets entities from database.</summary>
+        /// <summary>Gets the entities.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>
         /// <returns>The list of entities.</returns>
@@ -38,19 +38,19 @@ namespace ScanWord.Core.DataAccess
         /// <returns>The operation <see cref="TEntity"/>.</returns>
         TEntity GetById(TId id);
 
-        /// <summary>Updates entity in database.</summary>
+        /// <summary>Updates the entity.</summary>
         /// <param name="entityToUpdate">Entity to update.</param>
         void Update(TEntity entityToUpdate);
 
-        /// <summary>Deletes entity from database by id.</summary>
+        /// <summary>Deletes the entity by id.</summary>
         /// <param name="id">Entity id.</param>
         void Delete(TId id);
 
-        /// <summary>Deletes entity from database.</summary>
+        /// <summary>Deletes the entity.</summary>
         /// <param name="entityToDelete">Entity to delete.</param>
         void Delete(TEntity entityToDelete);
 
-        /// <summary>Deletes entities from database.</summary>
+        /// <summary>Deletes the entities.</summary>
         /// <param name="entitiesToDelete">Entities to delete.</param>
         void Delete(IEnumerable<TEntity> entitiesToDelete);
 

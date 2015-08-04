@@ -233,7 +233,6 @@
     <Compile Include="Identity\UserValidator.cs" />
     <Compile Include="Infrastructure\Helpers\CustomHelpers.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\HttpPostedFileExtensionsAttribute.cs" />
-    <Compile Include="Infrastructure\ValidationAttributes\HttpPostedFileRequiredAttribute.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\MaxFileSizeAttribute.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\NotNullOrZeroIfAttribute.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />

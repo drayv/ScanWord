@@ -10,6 +10,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         private readonly int _maxSize;
 
         /// <summary>Initializes a new instance of the <see cref="MaxFileSizeAttribute" /> class.</summary>
+        /// <param name="maxSize">The max file size.</param>
         public MaxFileSizeAttribute(int maxSize): base("{0} has to big size.")
         {
             _maxSize = maxSize;
