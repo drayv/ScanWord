@@ -1,8 +1,4 @@
-﻿.navbar .glyphicon-user {
-    font-size: 1.2em;
-}
-
-.field-validation-error {
+﻿.field-validation-error {
     color: #D04437;
 }
 
@@ -16,8 +12,17 @@
     border: 1px solid #fcdddd;
 }
 
-body {
-    background-color: #f2f2f2;
+.search-group {
+    padding-top: 1px;
+}
+
+#logout-block {
+    display: inline-block;   
+}
+
+#hello-username {
+    margin-right: 4px;
+    color: #fff;
 }
 
 .registration-form {
@@ -46,7 +51,7 @@ body {
 }
 
 #file-form input[readonly]{
-    background-color: white !important;
+    background-color: #fff !important;
 }
 
 #series {
@@ -63,5 +68,3 @@ body {
     box-shadow: 1px 1px 3px 1px #a19d9d;
     background-color: #fff;
 }
-
-

@@ -3,23 +3,21 @@
 @using (Html.BeginForm("Save", "Materials", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-horizontal">
-        <div class="form-group">
-            @Html.LabelFor(m => m.Name)
-            <br />
-            @Html.LabelFor(m => m.Description)
-            <br />
+        @Html.LabelFor(m => m.Name)
+        <br />
+        @Html.LabelFor(m => m.Description)
+        <br />
 
-            <input type="submit" value="Save material" class="btn btn-default" />
+        <input type="submit" value="Save material" class="btn btn-default" />
 
-            <div class="words">
-                @if (Model != null && Model.File.Words != null)
+        <div class="words">
+            @if (Model != null && Model.File.Words != null)
                 {
                     foreach (var word in Model.File.Words)
                     {
-                        <div class="word">@word.TheWord</div>
-                    }
+                    <div class="word">@word.TheWord</div>
                 }
-            </div>
+            }
         </div>
     </div>
 }

@@ -9,8 +9,11 @@ namespace WatchWord.Web.UI
         /// <param name="bundles">The bundle collection.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap.css", "~/Content/bootstrap-theme.css", "~/Content/Site.css"));
-            bundles.Add(new ScriptBundle("~/Scripts/js").Include("~/Scripts/jquery-{version}.js", "~/Scripts/bootstrap.js"));
+            // css
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap/bootstrap.css", "~/Content/Site.css"));
+            // libraries
+            bundles.Add(new ScriptBundle("~/Scripts/jquery+bootstrap").Include("~/Scripts/jquery-{version}.js", "~/Scripts/bootstrap.js", "~/Scripts/respond.js"));
+            // validation
             bundles.Add(new ScriptBundle("~/Scripts/validation").Include("~/Scripts/jquery.validate.js", "~/Scripts/jquery.validate.unobtrusive.js", "~/Scripts/customValidation.js"));
         }
     }
