@@ -12,7 +12,7 @@ namespace ScanWord.DataAccess.Repositories.Generic
     /// <summary>Represent entity framework generic repository pattern.</summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
     /// <typeparam name="TIdentity">Type of entity Id.</typeparam>
-    public abstract class EfGenericRepository<TEntity, TIdentity> : IGenericRepository<TEntity, TIdentity> where TEntity : Entity<TIdentity>, new ()
+    public abstract class EfGenericRepository<TEntity, TIdentity> : IGenericRepository<TEntity, TIdentity> where TEntity : Entity<TIdentity>, new()
     {
         private DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -94,16 +94,19 @@ namespace ScanWord.DataAccess.Repositories.Generic
         /// <param name="id">Entity id.</param>
         public virtual void Delete(TIdentity id)
         {
-            var entity = new TEntity();
-            entity.Id = id;
-
-            _dbSet.Remove(entity);
+            var entity = new TEntity { Id = id };
+            Delete(entity);
         }
 
         /// <summary>Deletes entity from database.</summary>
         /// <param name="entityToDelete">Entity to delete.</param>
         public virtual void Delete(TEntity entityToDelete)
         {
+            if (_context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                _dbSet.Attach(entityToDelete);
+            }
+
             _dbSet.Remove(entityToDelete);
         }
 
