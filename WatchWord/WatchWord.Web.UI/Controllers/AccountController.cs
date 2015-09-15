@@ -77,7 +77,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <param name="model">LogIn view model</param>
         /// <returns>Action result task <see cref="Task"/>.</returns>
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> LogIn(LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -115,8 +115,7 @@ namespace WatchWord.Web.UI.Controllers
 
         /// <summary>The logout action.</summary>
         /// <returns>Redirect to main page <see cref="ActionResult"/>.</returns>
-        [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Logout()
+        public ActionResult LogOut()
         {
             AuthenticationManager.SignOut();
             ////TODO Change this to "main page" later
