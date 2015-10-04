@@ -4,6 +4,7 @@ using WatchWord.Domain.DataAccess.Repositories;
 
 namespace WatchWord.Domain.DataAccess
 {
+    /// <summary>Represents unit of work pattern over WatchWord repositories.</summary>
     public interface IWatchWordUnitOfWork
     {
         /// <summary>Gets the instance of the <see cref="IWordsRepository"/>.</summary>

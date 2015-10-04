@@ -9,6 +9,7 @@ using WatchWord.Domain.DataAccess.Repositories;
 
 namespace WatchWord.DataAccess
 {
+    /// <summary>Represents unit of work pattern over WatchWord repositories.</summary>
     public class WatchWordUnitOfWork : IWatchWordUnitOfWork, IDisposable
     {
         private DbContext _context;

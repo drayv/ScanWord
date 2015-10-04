@@ -7,28 +7,43 @@ using WatchWord.Web.UI.Models.Materials;
 namespace WatchWord.Web.UI.Controllers
 {
     /// <summary>The materials controller.</summary>
-    public class MaterialsController : Controller
+    public class MaterialsController : AsyncController
     {
-        /// <summary>The parser.</summary>
+        /// <summary>The service for work with materials.</summary>
         private readonly IMaterialsService _service;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
-        /// <param name="service">material service.</param>
+        /// <param name="service">Material service.</param>
         public MaterialsController(IMaterialsService service)
         {
             _service = service;
         }
 
-        /// <summary>Index action</summary>
-        /// <returns>The <see cref="ActionResult"/>View which displays form for file search on user's computer.</returns>
+        /// <summary>Gets all material.</summary>
+        /// <param name="startIndex">Number of materials to skip.</param>
+        /// <param name="pageSize">umber of materials to take.</param>
+        /// <returns></returns>
+        public async Task<ActionResult> All(int startIndex, int pageSize)
+        {
+            var allMaterialsModel = new MaterialsModel
+            {
+                Title = "All materials",
+                Materials = await _service.GetMaterials(startIndex, pageSize)
+            };
+
+            return View("MaterialsList", allMaterialsModel);
+        }
+
+        /// <summary>Represents form for parse material.</summary>
+        /// <returns>Parse material form.</returns>
         public ActionResult ParseMaterial()
         {
             return View(new ParseMaterialViewModel());
         }
 
-        /// <summary>HttpPost of the AddViewModel.</summary>
-        /// <param name="model">The AddViewModel.</param>
-        /// <returns>The <see cref="ActionResult"/>.</returns>
+        /// <summary>Checks parsed material before save it.</summary>
+        /// <param name="model">The parsed material view model.</param>
+        /// <returns>The Save material form if model is valid, or ParseMaterial if not.</returns>
         [HttpPost]
         public ActionResult ParseMaterial(ParseMaterialViewModel model)
         {
@@ -44,6 +59,8 @@ namespace WatchWord.Web.UI.Controllers
             return RedirectToAction("Save");
         }
 
+        /// <summary>Saves parsed material.</summary>
+        /// <returns>Save material form.</returns>
         public ActionResult Save()
         {
             var material = TempData["SaveMaterialModel"] as Material;

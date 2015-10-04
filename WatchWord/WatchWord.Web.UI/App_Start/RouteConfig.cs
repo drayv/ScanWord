@@ -13,6 +13,14 @@ namespace WatchWord.Web.UI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(null, "{controller}/{action}", new { controller = "Materials", action = "ParseMaterial" });
+
+            routes.MapRoute("AllMaterials", "Materials/All/{startIndex}", new
+            {
+                controller = "Materials",
+                action = "All",
+                startIndex = 0,
+                pageSize = 20
+            });
         }
     }
 }

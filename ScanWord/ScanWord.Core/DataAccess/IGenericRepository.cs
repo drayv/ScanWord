@@ -33,6 +33,25 @@ namespace ScanWord.Core.DataAccess
         List<TEntity> GetAll(Expression<Func<TEntity, bool>> whereProperties = null,
             params Expression<Func<TEntity, object>>[] includeProperties);
 
+        /// <summary>Skip the given number and returns the specified number of entities from database asynchronously.</summary>
+        /// <param name="skipNumber">Number of entities to skip.</param>
+        /// <param name="amount">Number of entities to take.</param>
+        /// <param name="whereProperties">Where predicate.</param>
+        /// <param name="includeProperties">Include properties.</param>
+        /// <returns>The list of entities.</returns>
+        Task<List<TEntity>> SkipAndTakeAsync(int skipNumber, int amount,
+            Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        /// <summary>Skip the given number and returns the specified number of entities from database.</summary>
+        /// <param name="skipNumber">Number of entities to skip.</param>
+        /// <param name="amount">Number of entities to take.</param>
+        /// <param name="whereProperties">Where predicate.</param>
+        /// <param name="includeProperties">Include properties.</param>
+        /// <returns>The list of entities.</returns>
+        List<TEntity> SkipAndTake(int skipNumber, int amount, Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
         /// <summary>Finds entity by id.</summary>
         /// <param name="id">The id.</param>
         /// <returns>The operation <see cref="TEntity"/>.</returns>

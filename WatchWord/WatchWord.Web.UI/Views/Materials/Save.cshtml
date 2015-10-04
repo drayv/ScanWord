@@ -1,4 +1,7 @@
 ﻿@model WatchWord.Domain.Entity.Material
+@{
+    ViewBag.Title = "Save material";
+}
 
 @using (Html.BeginForm("Save", "Materials", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

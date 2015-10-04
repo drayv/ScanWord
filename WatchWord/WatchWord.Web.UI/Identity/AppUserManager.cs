@@ -24,9 +24,9 @@ namespace WatchWord.Web.UI.Identity
         {
             var db = context.Get<AppIdentityDbContext>();
             var userManager = new AppUserManager(new UserStore<AppUser>(db))
-                {
-                    PasswordValidator = new PasswordValidator { RequiredLength = 6 }
-                };
+            {
+                PasswordValidator = new PasswordValidator { RequiredLength = 6 }
+            };
 
             userManager.UserValidator = new UserValidator(userManager)
             {

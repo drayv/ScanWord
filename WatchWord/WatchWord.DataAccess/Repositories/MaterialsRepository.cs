@@ -10,6 +10,8 @@ namespace WatchWord.DataAccess.Repositories
     {
         /// <summary>Initializes a new instance of the <see cref="MaterialsRepository"/> class.</summary>
         /// <param name="context">Entity framework context.</param>
-        public MaterialsRepository(DbContext context) : base(context) { }
+        public MaterialsRepository(DbContext context) : base(context)
+        {
+        }
     }
 }

@@ -67,6 +67,30 @@ namespace ScanWord.DataAccess.Repositories.Generic
             return AggregateQueryProperties(_dbSet.AsNoTracking(), whereProperties, includeProperties).ToList();
         }
 
+        /// <summary>Skip the given number and returns the specified number of entities from database asynchronously.</summary>
+        /// <param name="skipNumber">Number of entities to skip.</param>
+        /// <param name="amount">Number of entities to take.</param>
+        /// <param name="whereProperties">Where predicate.</param>
+        /// <param name="includeProperties">Include properties.</param>
+        /// <returns>The list of entities.</returns>
+        public virtual async Task<List<TEntity>> SkipAndTakeAsync(int skipNumber, int amount, Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return await AggregateQueryProperties(_dbSet.AsNoTracking(), whereProperties, includeProperties).Skip(skipNumber).Take(amount).ToListAsync();
+        }
+
+        /// <summary>Skip the given number and returns the specified number of entities from database.</summary>
+        /// <param name="skipNumber">Number of entities to skip.</param>
+        /// <param name="amount">Number of entities to take.</param>
+        /// <param name="whereProperties">Where predicate.</param>
+        /// <param name="includeProperties">Include properties.</param>
+        /// <returns>The list of entities.</returns>
+        public virtual List<TEntity> SkipAndTake(int skipNumber, int amount, Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            return AggregateQueryProperties(_dbSet.AsNoTracking(), whereProperties, includeProperties).Skip(skipNumber).Take(amount).ToList();
+        }
+
         /// <summary>Finds entity by id.</summary>
         /// <param name="id">The id.</param>
         /// <returns>The operation <see cref="TEntity"/>.</returns>
@@ -152,7 +176,7 @@ namespace ScanWord.DataAccess.Repositories.Generic
                 query = query.Where(whereProperties);
             }
 
-            return query;
+            return query.OrderBy(e => e.Id);
         }
 
         /// <summary>Disposes the current object.</summary>
