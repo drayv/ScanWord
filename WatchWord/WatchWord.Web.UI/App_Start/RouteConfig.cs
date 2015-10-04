@@ -14,13 +14,9 @@ namespace WatchWord.Web.UI
 
             routes.MapRoute(null, "{controller}/{action}", new { controller = "Materials", action = "ParseMaterial" });
 
-            routes.MapRoute("AllMaterials", "Materials/All/{startIndex}", new
-            {
-                controller = "Materials",
-                action = "All",
-                startIndex = 0,
-                pageSize = 20
-            });
+            routes.MapRoute("AllMaterialsWithIndex", "Materials/All/{startIndex}", new { controller = "Materials", action = "All" });
+
+            routes.MapRoute("AllMaterialsWithIndexAndPageSize", "Materials/All/{startIndex}/{pageSize}", new { controller = "Materials", action = "All" });
         }
     }
 }

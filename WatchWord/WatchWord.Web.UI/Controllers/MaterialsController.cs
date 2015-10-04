@@ -21,9 +21,9 @@ namespace WatchWord.Web.UI.Controllers
 
         /// <summary>Gets all material.</summary>
         /// <param name="startIndex">Number of materials to skip.</param>
-        /// <param name="pageSize">umber of materials to take.</param>
+        /// <param name="pageSize">Number of materials to take.</param>
         /// <returns></returns>
-        public async Task<ActionResult> All(int startIndex, int pageSize)
+        public async Task<ActionResult> All(int startIndex = 0, int pageSize = 20)
         {
             var allMaterialsModel = new MaterialsModel
             {
