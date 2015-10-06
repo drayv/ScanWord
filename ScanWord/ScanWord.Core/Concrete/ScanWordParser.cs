@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ScanWord.Core.Abstract;
 using ScanWord.Core.Entity;
@@ -108,6 +109,8 @@ namespace ScanWord.Core.Concrete
         /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         private static ScanResult ParseFile(File scanFile, TextReader stream, TypeResult type)
         {
+            var pattern = new Regex(@"[^\W_\d]([^\W_\d]|[-’'](?=[^\W_\d]))*([^\W_\d]|['’])?");
+
             var wordsLocker = new object();
             var compositionsLocker = new object();
 
@@ -127,45 +130,14 @@ namespace ScanWord.Core.Concrete
                 lines,
                 line =>
                 {
-                    var word = string.Empty;
-                    var column = 1;
-                    var columnCounter = 0;
-                    foreach (var t in line.Value)
+                    var words = pattern.Matches(line.Value);
+                    for (var i = 0; i < words.Count; i++)
                     {
-                        columnCounter++;
-                        if (char.IsLetter(t) || t == '-' || t == '\'' || t == '’')
+                        var scanWord = GetOrCreateScanWord(wordsLocker, fileWords, scanFile, words[i].Value);
+                        if (type == TypeResult.CompositionOfWords)
                         {
-                            // Save position if this is a first letter of word.
-                            if (word == string.Empty)
-                            {
-                                column = columnCounter;
-                            }
-
-                            word += t;
+                            AddWordToCompositions(compositionsLocker, compositions, scanWord, line.Key, words[i].Index + 1);
                         }
-                        else if (word.Length > 0 && char.IsLetter(word[0]))
-                        {
-                            var scanWord = GetOrCreateScanWord(wordsLocker, fileWords, scanFile, word);
-
-                            if (type == TypeResult.CompositionOfWords)
-                            {
-                                AddWordToCompositions(compositionsLocker, compositions, scanWord, line.Key, column);
-                            }
-
-                            word = string.Empty;
-                        }
-                        else
-                        {
-                            word = string.Empty;
-                        }
-                    }
-
-                    if (word.Length <= 0 || !char.IsLetter(word[0])) return;
-                    var lastWord = GetOrCreateScanWord(wordsLocker, fileWords, scanFile, word);
-
-                    if (type == TypeResult.CompositionOfWords)
-                    {
-                        AddWordToCompositions(compositionsLocker, compositions, lastWord, line.Key, column);
                     }
                 });
 
@@ -267,7 +239,7 @@ namespace ScanWord.Core.Concrete
                     return word;
                 }
 
-                word = new Word { File = scanFile, TheWord = wordText, Count = 1};
+                word = new Word { File = scanFile, TheWord = wordText, Count = 1 };
                 fileWords.Add(word);
             }
 
