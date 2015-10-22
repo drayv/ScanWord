@@ -32,49 +32,29 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Film or series radios-->
+                <!--Film or series radios-->
                 <div class="form-group">
-                    <div id="radioGroup" class="btn-group" data-toggle="buttons">
+                    <div class="btn-group radio" data-toggle="buttons">
                         @Html.BootstrapEnumRadioFor(n => n.Type)
                     </div>
                 </div>
             </div>
             <!--Season and episod number inputs-->
-            <div id="series">
+            <div id="Series">
                 <div class="row">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             @Html.LabelFor(n => n.SeasonNumber, new { @class = "control-label" })
                             <div class="form-group">
-                                <div class="spinbox" data-initialize="spinbox">
-                                    @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control input-mini spinbox-input" })
-                                    <div class="spinbox-buttons btn-group btn-group-vertical">
-                                        <button type="button" class="btn btn-default spinbox-up btn-xs">
-                                            <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-                                        </button>
-                                        <button type="button" class="btn btn-default spinbox-down btn-xs">
-                                            <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-                                        </button>
-                                    </div>
-                                    @Html.ValidationMessageFor(n => n.SeasonNumber)
-                                </div>
+                                @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control input-mini spinbox-input", type = "text", @Value = "1" })
+                                @Html.ValidationMessageFor(n => n.SeasonNumber)
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             @Html.LabelFor(n => n.EpisodeNumber, new { @class = "control-label" })
                             <div class="form-group">
-                                <div class="spinbox" data-initialize="spinbox">
-                                    @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control input-mini spinbox-input" })
-                                    <div class="spinbox-buttons btn-group btn-group-vertical">
-                                        <button type="button" class="btn btn-default spinbox-up btn-xs">
-                                            <span class="glyphicon glyphicon-chevron-up"></span><span class="sr-only">Increase</span>
-                                        </button>
-                                        <button type="button" class="btn btn-default spinbox-down btn-xs">
-                                            <span class="glyphicon glyphicon-chevron-down"></span><span class="sr-only">Decrease</span>
-                                        </button>
-                                    </div>
-                                    @Html.ValidationMessageFor(n => n.EpisodeNumber)
-                                </div>
+                                @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control input-mini spinbox-input", type = "text", @Value = "1" })
+                                @Html.ValidationMessageFor(n => n.EpisodeNumber)
                             </div>
                         </div>
                     </div>
@@ -106,7 +86,6 @@
                     <input type="submit" value="Send" class="btn btn-primary" />
                 </div>
             </div>
-
         }
     </div>
 </div>
@@ -117,29 +96,8 @@
 
 @section Scripts{
     @Scripts.Render("~/Scripts/validation")
-    <script src="~/Scripts/spinBox.js"></script>
+    <script src="//www.fuelcdn.com/fuelux/3.11.0/js/fuelux.min.js"></script>
     <script>
-        //$(".fileHandler").on("click", function (e) {
-        //    $(this).closest(".form-group").find("input").click();
-        //});
-        //$(":input").on("change", function (e) {
-        //    var isValid = $("#file-form").validate().element(this);
-        //    if (isValid) {
-        //        var $formGroup = $(this).closest(".form-group")
-        //        $formGroup.find(".form-control").val($(this).val().match(/[^\\]*$/)[0]);
-        //        if (!$formGroup.find(".removeBtn").length) {
-        //            var $removeBtn = $("<button>").addClass("btn btn-primary removeBtn").text("Remove");
-        //            $formGroup.find(".input-group-btn").prepend($removeBtn);
-        //        }
-        //    }
-        //});
-        //$(".input-group-btn").on("click", ".removeBtn", function () {
-        //    var $formGroup = $(this).closest(".form-group");
-        //    $formGroup.find(":file").val("");
-        //    $formGroup.find(".removeBtn").remove();
-        //    $formGroup.find(".form-control").val("");
-        //});
-
         $(".fileHandler").each(function () {
             var $formGroup = $(this).closest(".form-group");
             var $removeBtn = $("<button>").addClass("btn btn-primary removeBtn").text("Remove");
@@ -157,11 +115,11 @@
                 fileIsExist();
             }
 
-            $(this).on("click", function (e) {
+            $(this).on("click", function () {
                 $file.click();
             });
 
-            $file.on("change", function (e) {
+            $file.on("change", function () {
                 var isValid = $("#file-form").validate().element(this);
                 if (isValid) {
                     fileIsExist();

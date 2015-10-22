@@ -50,7 +50,9 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
                 var id = TagBuilder.CreateSanitizedId(string.Format("{0}{1}", metadata.PropertyName, value));
 
                 label.AddCssClass("btn btn-primary " + (isChecked? "active": string.Empty));
-                var radio = helper.RadioButton(metadata.PropertyName, value, isChecked, new { id = id });
+                label.Attributes.Add("data-initialize", "radio");
+
+                var radio = helper.RadioButton(metadata.PropertyName, value, isChecked, new { id = id, data_toggle = "#"+value, type = "radio" });
                 label.InnerHtml = string.Format("{0} {1}", radio.ToHtmlString(), value);
 
                 builder.Append(label.ToString());

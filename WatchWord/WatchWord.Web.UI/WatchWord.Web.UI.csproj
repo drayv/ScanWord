@@ -290,7 +290,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Scripts\spinBox.js" />
     <Content Include="Views\Materials\ParseMaterial.cshtml">
       <SubType>Code</SubType>
     </Content>
