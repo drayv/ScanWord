@@ -29,6 +29,10 @@
     background-color: #fff;
 }
 
+#series {
+    display: none;
+}
+
 .sign-up {
     padding-bottom: 0;
 }
