@@ -16,6 +16,12 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         /// <param name="value">The value to compare.</param>
         public NotNullOrZeroIfAttribute(string field, string value)
         {
+            if (field == null)
+                throw new ArgumentNullException("field");
+
+            if (value == null)
+                throw new ArgumentNullException("value");
+
             _field = field;
             _value = value;
         }
@@ -41,48 +47,21 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         /// <returns>The validation result.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            object requiredValue;
-            try
-            {
-                requiredValue = validationContext.ObjectType.GetProperty(_field).GetValue(validationContext.ObjectInstance);
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException("Wrong argument value: value");
-            }
+            var property = validationContext.ObjectType.GetProperty(_field);
+            if (property == null)
+                throw new ValidationException("Invalid property name");
 
-            if (!CheckEquality(requiredValue, _value)) return ValidationResult.Success;
-            if (DataExist(value))
-            {
+            var propertValue = property.GetValue(validationContext.ObjectInstance);
+
+            if (!(string.Equals(propertValue == null? null : propertValue.ToString(), _value, StringComparison.InvariantCulture)))
                 return ValidationResult.Success;
-            }
+
+            var intValue = value as int?;
+            if (intValue.HasValue && intValue.Value > 0)
+                return ValidationResult.Success;
 
             var errorMessage = FormatErrorMessage(validationContext.DisplayName);
             return new ValidationResult(errorMessage);
-        }
-
-        /// <summary>Checks equality of two values.</summary>
-        /// <param name="first">The first value.</param>
-        /// <param name="second">The second value.</param>
-        /// <returns>The result of compare.</returns>
-        private static bool CheckEquality(object first, string second)
-        {
-            var stringValue = first.ToString();
-
-            return StringComparer.InvariantCulture.Compare(stringValue.Trim(), second.Trim()) == 0;
-        }
-
-        /// <summary>Checks if value is not null and more then zero.</summary>
-        /// <param name="value">The value to check.</param>
-        /// <returns>The result of checking.</returns>
-        private static bool DataExist(object value)
-        {
-            if (value != null)
-            {
-                return (int)value > 0;
-            }
-
-            return false;
         }
     }
 }

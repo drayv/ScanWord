@@ -92,8 +92,8 @@ namespace ScanWord.Web.UI.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Check_when_type_is_invalid_and_value_is_bigger_then_zero()
+        [ExpectedException(typeof(ValidationException))]
+        public void Check_when_propertyName_is_invalid()
         {
             var ctx = GetContext(MaterialType.Series);
             var instance = GetInstance("Typ", "Series");

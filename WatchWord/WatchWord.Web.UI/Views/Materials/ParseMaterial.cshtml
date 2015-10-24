@@ -1,90 +1,74 @@
 ﻿@using WatchWord.Web.UI.Models.Materials
 @using WatchWord.Web.UI.Infrastructure.Helpers
+
 @model ParseMaterialViewModel
 @{
     ViewBag.Title = "Parse material";
+    Html.EnableClientValidation(false);
 }
 
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6">
         @using (Html.BeginForm("ParseMaterial", "Materials", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
         {
-            <div class="row">
-                <!--Name input-->
-                <div class="form-group">
-                    @Html.LabelFor(n => n.Name)
-                    @Html.TextBoxFor(n => n.Name, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(n => n.Name)
+            <!--Name input-->
+            <div class="form-group">
+                @Html.LabelFor(n => n.Name)
+                @Html.TextBoxFor(n => n.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(n => n.Name)
+            </div>
+            <!--Image input-->
+            <div class="form-group">
+                @Html.LabelFor(n => n.Image, new { @class = "control-label" })
+                @Html.TextBoxFor(n => n.Image, new { type = "file" })
+                <div class="input-group ">
+                    <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.Image)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(n => n.Image)
+            </div>
+            <!--Film or series radios-->
+            <div class="form-group">
+                <div id="radioGroup" class="btn-group" data-toggle="buttons">
+                    @Html.BootstrapEnumRadioFor(n => n.Type)
                 </div>
             </div>
-            <div class="row">
-                <!--Image input-->
-                <div class="form-group">
-                    @Html.LabelFor(n => n.Image, new { @class = "control-label" })
-                    @Html.TextBoxFor(n => n.Image, new { type = "file" })
-                    <div class="input-group ">
-                        <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.Image)" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
-                        </span>
-                    </div>
-                    @Html.ValidationMessageFor(n => n.Image)
-                </div>
-            </div>
-            <div class="row">
-                <!--Film or series radios-->
-                <div class="form-group">
-                    <div id="radioGroup" class="btn-group" data-toggle="buttons">
-                        @Html.BootstrapEnumRadioFor(n => n.Type)
-                    </div>
-                </div>
-            </div>
-            <div id="series">
-                <!--Season and episod number inputs-->
+            <!--Season and episod number inputs-->
+            <div class="form-group" id="series">
                 <div class="row">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            @Html.LabelFor(n => n.SeasonNumber, new { @class = "control-label" })
-                            <div class="form-group">
-                                @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control input", type = "text", @Value = "1" })
-                                @Html.ValidationMessageFor(n => n.SeasonNumber)
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            @Html.LabelFor(n => n.EpisodeNumber, new { @class = "control-label" })
-                            <div class="form-group">
-                                @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control input", type = "text", @Value = "1" })
-                                @Html.ValidationMessageFor(n => n.EpisodeNumber)
-                            </div>
-                        </div>
+                    <div class="col-xs-6">
+                        @Html.LabelFor(n => n.SeasonNumber, new { @class = "control-label" })
+                        @Html.TextBoxFor(n => n.SeasonNumber, new { @class = "form-control input", value = "1" })
+                        @Html.ValidationMessageFor(n => n.SeasonNumber)
+                    </div>
+                    <div class="col-xs-6">
+                        @Html.LabelFor(n => n.EpisodeNumber, new { @class = "control-label" })
+                        @Html.TextBoxFor(n => n.EpisodeNumber, new { @class = "form-control input", value = "1" })
+                        @Html.ValidationMessageFor(n => n.EpisodeNumber)
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!--File input-->
-                <div class="form-group">
-                    @Html.LabelFor(n => n.File, new { @class = "control-label" })
-                    @Html.TextBoxFor(n => n.File, new { type = "file" })
-                    <div class="input-group ">
-                        <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.File)" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
-                        </span>
-                    </div>
-                    @Html.ValidationMessageFor(n => n.File)
+            <!--File input-->
+            <div class="form-group">
+                @Html.LabelFor(n => n.File, new { @class = "control-label" })
+                @Html.TextBoxFor(n => n.File, new { type = "file" })
+                <div class="input-group ">
+                    <input class="form-control" type="text" readonly placeholder="@Html.NameFor(n => n.File)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary fileHandler"><span class="glyphicon glyphicon-folder-open"></span> Browse</button>
+                    </span>
                 </div>
+                @Html.ValidationMessageFor(n => n.File)
             </div>
-            <div class="row">
-                <!--Description input-->
-                <div class="form-group">
-                    @Html.LabelFor(n => n.Description, new { @class = "form-label" })
-                    @Html.TextAreaFor(n => n.Description, new { @class = "form-control" })
-                </div>
+            <!--Description input-->
+            <div class="form-group">
+                @Html.LabelFor(n => n.Description, new { @class = "form-label" })
+                @Html.TextAreaFor(n => n.Description, new { @class = "form-control" })
             </div>
-            <div class="row">
-                <div class="form-group">
-                    <input type="submit" value="Send" class="btn btn-primary" />
-                </div>
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-primary" />
             </div>
         }
     </div>
@@ -128,19 +112,22 @@
             });
         });
 
-        $("#radioGroup label").on("click", function () {
-            var $value = $(this).find("input:radio").val();
+        var defaultValue = "@(Enum.GetNames(Model.Type.GetType())[0])";
+
+        function toggleSeries(value) {
             var $series = $("#series");
-
-            toggleSeries($series, $value);
-        });
-
-        function toggleSeries(series, value) {
-            if (value === "Series") {
-                series.show();
-            } else {
-                series.hide();
-            }
+            if (value === defaultValue)
+                $series.hide();
+            else
+                $series.show();
         }
+
+        toggleSeries($("#radioGroup :checked").val());
+
+        $("#radioGroup label").on("click", function () {
+            var value = $(this).find(":radio").val();
+
+            toggleSeries(value);
+        });
     </script>
 }
