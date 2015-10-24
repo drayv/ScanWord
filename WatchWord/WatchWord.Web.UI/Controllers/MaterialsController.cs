@@ -53,7 +53,7 @@ namespace WatchWord.Web.UI.Controllers
             }
 
             // TODO: get userId
-            var material = _service.CreateMaterial(model.File.InputStream, model.Type, model.Name, model.Description, 0);
+            var material = _service.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name, model.Description, 0);
 
             TempData["SaveMaterialModel"] = material; //TODO: fix this to redirect to save action with model
             return RedirectToAction("Save");

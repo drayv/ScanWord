@@ -4,7 +4,6 @@
 @model ParseMaterialViewModel
 @{
     ViewBag.Title = "Parse material";
-    Html.EnableClientValidation(false);
 }
 
 <div class="row">
@@ -112,7 +111,7 @@
             });
         });
 
-        var defaultValue = "@(Enum.GetNames(Model.Type.GetType())[0])";
+        var defaultValue = "Film";
 
         function toggleSeries(value) {
             var $series = $("#series");

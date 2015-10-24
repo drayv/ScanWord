@@ -9,10 +9,10 @@ namespace WatchWord.Web.UI.Models.Materials
     public class ParseMaterialViewModel
     {
         /// <summary>Gets or sets the file.</summary>
+        [Required]
         [MaxFileSize(1024 * 1024 * 4, ErrorMessage = "{0} file is too big.")]
         [Display(Name = "Subtitles")]
         [HttpPostedFileExtensions(Extensions = ".txt, .srt, .ass")]
-        [Required]
         public HttpPostedFileBase File { get; set; }
 
         /// <summary>Gets or sets the number of the season.</summary>
@@ -26,6 +26,7 @@ namespace WatchWord.Web.UI.Models.Materials
         public int? EpisodeNumber { get; set; }
 
         /// <summary>Gets or sets the image file.</summary>
+        [Required]
         [MaxFileSize(1024 * 1024 * 4, ErrorMessage = "{0} file is too big.")]
         [Display(Name = "Image")]
         [HttpPostedFileExtensions(Extensions = ".jpg, .bmp")]

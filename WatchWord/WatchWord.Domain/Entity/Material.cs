@@ -15,7 +15,6 @@ namespace WatchWord.Domain.Entity
     /// <summary>The Material entity, a film or series with information about it.</summary>
     public class Material: Entity<int>
     {
-
         /// <summary>Gets or sets the material type.</summary>
         public MaterialType Type { get; set; }
 

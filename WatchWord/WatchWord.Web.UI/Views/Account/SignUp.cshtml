@@ -2,14 +2,14 @@
 @model WatchWord.Web.UI.Models.Account.SignUpViewModel
 
 @{
-    ViewBag.Title = "Sign Up";
+    ViewBag.Title = "Sign up";
 }
 
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
         @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @class = "registration-form sign-up" }))
         {
-            <h2 class="text-center">Sign Up</h2>
+            <h2 class="text-center">Sign up</h2>
 
             @Html.AntiForgeryToken()
 

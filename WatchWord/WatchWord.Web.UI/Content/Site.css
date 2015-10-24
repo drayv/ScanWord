@@ -1,4 +1,7 @@
-﻿.field-validation-error {
+﻿
+/* BASICS */
+
+.field-validation-error {
     color: #D04437;
 }
 
@@ -16,6 +19,8 @@
     padding-top: 1px;
 }
 
+/* REGISTRATION PAGE */
+
 .registration-form {
     margin-top: 40px;
     padding: 10px 30px;
@@ -28,6 +33,8 @@
     box-shadow: 1px 1px 3px 1px #a19d9d;
     background-color: #fff;
 }
+
+/* PARSE MATERIAL PAGE */
 
 #series {
     display: none;
@@ -62,4 +69,20 @@
     -ms-box-shadow: 1px 1px 3px 1px #a19d9d;
     box-shadow: 1px 1px 3px 1px #a19d9d;
     background-color: #fff;
+}
+
+/* SAVE MATERIAL PAGE */
+
+.table-layout {
+    display: table;
+    width: 100%;
+}
+
+    .table-layout .table-cell {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+.fixed-width-200 {
+    width: 200px;
 }

@@ -31,7 +31,7 @@ namespace WatchWord.Web.UI.Identity
             userManager.UserValidator = new UserValidator(userManager)
             {
                 RequireUniqueEmail = true,
-                UserNameMinLength = 4,
+                UserNameMinLength = 2,
                 UserNameStartsWithDigit = false
             };
 

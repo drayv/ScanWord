@@ -1,7 +1,7 @@
 ﻿/// <reference path="jquery.validate.js" />
 /// <reference path="jquery.validate.unobtrusive.js" />
 
-$.validator.setDefaults({ ignore: "" })
+$.validator.setDefaults({ ignore: "" });
 
 $.validator.setDefaults({
     highlight: function (element) {
@@ -22,8 +22,8 @@ $.validator.unobtrusive.adapters.add("reqif", ["val", "field"], function (option
 $.validator.addMethod("reqif", function (value, element, params) {
     var compareValue = $(element).closest("form").find("input[type=radio][name=" + params["compareElem"] + "]:checked").val();
 
-    if (compareValue == params["val"]) {
-        return value != 0 && value.trim().length !== 0;
+    if (compareValue === params["val"]) {
+        return value !== 0 && value.trim().length !== 0;
     }
     return true;
 });
@@ -52,7 +52,7 @@ $.validator.unobtrusive.adapters.add("extension", ["extensions"], function (opti
     var extensions = {
         extensions: options.params["extensions"].split(/[ ,]/).filter(
             function (element) {
-                return element.length != 0;
+                return element.length !== 0;
             })
     };
 

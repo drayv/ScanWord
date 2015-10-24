@@ -15,6 +15,7 @@ namespace WatchWord.Application.EntityServices.Concrete
     {
         private readonly IWatchWordUnitOfWork _watchWordUnitOfWork;
         private readonly IScanWordParser _parser;
+        private readonly IImageService _imageService;
 
         /// <summary>Prevents a default instance of the <see cref="MaterialsService"/> class from being created.</summary>
         // ReSharper disable once UnusedMember.Local
@@ -25,30 +26,35 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <summary>Initializes a new instance of the <see cref="MaterialsService"/> class.</summary>
         /// <param name="watchWordUnitOfWork">Unit of work over WatchWord repositories.</param>
         /// <param name="parser">Words parser.</param>
-        public MaterialsService(IWatchWordUnitOfWork watchWordUnitOfWork, IScanWordParser parser)
+        /// <param name="imageService">Image service.</param>
+        public MaterialsService(IWatchWordUnitOfWork watchWordUnitOfWork, IScanWordParser parser, IImageService imageService)
         {
             _watchWordUnitOfWork = watchWordUnitOfWork;
+            _imageService = imageService;
             _parser = parser;
         }
 
         /// <summary>Creates material with the specified attributes.</summary>
-        /// <param name="stream">Subtitles file stream.</param>
+        /// <param name="subtitlesStream">Subtitles file stream.</param>
+        /// <param name="imageStream">Image file stream.</param>
         /// <param name="type">Material type <see cref="MaterialType"/>.</param>
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
         /// <param name="userId">Owner Id.</param>
         /// <returns>Created material by specific attributes.</returns>
-        public Material CreateMaterial(Stream stream, MaterialType type, string name, string description, int userId)
+        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name, string description, int userId)
         {
             //TODO: this material exist check
             var material = new Material { Description = description, Name = name, Type = type };
 
-            using (var streamReader = new StreamReader(stream, Encoding.GetEncoding("Windows-1251")))
+            using (var streamReader = new StreamReader(subtitlesStream, Encoding.GetEncoding("Windows-1251")))
             {
                 var file = new File { Path = userId.ToString(), Filename = name, Extension = type.ToString(), FullName = userId + name + type };
                 file.Words = _parser.ParseUnigueWordsInFile(file, streamReader);
                 material.File = file;
             }
+
+            material.Image = _imageService.CropImage(imageStream, 190, 280);
 
             return material;
         }

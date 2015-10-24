@@ -23,10 +23,11 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
             var alert = new TagBuilder("div");
             alert.AddCssClass("alert alert-danger");
             alert.InnerHtml = helper.ValidationSummary(excludePropertyErrors).ToHtmlString();
+
             return new MvcHtmlString(alert.ToString(TagRenderMode.Normal));
         }
 
-        /// <summary> Returns HTML markup with bootstap classes for the model property.</summary>
+        /// <summary>Returns HTML markup with bootstap classes for the model property.</summary>
         /// <typeparam name="TModel">The model type.</typeparam>
         /// <typeparam name="TValue">The property value typr</typeparam>
         /// <param name="helper">The <see cref="HtmlHelper"/>.</param>
@@ -56,6 +57,7 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
 
                 builder.Append(label);
             }
+
             return new MvcHtmlString(builder.ToString());
         }
     }

@@ -36,6 +36,7 @@ namespace WatchWord.Infrastructure
         {
             container.RegisterType<IScanWordParser, ScanWordParser>();
             container.RegisterType<IMaterialsService, MaterialsService>();
+            container.RegisterType<IImageService, ImageService>();
 
             container.RegisterType<DbContext, WatchDataContainer>();
             container.RegisterType<IWatchWordUnitOfWork, WatchWordUnitOfWork>();

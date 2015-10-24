@@ -9,13 +9,15 @@ namespace WatchWord.Application.EntityServices.Abstract
     public interface IMaterialsService
     {
         /// <summary>Creates material with the specified attributes.</summary>
-        /// <param name="stream">Subtitles file stream.</param>
+        /// <param name="subtitlesStream">Subtitles file stream.</param>
+        /// <param name="imageStream">Image file stream.</param>
         /// <param name="type">Material type <see cref="MaterialType"/>.</param>
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
         /// <param name="userId">Owner Id.</param>
         /// <returns>Created material by specific attributes.</returns>
-        Material CreateMaterial(Stream stream, MaterialType type, string name, string description, int userId);
+        Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name,
+            string description, int userId);
 
         /// <summary>Saves material to the data storage.</summary>
         /// <param name="material">The material <see cref="Material"/>.</param>
