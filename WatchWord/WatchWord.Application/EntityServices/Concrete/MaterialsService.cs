@@ -41,8 +41,10 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
         /// <param name="userId">Owner Id.</param>
+        /// <param name="width">Result image width.</param>
+        /// <param name="height">Result image height.</param>
         /// <returns>Created material by specific attributes.</returns>
-        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name, string description, int userId)
+        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name, string description, int userId, int width, int height)
         {
             //TODO: this material exist check
             var material = new Material { Description = description, Name = name, Type = type };
@@ -54,7 +56,7 @@ namespace WatchWord.Application.EntityServices.Concrete
                 material.File = file;
             }
 
-            material.Image = _imageService.CropImage(imageStream, 190, 280);
+            material.Image = _imageService.CropImage(imageStream, width, height);
 
             return material;
         }

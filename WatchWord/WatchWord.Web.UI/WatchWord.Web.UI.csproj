@@ -321,6 +321,7 @@
     <Compile Include="Models\Materials\MaterialsModel.cs" />
     <Compile Include="Models\Materials\ParseMaterialViewModel.cs" />
     <Compile Include="Models\Account\SignUpViewModel.cs" />
+    <Compile Include="Models\Materials\SaveMaterialViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -15,9 +15,11 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
         /// <param name="userId">Owner Id.</param>
+        /// <param name="width">Result image width.</param>
+        /// <param name="height">Result image height.</param>
         /// <returns>Created material by specific attributes.</returns>
         Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name,
-            string description, int userId);
+            string description, int userId, int width, int height);
 
         /// <summary>Saves material to the data storage.</summary>
         /// <param name="material">The material <see cref="Material"/>.</param>

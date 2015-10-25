@@ -73,16 +73,24 @@
 
 /* SAVE MATERIAL PAGE */
 
-.table-layout {
-    display: table;
-    width: 100%;
+.saveInfo img{
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
-    .table-layout .table-cell {
-        display: table-cell;
-        vertical-align: top;
-    }
-
-.fixed-width-200 {
-    width: 200px;
+.saveInfo .words{
+    clear: left;
 }
+
+.saveInfo form {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.saveInfo ul.words{
+    margin-left: 0;
+    padding-left: 0;
+}
+
+
