@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ScanWord.Core.Abstract;
@@ -75,6 +76,14 @@ namespace WatchWord.Application.EntityServices.Concrete
         public async Task<List<Material>> GetMaterials(int startIndex, int amount)
         {
             return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(startIndex, amount);
+        }
+
+        /// <summary>Gets material by Id.</summary>
+        /// <param name="id">Material identity.</param>
+        /// <returns>Material entity.</returns>
+        public Material GetMaterial(int id)
+        {
+            return _watchWordUnitOfWork.MaterialsRepository.GetByСondition(m => m.Id == id, m => m.File.Words);
         }
     }
 }

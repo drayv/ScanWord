@@ -1,4 +1,4 @@
-﻿@model WatchWord.Web.UI.Models.Materials.MaterialsModel
+﻿@model WatchWord.Web.UI.Models.Materials.MaterialsViewModel
 @{
     ViewBag.Title = Model.Title;
 }
@@ -7,5 +7,7 @@
 
 @foreach (var material in Model.Materials)
 {
-    <div>@material.Name</div>
+    <div class="material-in-list">
+        <a href=@Url.Action("Material/" + material.Id, "Materials")>@material.Name</a>
+    </div>
 }

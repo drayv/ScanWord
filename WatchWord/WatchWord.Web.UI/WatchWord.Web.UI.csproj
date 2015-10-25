@@ -318,7 +318,7 @@
     <Compile Include="Infrastructure\ValidationAttributes\NotNullOrZeroIfAttribute.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
-    <Compile Include="Models\Materials\MaterialsModel.cs" />
+    <Compile Include="Models\Materials\MaterialsViewModel.cs" />
     <Compile Include="Models\Materials\ParseMaterialViewModel.cs" />
     <Compile Include="Models\Account\SignUpViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -337,6 +337,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Materials\Save.cshtml" />
     <Content Include="Views\Materials\MaterialsList.cshtml" />
+    <Content Include="Views\Materials\Material.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
