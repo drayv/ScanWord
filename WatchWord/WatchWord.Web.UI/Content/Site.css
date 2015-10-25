@@ -34,7 +34,7 @@
     background-color: #fff;
 }
 
-/* PARSE MATERIAL PAGE */
+/* PARSE MATERIAL FORM */
 
 #series {
     display: none;
@@ -71,26 +71,28 @@
     background-color: #fff;
 }
 
-/* SAVE MATERIAL PAGE */
+/* MATERIAL */
 
-.saveInfo img{
+.materialInfo img{
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
 }
 
-.saveInfo .words{
+.materialInfo .words{
     clear: left;
 }
 
-.saveInfo form {
+.materialInfo form {
     display: inline-block;
     margin-left: 10px;
 }
 
-.saveInfo ul.words{
-    margin-left: 0;
-    padding-left: 0;
+#material-name {
+    font-weight: bold; 
+    font-size: 200%;
 }
 
-
+#material-description {
+    
+}

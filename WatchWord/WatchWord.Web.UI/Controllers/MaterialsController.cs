@@ -12,8 +12,8 @@ namespace WatchWord.Web.UI.Controllers
         /// <summary>The service for work with materials.</summary>
         private readonly IMaterialsService _service;
 
-        private static int width = 190;
-        private static int height = 280;
+        private static int imageMaxWidth = 190;
+        private static int imageMaxHeight = 280;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
         /// <param name="service">Material service.</param>
@@ -22,13 +22,24 @@ namespace WatchWord.Web.UI.Controllers
             _service = service;
         }
 
+        public ActionResult Material(int id)
+        {
+            var testMaterial = _service.GetMaterial(id);
+            if (testMaterial == null || testMaterial.Equals(default(Material)))
+            {
+                return RedirectToAction("All"); // TODO: change to main page redirect.
+            }
+
+            return View(new MaterialViewModel(testMaterial, imageMaxWidth, imageMaxHeight));
+        }
+
         /// <summary>Gets all material.</summary>
         /// <param name="startIndex">Number of materials to skip.</param>
         /// <param name="pageSize">Number of materials to take.</param>
-        /// <returns></returns>
+        /// <returns>Materials list form.</returns>
         public async Task<ActionResult> All(int startIndex = 0, int pageSize = 20)
         {
-            var allMaterialsModel = new MaterialsModel
+            var allMaterialsModel = new MaterialsViewModel
             {
                 Title = "All materials",
                 Materials = await _service.GetMaterials(startIndex, pageSize)
@@ -39,6 +50,7 @@ namespace WatchWord.Web.UI.Controllers
 
         /// <summary>Represents form for parse material.</summary>
         /// <returns>Parse material form.</returns>
+        [Authorize]
         public ActionResult ParseMaterial()
         {
             return View(new ParseMaterialViewModel());
@@ -48,6 +60,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <param name="model">The parsed material view model.</param>
         /// <returns>The Save material form if model is valid, or ParseMaterial if not.</returns>
         [HttpPost]
+        [Authorize]
         public ActionResult ParseMaterial(ParseMaterialViewModel model)
         {
             if (!ModelState.IsValid)
@@ -56,34 +69,42 @@ namespace WatchWord.Web.UI.Controllers
             }
 
             // TODO: get userId
-            var material = _service.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name, model.Description, 0, width, height);
+            var material = _service.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name, model.Description, 0, imageMaxWidth, imageMaxHeight);
+            TempData["MaterialModel"] = material;
 
-            TempData["SaveMaterialModel"] = material;
             return RedirectToAction("Save");
         }
 
         /// <summary>Saves parsed material.</summary>
         /// <returns>Save material form.</returns>
+        [Authorize]
         public ActionResult Save()
         {
-            var material = TempData.Peek("SaveMaterialModel") as Material;
-            if(material != null)
-                return View(new SaveMaterialViewModel(material, width, height));
+            var material = TempData.Peek("MaterialModel") as Material;
+            if (material != null)
+            {
+                return View(new MaterialViewModel(material, imageMaxWidth, imageMaxHeight));
+            }
 
             return RedirectToAction("ParseMaterial");
         }
 
-        [HttpPost()]
+        [HttpPost]
+        [Authorize]
         [ActionName("Save")]
         public async Task<ActionResult> SaveParsedMaterial()
         {
             object material;
-            if(TempData.TryGetValue("SaveMaterialModel", out material) && material is Material)
+            if (TempData.TryGetValue("MaterialModel", out material))
             {
-                await _service.SaveMaterial(material as Material);
-                //Redirect to material must be here, so cach your error :c
-                return View(material);
+                var saveMaterial = material as Material;
+                if (saveMaterial != null)
+                {
+                    await _service.SaveMaterial(material as Material);
+                    return RedirectToAction("All"); // TODO: redirect to material page.
+                }
             }
+
             return RedirectToAction("ParseMaterial");
         }
     }

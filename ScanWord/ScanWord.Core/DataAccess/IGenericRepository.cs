@@ -8,8 +8,8 @@ namespace ScanWord.Core.DataAccess
 {
     /// <summary>Generic repository for entities.</summary>
     /// <typeparam name="TEntity">Type of entity.</typeparam>
-    /// <typeparam name="TId">Type of entity Id.</typeparam>
-    public interface IGenericRepository<TEntity, in TId> : IDisposable where TEntity : Entity<TId>
+    /// <typeparam name="TIdentity">Type of entity Id.</typeparam>
+    public interface IGenericRepository<TEntity, in TIdentity> : IDisposable where TEntity : Entity<TIdentity>
     {
         /// <summary>Inserts the entity.</summary>
         /// <param name="entity">The entity.</param>
@@ -55,7 +55,14 @@ namespace ScanWord.Core.DataAccess
         /// <summary>Finds entity by id.</summary>
         /// <param name="id">The id.</param>
         /// <returns>The operation <see cref="TEntity"/>.</returns>
-        TEntity GetById(TId id);
+        TEntity GetById(TIdentity id);
+
+        /// <summary>Gets the first entity which matchs the condition.</summary>
+        /// <param name="whereProperties">Where predicate.</param>
+        /// <param name="includeProperties">Include properties.</param>
+        /// <returns>The list of entities.</returns>
+        TEntity GetByСondition(Expression<Func<TEntity, bool>> whereProperties = null,
+            params Expression<Func<TEntity, object>>[] includeProperties);
 
         /// <summary>Updates the entity.</summary>
         /// <param name="entityToUpdate">Entity to update.</param>
@@ -63,7 +70,7 @@ namespace ScanWord.Core.DataAccess
 
         /// <summary>Deletes the entity by id.</summary>
         /// <param name="id">Entity id.</param>
-        void Delete(TId id);
+        void Delete(TIdentity id);
 
         /// <summary>Deletes the entity.</summary>
         /// <param name="entityToDelete">Entity to delete.</param>

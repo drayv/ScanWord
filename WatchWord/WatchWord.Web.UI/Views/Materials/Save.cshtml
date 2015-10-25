@@ -1,24 +1,34 @@
-﻿@model WatchWord.Web.UI.Models.Materials.SaveMaterialViewModel
+﻿@model WatchWord.Web.UI.Models.Materials.MaterialViewModel
 @{
     ViewBag.Title = "Save material";
 }
 
-<div class="saveInfo">
-    <img src="@Model.Image" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="@Model.Name" />
-    <h2>@Model.Name</h2>
-    @if (!string.IsNullOrWhiteSpace(Model.Description))
-            {
-        <h3>@Model.Description</h3>
-    }
-    @Html.ActionLink("Back", "ParseMaterial", null, new { @class = "btn btn-primary" })
+<div class="materialInfo">
+    <!--Basic info-->
+    <img src="@Model.Image" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="Image" />
+    <div><span id="material-name">@Model.Name</span></div>
+    <div><span id="material-description">@Model.Description</span></div>
+    <br />
+
+    <button class="btn btn-primary" onclick="goBack()">Back</button>
     @using (Html.BeginForm("Save"))
-            {
+    {
         <input type="submit" value="Save" class="btn btn-success" />
     }
-    <ul class="words">
+
+    <!--Parsed words-->
+    <div class="words">
         @foreach (var word in Model.Words)
         {
-            <li class="word">@word</li>
+            <div class="word">@word</div>
         }
-    </ul>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+}

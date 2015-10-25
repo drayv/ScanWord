@@ -4,12 +4,14 @@ using WatchWord.Domain.Entity;
 
 namespace WatchWord.Web.UI.Models.Materials
 {
-    public class SaveMaterialViewModel
+    public class MaterialViewModel
     {
-        public SaveMaterialViewModel(Material material, int width, int height)
+        public MaterialViewModel(Material material, int width, int height)
         {
             if (material == null)
+            {
                 throw new ArgumentNullException("material");
+            }
 
             InitializeFields(material, width, height);
         }
@@ -28,7 +30,7 @@ namespace WatchWord.Web.UI.Models.Materials
 
         private void InitializeFields(Material material, int width, int height)
         {
-            Image = String.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image));
+            Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image));
             Name = material.Name;
             Description = material.Description ?? string.Empty;
             ImageWidth = width.ToString();

@@ -13,6 +13,16 @@
 
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Materials <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("All materials", "All", "Materials")</li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Add material", "ParseMaterial", "Materials")</li>
+                        }
+                    </ul>
+                </li>
                 <li>
                     @using (Html.BeginForm("Search", "Navigation", FormMethod.Post, new { @class = "navbar-form navbar-left", role = "search" }))
                     {

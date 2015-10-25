@@ -41,8 +41,8 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
         /// <param name="userId">Owner Id.</param>
-        /// <param name="width">Result image width.</param>
-        /// <param name="height">Result image height.</param>
+        /// <param name="width">Material image width.</param>
+        /// <param name="height">Material image height.</param>
         /// <returns>Created material by specific attributes.</returns>
         public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name, string description, int userId, int width, int height)
         {
@@ -77,6 +77,14 @@ namespace WatchWord.Application.EntityServices.Concrete
         public async Task<List<Material>> GetMaterials(int startIndex, int amount)
         {
             return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(startIndex, amount);
+        }
+
+        /// <summary>Gets material by Id.</summary>
+        /// <param name="id">Material identity.</param>
+        /// <returns>Material entity.</returns>
+        public Material GetMaterial(int id)
+        {
+            return _watchWordUnitOfWork.MaterialsRepository.GetByСondition(m => m.Id == id, m => m.File.Words);
         }
     }
 }
