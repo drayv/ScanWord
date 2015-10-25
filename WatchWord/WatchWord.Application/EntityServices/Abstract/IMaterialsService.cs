@@ -31,5 +31,10 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <param name="amount">Number of materials to take.</param>
         /// <returns>The list of materials.</returns>
         Task<List<Material>> GetMaterials(int startIndex, int amount);
+
+        /// <summary>Gets material by Id.</summary>
+        /// <param name="id">Material identity.</param>
+        /// <returns>Material entity.</returns>
+        Material GetMaterial(int id);
     }
 }
