@@ -12,9 +12,7 @@ namespace WatchWord.Web.UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("MainPage", "{controller}/{action}", new { controller = "Materials", action = "ParseMaterial" }); // TODO: change to main
-
-            routes.MapRoute("MaterialById", "Materials/Material/{id}", new { controller = "Materials", action = "Material" });
+            routes.MapRoute(null, "{controller}/{action}", new { controller = "Materials", action = "ParseMaterial" });
 
             routes.MapRoute("AllMaterialsWithIndex", "Materials/All/{startIndex}", new { controller = "Materials", action = "All" });
 

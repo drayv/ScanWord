@@ -99,16 +99,6 @@ namespace ScanWord.DataAccess.Repositories.Generic
             return _dbSet.Find(id);
         }
 
-        /// <summary>Gets the first entity which matchs the condition.</summary>
-        /// <param name="whereProperties">Where predicate.</param>
-        /// <param name="includeProperties">Include properties.</param>
-        /// <returns>The list of entities.</returns>
-        public virtual TEntity GetByСondition(Expression<Func<TEntity, bool>> whereProperties = null,
-            params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            return AggregateQueryProperties(_dbSet.AsNoTracking(), whereProperties, includeProperties).FirstOrDefault();
-        }
-
         #endregion
 
         #region UPDATE
