@@ -26,11 +26,9 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <returns>The count of changed elements in data storage.</returns>
         Task<int> SaveMaterial(Material material);
 
-        /// <summary>Skip the given number and returns the specified number of materials from the data storage.</summary>
-        /// <param name="startIndex">>Number of materials to skip.</param>
-        /// <param name="amount">Number of materials to take.</param>
+        /// <summary>Take the list of materials.</summary>
         /// <returns>The list of materials.</returns>
-        Task<List<Material>> GetMaterials(int startIndex, int amount);
+        Task<List<Material>> GetMaterials();
 
         /// <summary>Gets material by Id.</summary>
         /// <param name="id">Material identity.</param>

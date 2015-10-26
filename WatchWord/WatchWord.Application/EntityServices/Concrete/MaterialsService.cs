@@ -70,13 +70,11 @@ namespace WatchWord.Application.EntityServices.Concrete
             return await _watchWordUnitOfWork.CommitAsync();
         }
 
-        /// <summary>Skip the given number and returns the specified number of materials from the data storage.</summary>
-        /// <param name="startIndex">Number of materials to skip.</param>
-        /// <param name="amount">Number of materials to take.</param>
+        /// <summary>Take the list of materials.</summary>
         /// <returns>The list of materials.</returns>
-        public async Task<List<Material>> GetMaterials(int startIndex, int amount)
+        public async Task<List<Material>> GetMaterials()
         {
-            return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(startIndex, amount);
+            return await _watchWordUnitOfWork.MaterialsRepository.GetAllAsync();
         }
 
         /// <summary>Gets material by Id.</summary>
