@@ -23,7 +23,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_first_page()
         {
-            var model = new DisplayAllViewModel(3, 1, _materials);
+            var model = new DisplayAllViewModel(3, 1, _materials.Count(), _materials.Take(3));
 
             Assert.AreEqual(3, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n0", model.Materials.First().Name, "The first element is wrong.");
@@ -36,7 +36,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_second_page()
         {
-            var model = new DisplayAllViewModel(3, 2, _materials);
+            var model = new DisplayAllViewModel(3, 2, _materials.Count(), _materials.Skip(3).Take(3));
 
             Assert.AreEqual(3, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n3", model.Materials.First().Name, "The first element is wrong.");
@@ -49,7 +49,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_second_not_full_page()
         {
-            var model = new DisplayAllViewModel(3, 3, _materials);
+            var model = new DisplayAllViewModel(3, 3, _materials.Count(), _materials.Skip(6).Take(3));
 
             Assert.AreEqual(1, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n6", model.Materials.First().Name, "The first element is wrong.");
@@ -60,7 +60,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_empty_page()
         {
-            var model = new DisplayAllViewModel(3, 4, _materials);
+            var model = new DisplayAllViewModel(3, 4, _materials.Count(), _materials.Skip(9).Take(3));
 
             Assert.AreEqual(0, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual(4, model.CurrentPageNumber, "The number of current page is invalid.");
@@ -70,7 +70,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_invalid_pageNumber()
         {
-            var model = new DisplayAllViewModel(3, -1, _materials);
+            var model = new DisplayAllViewModel(3, -1, _materials.Count(), _materials.Take(3));
 
             Assert.AreEqual(3, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n0", model.Materials.First().Name, "The first element is wrong.");
@@ -78,16 +78,6 @@ namespace ScanWord.Web.UI.Tests
             Assert.AreEqual("n2", model.Materials.Skip(2).First().Name, "The third element is wrong.");
             Assert.AreEqual(1, model.CurrentPageNumber, "The number of current page is invalid.");
             Assert.AreEqual(3, model.TotalPagesCount, "The pages count is iinvalid.");
-        }
-
-        [TestMethod]
-        public void Test_with_emty_materials()
-        {
-            var model = new DisplayAllViewModel(3, 1, new Material[0]);
-
-            Assert.AreEqual(0, model.Materials.Count(), "Wrong materials count.");
-            Assert.AreEqual(1, model.CurrentPageNumber, "The number of current page is invalid.");
-            Assert.AreEqual(0, model.TotalPagesCount, "The pages count is iinvalid.");
         }
     }
 }

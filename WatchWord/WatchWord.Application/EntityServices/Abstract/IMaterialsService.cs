@@ -27,12 +27,18 @@ namespace WatchWord.Application.EntityServices.Abstract
         Task<int> SaveMaterial(Material material);
 
         /// <summary>Take the list of materials.</summary>
+        /// <param name="currentPage">The current page number.</param>
+        /// <param name="pageSize">The size of a page.</param>
         /// <returns>The list of materials.</returns>
-        Task<List<Material>> GetMaterials();
+        Task<List<Material>> GetMaterials(int currentPage, int pageSize);
 
         /// <summary>Gets material by Id.</summary>
         /// <param name="id">Material identity.</param>
         /// <returns>Material entity.</returns>
         Material GetMaterial(int id);
+
+        /// <summary>Gets the total count of materils.</summary>
+        /// <returns>Total count of materials</returns>
+        Task<int> TotalCount();
     }
 }

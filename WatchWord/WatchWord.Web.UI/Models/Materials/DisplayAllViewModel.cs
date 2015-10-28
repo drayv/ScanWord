@@ -8,7 +8,7 @@ namespace WatchWord.Web.UI.Models.Materials
     public class DisplayAllViewModel
     {
 
-        public DisplayAllViewModel(int pageSize, int pageNumber, IEnumerable<Material> materials)
+        public DisplayAllViewModel(int pageSize, int pageNumber, int totalCount, IEnumerable<Material> materials)
         {
             if (pageSize < 0)
             {
@@ -20,14 +20,14 @@ namespace WatchWord.Web.UI.Models.Materials
                 throw new ArgumentNullException("materials");
             }
 
-            InitializeFields(pageSize, pageNumber, materials);
+            InitializeFields(pageSize, pageNumber, totalCount, materials);
         }
 
-        private void InitializeFields(int pageSize, int pageNumber, IEnumerable<Material> materials)
+        private void InitializeFields(int pageSize, int pageNumber, int totalCount, IEnumerable<Material> materials)
         {
             CurrentPageNumber = pageNumber > 0 ? pageNumber : 1;
-            TotalPagesCount = (int)Math.Ceiling((decimal)materials.Count() / pageSize);
-            Materials = materials.Skip(pageSize * (CurrentPageNumber - 1)).Take(pageSize);
+            TotalPagesCount = (int)Math.Ceiling((double)totalCount / pageSize);
+            Materials = materials;
         }
 
         public int CurrentPageNumber { get; set; }

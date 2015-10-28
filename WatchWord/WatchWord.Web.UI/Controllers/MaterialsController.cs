@@ -39,7 +39,8 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>Materials list form.</returns>
         public async Task<ActionResult> DisplayAll(int pageNumber = 1)
         {
-            return View(new DisplayAllViewModel(pageSize, pageNumber, await _service.GetMaterials()));
+            var model = new DisplayAllViewModel(pageSize, pageNumber, await _service.TotalCount(), await _service.GetMaterials(pageNumber, pageSize));
+            return View(model);
         }
 
         /// <summary>Represents form for parse material.</summary>
