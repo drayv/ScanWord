@@ -10,11 +10,22 @@ namespace WatchWord.Web.UI
         public static void RegisterBundles(BundleCollection bundles)
         {
             // css
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/bootstrap/bootstrap.css", "~/Content/Site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/compiled/bootstrap/bootstrap.css",
+                "~/Content/compiled/bootstrap/theme.css",
+                "~/Content/Site.css"));
+
             // libraries
-            bundles.Add(new ScriptBundle("~/Scripts/jquery+bootstrap").Include("~/Scripts/jquery-{version}.js", "~/Scripts/bootstrap.js", "~/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/libraries").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/respond.js"));
+
             // validation
-            bundles.Add(new ScriptBundle("~/Scripts/validation").Include("~/Scripts/jquery.validate.js", "~/Scripts/jquery.validate.unobtrusive.js", "~/Scripts/customValidation.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/validation").Include(
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/customValidation.js"));
         }
     }
 }
