@@ -17,12 +17,9 @@
     </div>
     <!--Parsed words-->
     <div class="words">
-        @if (Model != null && Model.Words != null)
-            {
-                foreach (var word in Model.Words)
-                {
-                <div class="word">@word</div>
-            }
+        @foreach (var word in Model.Words)
+        {
+            <div class="word">@word</div>
         }
     </div>
 </div>

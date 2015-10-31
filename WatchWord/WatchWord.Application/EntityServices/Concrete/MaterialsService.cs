@@ -7,6 +7,7 @@ using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.DataAccess;
 using WatchWord.Domain.Entity;
 using File = ScanWord.Core.Entity.File;
+using System;
 
 namespace WatchWord.Application.EntityServices.Concrete
 {
@@ -70,13 +71,14 @@ namespace WatchWord.Application.EntityServices.Concrete
             return await _watchWordUnitOfWork.CommitAsync();
         }
 
-        /// <summary>Skip the given number and returns the specified number of materials from the data storage.</summary>
-        /// <param name="startIndex">Number of materials to skip.</param>
-        /// <param name="amount">Number of materials to take.</param>
+        /// <summary>Take the list of materials.</summary>
+        /// <param name="currentPage">The current page number.</param>
+        /// <param name="pageSize">The size of a page.</param>
         /// <returns>The list of materials.</returns>
-        public async Task<List<Material>> GetMaterials(int startIndex, int amount)
+        public async Task<List<Material>> GetMaterials(int currentPage, int pageSize)
         {
-            return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(startIndex, amount);
+            int pagesToSkip = (currentPage <= 0 ? 1 : currentPage) - 1;
+            return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(pagesToSkip * pageSize, pageSize);
         }
 
         /// <summary>Gets material by Id.</summary>
@@ -85,6 +87,13 @@ namespace WatchWord.Application.EntityServices.Concrete
         public Material GetMaterial(int id)
         {
             return _watchWordUnitOfWork.MaterialsRepository.GetByСondition(m => m.Id == id, m => m.File.Words);
+        }
+
+        /// <summary>Gets the total count of materils.</summary>
+        /// <returns>Total count of materials</returns>
+        public async Task<int> TotalCount()
+        {
+            return (await _watchWordUnitOfWork.MaterialsRepository.GetAllAsync()).Count;
         }
     }
 }

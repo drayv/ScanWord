@@ -12,8 +12,9 @@ namespace WatchWord.Web.UI.Controllers
         /// <summary>The service for work with materials.</summary>
         private readonly IMaterialsService _service;
 
-        private static int imageMaxWidth = 190;
-        private static int imageMaxHeight = 280;
+        private const int imageMaxWidth = 190;
+        private const int imageMaxHeight = 280;
+        private const int pageSize = 10;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
         /// <param name="service">Material service.</param>
@@ -25,7 +26,7 @@ namespace WatchWord.Web.UI.Controllers
         public ActionResult Material(int id)
         {
             var testMaterial = _service.GetMaterial(id);
-            if (testMaterial == null || testMaterial.Equals(default(Material)))
+            if (testMaterial == null)
             {
                 return RedirectToAction("All"); // TODO: change to main page redirect.
             }
@@ -34,18 +35,12 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>Gets all material.</summary>
-        /// <param name="startIndex">Number of materials to skip.</param>
-        /// <param name="pageSize">Number of materials to take.</param>
+        /// <param name="pageNumber">The number of current page.</param>
         /// <returns>Materials list form.</returns>
-        public async Task<ActionResult> All(int startIndex = 0, int pageSize = 20)
+        public async Task<ActionResult> DisplayAll(int pageNumber = 1)
         {
-            var allMaterialsModel = new MaterialsViewModel
-            {
-                Title = "All materials",
-                Materials = await _service.GetMaterials(startIndex, pageSize)
-            };
-
-            return View("MaterialsList", allMaterialsModel);
+            var model = new DisplayAllViewModel(pageSize, pageNumber, await _service.TotalCount(), await _service.GetMaterials(pageNumber, pageSize));
+            return View(model);
         }
 
         /// <summary>Represents form for parse material.</summary>
