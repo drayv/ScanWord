@@ -47,6 +47,13 @@ namespace ScanWord.DataAccess.Repositories.Generic
 
         #region READ
 
+        /// <summary>Gets count of entities from database.</summary>
+        /// <param name="whereProperties">Where predicate.</param>
+        public virtual int GetCount(Expression<Func<TEntity, bool>> whereProperties = null)
+        {
+            return AggregateQueryProperties(_dbSet.AsNoTracking(), whereProperties).Count();
+        }
+
         /// <summary>Gets entities from database asynchronously.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>

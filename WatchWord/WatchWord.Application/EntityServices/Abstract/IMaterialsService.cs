@@ -39,6 +39,6 @@ namespace WatchWord.Application.EntityServices.Abstract
 
         /// <summary>Gets the total count of materils.</summary>
         /// <returns>Total count of materials</returns>
-        Task<int> TotalCount();
+        int TotalCount();
     }
 }

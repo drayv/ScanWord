@@ -19,6 +19,10 @@ namespace ScanWord.Core.DataAccess
         /// <param name="entities">The entities enumerable.</param>
         void Insert(IEnumerable<TEntity> entities);
 
+        /// <summary>Gets count of entities from database.</summary>
+        /// <param name="whereProperties">Where predicate.</param>
+        int GetCount(Expression<Func<TEntity, bool>> whereProperties = null);
+
         /// <summary>Gets the entities asynchronously.</summary>
         /// <param name="whereProperties">Where predicate.</param>
         /// <param name="includeProperties">Include properties.</param>

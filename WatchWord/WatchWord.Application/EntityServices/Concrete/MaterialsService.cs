@@ -7,7 +7,6 @@ using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.DataAccess;
 using WatchWord.Domain.Entity;
 using File = ScanWord.Core.Entity.File;
-using System;
 
 namespace WatchWord.Application.EntityServices.Concrete
 {
@@ -45,7 +44,8 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="width">Material image width.</param>
         /// <param name="height">Material image height.</param>
         /// <returns>Created material by specific attributes.</returns>
-        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name, string description, int userId, int width, int height)
+        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name,
+            string description, int userId, int width, int height)
         {
             //TODO: this material exist check
             var material = new Material { Description = description, Name = name, Type = type };
@@ -77,7 +77,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <returns>The list of materials.</returns>
         public async Task<List<Material>> GetMaterials(int currentPage, int pageSize)
         {
-            int pagesToSkip = (currentPage <= 0 ? 1 : currentPage) - 1;
+            var pagesToSkip = (currentPage <= 0 ? 1 : currentPage) - 1;
             return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(pagesToSkip * pageSize, pageSize);
         }
 
@@ -90,10 +90,10 @@ namespace WatchWord.Application.EntityServices.Concrete
         }
 
         /// <summary>Gets the total count of materils.</summary>
-        /// <returns>Total count of materials</returns>
-        public async Task<int> TotalCount()
+        /// <returns>Total count of materials.</returns>
+        public int TotalCount()
         {
-            return (await _watchWordUnitOfWork.MaterialsRepository.GetAllAsync()).Count;
+            return _watchWordUnitOfWork.MaterialsRepository.GetCount();
         }
     }
 }
