@@ -8,9 +8,8 @@ namespace WatchWord.Web.UI.Identity
     public class AppIdentityDbContext : IdentityDbContext<AppUser>
     {
         /// <summary>Initializes a new instance of the <see cref="AppIdentityDbContext"/> class.</summary>
-        /// <param name="dataBaseName">The database name.</param>
-        public AppIdentityDbContext(string dataBaseName)
-            : base(dataBaseName)
+        public AppIdentityDbContext()
+            : base("name=WatchWord")
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AppIdentityDbContext>());
         }
@@ -19,7 +18,7 @@ namespace WatchWord.Web.UI.Identity
         /// <returns>The <see cref="AppIdentityDbContext"/>.</returns>
         public static AppIdentityDbContext Create()
         {
-            return new AppIdentityDbContext("WatchWord");
+            return new AppIdentityDbContext();
         }
     }
 }
