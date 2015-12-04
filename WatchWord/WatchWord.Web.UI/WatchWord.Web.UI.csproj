@@ -323,11 +323,6 @@
     <Compile Include="Infrastructure\ValidationAttributes\HttpPostedFileExtensionsAttribute.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\MaxFileSizeAttribute.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\NotNullOrZeroIfAttribute.cs" />
-    <Compile Include="Migrations\201512040039561_First.cs" />
-    <Compile Include="Migrations\201512040039561_First.Designer.cs">
-      <DependentUpon>201512040039561_First.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Identity\IdentityModels.cs" />
     <Compile Include="Models\Materials\DisplayAllViewModel.cs" />
@@ -378,11 +373,6 @@
       <Project>{EF7F56E6-B826-427D-8A47-FF02F3D08097}</Project>
       <Name>WatchWord.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512040039561_First.resx">
-      <DependentUpon>201512040039561_First.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
