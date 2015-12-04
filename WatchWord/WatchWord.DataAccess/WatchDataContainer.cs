@@ -11,7 +11,7 @@ namespace WatchWord.DataAccess
         public WatchDataContainer()
             : base("name=WatchWord")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<WatchDataContainer>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<WatchDataContainer>());
         }
 
         #region ScanWord

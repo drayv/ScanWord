@@ -11,7 +11,7 @@ namespace WatchWord.Web.UI.Identity
         public AppIdentityDbContext()
             : base("name=WatchWord")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AppIdentityDbContext>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<AppIdentityDbContext>());
         }
 
         /// <summary>Create identity database context.</summary>
