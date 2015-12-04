@@ -323,9 +323,9 @@
     <Compile Include="Infrastructure\ValidationAttributes\HttpPostedFileExtensionsAttribute.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\MaxFileSizeAttribute.cs" />
     <Compile Include="Infrastructure\ValidationAttributes\NotNullOrZeroIfAttribute.cs" />
-    <Compile Include="Migrations\201512040016109_first.cs" />
-    <Compile Include="Migrations\201512040016109_first.Designer.cs">
-      <DependentUpon>201512040016109_first.cs</DependentUpon>
+    <Compile Include="Migrations\201512040039561_First.cs" />
+    <Compile Include="Migrations\201512040039561_First.Designer.cs">
+      <DependentUpon>201512040039561_First.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
@@ -380,8 +380,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512040016109_first.resx">
-      <DependentUpon>201512040016109_first.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512040039561_First.resx">
+      <DependentUpon>201512040039561_First.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
