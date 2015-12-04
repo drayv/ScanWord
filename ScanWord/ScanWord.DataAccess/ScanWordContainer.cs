@@ -10,6 +10,7 @@ namespace ScanWord.DataAccess
         public ScanWordContainer()
             : base("name=ScanWord")
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ScanWordContainer>());
         }
 
         /// <summary>Gets or sets the files.</summary>

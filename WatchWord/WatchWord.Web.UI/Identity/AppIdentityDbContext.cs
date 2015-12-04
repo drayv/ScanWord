@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
@@ -11,6 +12,7 @@ namespace WatchWord.Web.UI.Identity
         public AppIdentityDbContext(string dataBaseName)
             : base(dataBaseName)
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<AppIdentityDbContext>());
         }
 
         /// <summary>Create identity database context.</summary>
