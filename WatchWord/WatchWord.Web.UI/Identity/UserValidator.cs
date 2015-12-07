@@ -6,11 +6,11 @@ using WatchWord.Web.UI.Models.Identity;
 namespace WatchWord.Web.UI.Identity
 {
     /// <summary>The scan word user validator.</summary>
-    public class UserValidator : UserValidator<AppUser>
+    public class UserValidator : UserValidator<AppUser, int>
     {
         /// <summary>Initializes a new instance of the <see cref="UserValidator"/> class.</summary>
         /// <param name="manager">User manager.</param>
-        public UserValidator(UserManager<AppUser, string> manager)
+        public UserValidator(UserManager<AppUser, int> manager)
             : base(manager)
         {
         }

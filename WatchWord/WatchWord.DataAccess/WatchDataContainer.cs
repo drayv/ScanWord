@@ -1,17 +1,19 @@
 ﻿using System.Data.Entity;
 using ScanWord.Core.Entity;
 using WatchWord.Domain.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace WatchWord.DataAccess
 {
     /// <summary>Represents a Unit Of Work with WatchWord database.</summary>
+    [DbConfigurationType(typeof(WatchDbConfiguration))]
     public class WatchDataContainer : DbContext
     {
         /// <summary>Initializes a new instance of the <see cref="WatchDataContainer"/> class.</summary>
         public WatchDataContainer()
             : base("name=WatchWord")
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<WatchDataContainer>());
+            Database.SetInitializer<WatchDataContainer>(new MigrateDatabaseToLatestVersion<WatchDataContainer, Migrations.Configuration>());
         }
 
         #region ScanWord
@@ -35,6 +37,8 @@ namespace WatchWord.DataAccess
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
             #region ScanWord
             modelBuilder.Entity<File>().HasKey(f => f.Id);
             modelBuilder.Entity<Word>().HasKey(w => w.Id);

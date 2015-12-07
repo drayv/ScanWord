@@ -31,7 +31,7 @@ namespace WatchWord.Web.UI.Controllers
             var testMaterial = _service.GetMaterial(id);
             if (testMaterial == null)
             {
-                return RedirectToAction("All"); // TODO: change to main page redirect.
+                return RedirectToAction("DisplayAll"); // TODO: change to main page redirect.
             }
 
             return View(new MaterialViewModel(testMaterial, ImageMaxWidth, ImageMaxHeight));
@@ -100,7 +100,7 @@ namespace WatchWord.Web.UI.Controllers
             var saveMaterial = material as Material;
             if (saveMaterial == null) return RedirectToAction("ParseMaterial");
             await _service.SaveMaterial((Material)material);
-            return RedirectToAction("All"); // TODO: redirect to material page.
+            return RedirectToAction("DisplayAll"); // TODO: redirect to material page.
         }
     }
 }

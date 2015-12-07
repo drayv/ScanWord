@@ -2,8 +2,28 @@
 
 namespace WatchWord.Web.UI.Models.Identity
 {
-    /// <summary>Identity user.</summary>
-    public class AppUser : IdentityUser
+    public class AppUser : IdentityUser<int, AppUserLogin, AppUserRole, AppUserClaim>
     {
+        public override int Id { get; set; }
+    }
+
+    public class AppRole : IdentityRole<int, AppUserRole>
+    {
+        public new int Id { get; set; }
+    }
+
+    public class AppUserLogin : IdentityUserLogin<int>
+    {
+        public int Id { get; set; }
+    }
+
+    public class AppUserRole : IdentityUserRole<int>
+    {
+        public int Id { get; set; }
+    }
+
+    public class AppUserClaim : IdentityUserClaim<int>
+    {
+        public override int Id { get; set; }
     }
 }

@@ -7,11 +7,11 @@ using WatchWord.Web.UI.Models.Identity;
 namespace WatchWord.Web.UI.Identity
 {
     /// <summary>Identity user manager.</summary>
-    public class AppUserManager : UserManager<AppUser>
+    public class AppUserManager : UserManager<AppUser, int>
     {
         /// <summary>Initializes a new instance of the <see cref="AppUserManager"/> class.</summary>
         /// <param name="store">Identity user store.</param>
-        public AppUserManager(IUserStore<AppUser> store)
+        public AppUserManager(IUserStore<AppUser, int> store)
             : base(store)
         {
         }
@@ -23,7 +23,7 @@ namespace WatchWord.Web.UI.Identity
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
             var db = context.Get<AppIdentityDbContext>();
-            var userManager = new AppUserManager(new UserStore<AppUser>(db))
+            var userManager = new AppUserManager(new UserStore<AppUser, AppRole, int, AppUserLogin, AppUserRole, AppUserClaim>(db))
             {
                 PasswordValidator = new PasswordValidator { RequiredLength = 6 }
             };
