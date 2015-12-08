@@ -10,10 +10,9 @@ namespace WatchWord.DataAccess
     public class WatchDataContainer : DbContext
     {
         /// <summary>Initializes a new instance of the <see cref="WatchDataContainer"/> class.</summary>
-        public WatchDataContainer()
-            : base("name=WatchWord")
+        public WatchDataContainer() : base("name=WatchWord")
         {
-            Database.SetInitializer<WatchDataContainer>(new MigrateDatabaseToLatestVersion<WatchDataContainer, Migrations.Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WatchDataContainer, Migrations.Configuration>());
         }
 
         #region ScanWord

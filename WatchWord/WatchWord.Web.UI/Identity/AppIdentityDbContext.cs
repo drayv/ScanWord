@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using WatchWord.Web.UI.Models.Identity;
-using Microsoft.AspNet.Identity;
 
 namespace WatchWord.Web.UI.Identity
 {
@@ -10,8 +9,7 @@ namespace WatchWord.Web.UI.Identity
     public class AppIdentityDbContext : IdentityDbContext<AppUser, AppRole, int, AppUserLogin, AppUserRole, AppUserClaim>
     {
         /// <summary>Initializes a new instance of the <see cref="AppIdentityDbContext"/> class.</summary>
-        public AppIdentityDbContext()
-            : base("name=WatchWord")
+        public AppIdentityDbContext() : base("name=WatchWord")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppIdentityDbContext, Migrations.Configuration>());
         }
@@ -27,7 +25,6 @@ namespace WatchWord.Web.UI.Identity
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<IdentityUserRole>().HasKey(r => r.);
         }
     }
 }
