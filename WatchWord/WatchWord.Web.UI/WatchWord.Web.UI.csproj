@@ -285,6 +285,8 @@
     </Content>
     <Content Include="Content\bootstrap\bootswatch.less" />
     <None Include="Properties\PublishProfiles\WatchWord.pubxml" />
+    <Content Include="google5f408db9a5983515.html" />
+    <Content Include="Scripts\google.analytics.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

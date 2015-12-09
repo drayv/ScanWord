@@ -19,7 +19,8 @@ namespace WatchWord.Web.UI
             bundles.Add(new ScriptBundle("~/Scripts/libraries").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/bootstrap.js",
-                "~/Scripts/respond.js"));
+                "~/Scripts/respond.js",
+                "~/Scripts/google.analytics.js"));
 
             // validation
             bundles.Add(new ScriptBundle("~/Scripts/validation").Include(
