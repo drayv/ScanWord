@@ -11,9 +11,9 @@ namespace WatchWord.Web.UI
         {
             // css
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/compiled/bootstrap/bootstrap.css",
-                "~/Content/compiled/bootstrap/theme.css",
-                "~/Content/Site.css"));
+                "~/Content/bootstrap.css",
+                "~/Content/theme.css",
+                "~/Content/site.css"));
 
             // libraries
             bundles.Add(new ScriptBundle("~/Scripts/libraries").Include(

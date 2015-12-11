@@ -1,10 +1,10 @@
 ﻿[
   {
-    "outputFile": "Content/compiled/bootstrap/bootstrap.css",
+    "outputFile": "Content/bootstrap.css",
     "inputFile": "Content/bootstrap/bootstrap.less"
   },
   {
-    "outputFile": "Content/compiled/bootstrap/theme.css",
+    "outputFile": "Content/theme.css",
     "inputFile": "Content/bootstrap/theme.less"
   }
 ]

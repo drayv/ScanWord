@@ -193,16 +193,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\compiled\bootstrap\bootstrap.css" />
-    <Content Include="Content\compiled\bootstrap\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\compiled\bootstrap\theme.css" />
-    <Content Include="Content\compiled\bootstrap\theme.min.css">
-      <DependentUpon>theme.css</DependentUpon>
-    </Content>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\theme.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -284,6 +278,9 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap\bootswatch.less" />
+    <None Include="Properties\PublishProfiles\file.pubxml" />
+    <None Include="Properties\PublishProfiles\WatchWord - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\WatchWord - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\WatchWord.pubxml" />
     <Content Include="google5f408db9a5983515.html" />
     <Content Include="Scripts\google.analytics.js" />

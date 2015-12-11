@@ -70,6 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ScanWord\ScanWord.Core\ScanWord.Core.csproj">
+      <Project>{12D6A9FE-1939-4CF4-B45B-8EBC64FB862F}</Project>
+      <Name>ScanWord.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WatchWord\WatchWord.Domain\WatchWord.Domain.csproj">
       <Project>{ef7f56e6-b826-427d-8a47-ff02f3d08097}</Project>
       <Name>WatchWord.Domain</Name>

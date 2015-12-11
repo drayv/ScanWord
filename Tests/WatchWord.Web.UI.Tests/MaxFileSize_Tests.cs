@@ -1,7 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using WatchWord.Web.UI.Infrastructure.ValidationAttributes;
 using WatchWord.Web.UI.Models.Materials;
 
