@@ -144,7 +144,7 @@ namespace ScanWord.Core.Concrete
             return new ScanResult { Words = fileWords, Compositions = compositions };
         }
 
-        /// <summary>Get stream reader for the file.</summary>
+        /// <summary>Gets a stream reader using the absolute path of the file.</summary>
         /// <param name="absolutePath">The absolute path to the file.</param>
         /// <param name="encoding">Character encoding.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
@@ -158,13 +158,13 @@ namespace ScanWord.Core.Concrete
                 var streamReader = new StreamReader(absolutePath, encoding);
                 return streamReader;
             }
-            catch (FileNotFoundException ex)
+            catch (FileNotFoundException)
             {
-                throw new FileNotFoundException(ex.Message, ex.InnerException);
+                throw;
             }
-            catch (DirectoryNotFoundException ex)
+            catch (DirectoryNotFoundException)
             {
-                throw new DirectoryNotFoundException(ex.Message, ex.InnerException);
+                throw;
             }
             catch (Exception ex)
             {
@@ -172,9 +172,9 @@ namespace ScanWord.Core.Concrete
             }
         }
 
-        /// <summary>Add word info to concurrent bag of compositions.</summary>
+        /// <summary>Adds word info to collection of compositions.</summary>
         /// <param name="compositionsLocker">Mutex for adding compositions.</param>
-        /// <param name="compositions">The concurrent bag of word compositions.</param>
+        /// <param name="compositions">The collection of word compositions.</param>
         /// <param name="scanWord">Word entity.</param>
         /// <param name="line">Serial number of the line that contains the word.</param>
         /// <param name="column">Position of the first character in word, from the beginning of the line.</param>
@@ -194,12 +194,10 @@ namespace ScanWord.Core.Concrete
             }
         }
 
-        /// <summary>Get file entity by absolute path.</summary>
+        /// <summary>Gets file entity by absolute path.</summary>
         /// <param name="absolutePath">Absolute path.</param>
-        /// <returns>
-        /// <exception cref="NotSupportedException">If file from absolute path don't support read or a security error is detected.</exception>
-        /// The <see cref="File"/> entity.
-        /// </returns>
+        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <returns>The <see cref="File"/> entity.</returns>
         private static File GetScanFileByPath(string absolutePath)
         {
             try
@@ -220,7 +218,7 @@ namespace ScanWord.Core.Concrete
             }
         }
 
-        /// <summary>Get or create word entity by text.</summary>
+        /// <summary>Gets or creates word entity using the text.</summary>
         /// <param name="wordsLocker">Mutex for adding words.</param>
         /// <param name="fileWords">Existing words to compare.</param>
         /// <param name="scanFile">File containing this word.</param>
@@ -246,7 +244,7 @@ namespace ScanWord.Core.Concrete
             return word;
         }
 
-        /// <summary>Nested type for scan result.</summary>
+        /// <summary>Nested type of scan result.</summary>
         private class ScanResult
         {
             /// <summary>Gets or sets Unordered collection of words in file.</summary>
