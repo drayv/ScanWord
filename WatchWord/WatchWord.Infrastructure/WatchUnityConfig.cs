@@ -35,8 +35,10 @@ namespace WatchWord.Infrastructure
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<IScanWordParser, ScanWordParser>();
+            container.RegisterType<IAccountService, AccountService>();
             container.RegisterType<IMaterialsService, MaterialsService>();
             container.RegisterType<IImageService, ImageService>();
+            container.RegisterType<IVocabularyService, VocabularyService>();
 
             container.RegisterType<DbContext, WatchDataContainer>();
             container.RegisterType<IWatchWordUnitOfWork, WatchWordUnitOfWork>();

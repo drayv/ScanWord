@@ -24,37 +24,37 @@ namespace WatchWord.DataAccess
         /// <summary>Gets the instance of the <see cref="IWordsRepository"/>.</summary>
         public IWordsRepository WordsRepository
         {
-            get
-            {
-                return new WordsRepository(_context);
-            }
+            get { return new WordsRepository(_context); }
         }
 
         /// <summary>Gets the instance of the <see cref="IFilesRepository"/>.</summary>
         public IFilesRepository FilesRepository
         {
-            get
-            {
-                return new FilesRepository(_context);
-            }
+            get { return new FilesRepository(_context); }
         }
 
         /// <summary>Gets the instance of the <see cref="IMaterialsRepository"/>.</summary>
         public IMaterialsRepository MaterialsRepository
         {
-            get
-            {
-                return new MaterialsRepository(_context);
-            }
+            get { return new MaterialsRepository(_context); }
         }
 
         /// <summary>Gets the instance of the <see cref="IAccountsRepository"/>.</summary>
         public IAccountsRepository AccountsRepository
         {
-            get
-            {
-                return new AccountsRepository(_context);
-            }
+            get { return new AccountsRepository(_context); }
+        }
+
+        /// <summary>Gets the instance of the <see cref="IKnownWordsRepository"/>.</summary>
+        public IKnownWordsRepository KnownWordsRepository
+        {
+            get { return new KnownWordsRepository(_context); }
+        }
+
+        /// <summary>Gets the instance of the <see cref="ILearnWordsRepository"/>.</summary>
+        public ILearnWordsRepository LearnWordsRepository
+        {
+            get { return new LearnWordsRepository(_context); }
         }
 
         /// <summary>Saves all pending changes.</summary>

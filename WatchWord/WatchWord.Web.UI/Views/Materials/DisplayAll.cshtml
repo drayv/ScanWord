@@ -6,6 +6,6 @@
 @foreach (var material in Model.Materials)
 {
     <div class="material-in-list">
-        <a href=@Url.Action("Material/" + material.Id, "Materials")>@material.Name</a>
+        <a href=@Url.Action(material.Id.ToString(), "Material")>@material.Name</a>
     </div>
 }

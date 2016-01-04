@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using WatchWord.Domain.Entity;
-using System.Linq;
 
 namespace WatchWord.Web.UI.Models.Materials
 {
     public class DisplayAllViewModel
     {
+        public int CurrentPageNumber { get; set; }
+
+        public int TotalPagesCount { get; set; }
+
+        public IEnumerable<Material> Materials { get; set; }
 
         public DisplayAllViewModel(int pageSize, int pageNumber, int totalCount, IEnumerable<Material> materials)
         {
@@ -29,11 +33,5 @@ namespace WatchWord.Web.UI.Models.Materials
             TotalPagesCount = (int)Math.Ceiling((double)totalCount / pageSize);
             Materials = materials;
         }
-
-        public int CurrentPageNumber { get; set; }
-
-        public int TotalPagesCount { get; set; }
-
-        public IEnumerable<Material> Materials { get; set; }
     }
 }

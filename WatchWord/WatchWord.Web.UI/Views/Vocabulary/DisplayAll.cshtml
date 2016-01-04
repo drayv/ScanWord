@@ -1,0 +1,65 @@
+﻿@model WatchWord.Web.UI.Models.Vocabulary.DisplayAllViewModel
+@{
+    ViewBag.Title = "Vocabulary";
+}
+
+<h2>Learning words:</h2>
+<button id="learnWordButton">add test</button>
+<div class="learn-word-list">
+    @foreach (var learnWord in Model.LearnWords)
+    {
+        <div class="word">@learnWord.Word \ @learnWord.Translation</div>
+    }
+</div>
+
+<h2>Known words:</h2>
+<button id="knownWordButton">add test</button>
+<div class="known-word-list">
+    @foreach (var knownWord in Model.KnownWords)
+    {
+        <div class="word">@knownWord.Word \ @knownWord.Translation</div>
+    }
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/validation")
+    <script>
+        $("#learnWordButton").on("click", function () {
+            $.ajax({
+                url: "/Vocabulary/InsertLearnWord",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ word: "test", translation: "тест" }),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (data) {
+                    alert("error: " + data);
+                }
+            });
+        });
+
+        $("#knownWordButton").on("click", function () {
+            $.ajax({
+                url: "/Vocabulary/InsertKnownWord",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ word: "test", translation: "тест" }),
+                async: true,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (data) {
+                    alert("error: " + data);
+                }
+            });
+        });
+    </script>
+}

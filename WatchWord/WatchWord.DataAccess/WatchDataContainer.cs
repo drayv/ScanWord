@@ -32,6 +32,12 @@ namespace WatchWord.DataAccess
         /// <summary>Gets or sets the materials.</summary>
         public DbSet<Material> Materials { get; set; }
 
+        /// <summary>Gets or sets the vocabulary of known words.</summary>
+        public DbSet<KnownWord> KnownWords { get; set; }
+
+        /// <summary>Gets or sets the vocabulary of learning words.</summary>
+        public DbSet<LearnWord> LearnWords { get; set; }
+
         /// <summary>Configure model with fluent API.</summary>
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -46,6 +52,8 @@ namespace WatchWord.DataAccess
 
             modelBuilder.Entity<Account>().HasKey(a => a.Id);
             modelBuilder.Entity<Material>().HasKey(m => m.Id);
+            modelBuilder.Entity<KnownWord>().HasKey(k => k.Id);
+            modelBuilder.Entity<LearnWord>().HasKey(l => l.Id);
         }
     }
 }

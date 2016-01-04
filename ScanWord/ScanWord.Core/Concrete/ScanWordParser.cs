@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,7 +17,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="absolutePath">Path to the file that you want to parse.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Unordered collection of words in file.</returns>
         public List<Word> ParseUnigueWordsInFile(string absolutePath)
         {
@@ -33,7 +32,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="absolutePath">Path to the file that you want to parse.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Unordered collection of word compositions in file.</returns>
         public List<Composition> ParseAllWordsInFile(string absolutePath)
         {
@@ -49,7 +48,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="encoding">Character encoding.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Unordered collection of words in file.</returns>
         public List<Word> ParseUnigueWordsInFile(string absolutePath, Encoding encoding)
         {
@@ -65,7 +64,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="encoding">Character encoding.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Unordered collection of word compositions in file.</returns>
         public List<Composition> ParseAllWordsInFile(string absolutePath, Encoding encoding)
         {
@@ -81,7 +80,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="stream">Stream reader for the text file.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Unordered collection of words in file.</returns>
         public List<Word> ParseUnigueWordsInFile(File scanFile, StreamReader stream)
         {
@@ -93,7 +92,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="stream">Stream reader for the text file.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>Unordered collection of word compositions in file.</returns>
         public List<Composition> ParseAllWordsInFile(File scanFile, StreamReader stream)
         {
@@ -106,7 +105,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="type">Type of result.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         private static ScanResult ParseFile(File scanFile, TextReader stream, TypeResult type)
         {
             var pattern = new Regex(@"[^\W_\d]([^\W_\d]|[-’'](?=[^\W_\d]))*([^\W_\d]|['’])?");
@@ -149,7 +148,7 @@ namespace ScanWord.Core.Concrete
         /// <param name="encoding">Character encoding.</param>
         /// <exception cref="FileNotFoundException">Absolute path lead to the not existing file.</exception>
         /// <exception cref="DirectoryNotFoundException">Absolute path lead to the not existing directory.</exception>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>The <see cref="StreamReader"/> of the file.</returns>
         private static StreamReader OpenFileStreamReader(string absolutePath, Encoding encoding)
         {
@@ -166,9 +165,9 @@ namespace ScanWord.Core.Concrete
             {
                 throw;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                throw new NotSupportedException(ex.Message, ex.InnerException);
+                throw new System.NotSupportedException(ex.Message, ex.InnerException);
             }
         }
 
@@ -196,7 +195,7 @@ namespace ScanWord.Core.Concrete
 
         /// <summary>Gets file entity by absolute path.</summary>
         /// <param name="absolutePath">Absolute path.</param>
-        /// <exception cref="NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
+        /// <exception cref="System.NotSupportedException">File from absolute path don't support read or a security error is detected.</exception>
         /// <returns>The <see cref="File"/> entity.</returns>
         private static File GetScanFileByPath(string absolutePath)
         {
@@ -212,9 +211,9 @@ namespace ScanWord.Core.Concrete
                 };
                 return scanFile;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                throw new NotSupportedException(ex.Message, ex.InnerException);
+                throw new System.NotSupportedException(ex.Message, ex.InnerException);
             }
         }
 

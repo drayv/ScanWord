@@ -23,6 +23,10 @@
                         }
                     </ul>
                 </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Vocabulary", "DisplayAll", "Vocabulary")</li>
+                }
                 <li>
                     @using (Html.BeginForm("Search", "Navigation", FormMethod.Post, new { @class = "navbar-form navbar-left", role = "search" }))
                     {

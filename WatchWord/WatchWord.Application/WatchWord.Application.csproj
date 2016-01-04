@@ -39,10 +39,14 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityServices\Abstract\IAccountService.cs" />
     <Compile Include="EntityServices\Abstract\IImageService.cs" />
     <Compile Include="EntityServices\Abstract\IMaterialsService.cs" />
+    <Compile Include="EntityServices\Abstract\IVocabularyService.cs" />
+    <Compile Include="EntityServices\Concrete\AccountService.cs" />
     <Compile Include="EntityServices\Concrete\ImageService.cs" />
     <Compile Include="EntityServices\Concrete\MaterialsService.cs" />
+    <Compile Include="EntityServices\Concrete\VocabularyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

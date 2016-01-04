@@ -36,9 +36,14 @@
   <ItemGroup>
     <Compile Include="DataAccess\IWatchWordUnitOfWork.cs" />
     <Compile Include="DataAccess\Repositories\IAccountsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\IKnownWordsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\ILearnWordsRepository.cs" />
     <Compile Include="DataAccess\Repositories\IMaterialsRepository.cs" />
+    <Compile Include="Entity\KnownWord.cs" />
+    <Compile Include="Entity\LearnWord.cs" />
     <Compile Include="Entity\Material.cs" />
     <Compile Include="Entity\Account.cs" />
+    <Compile Include="Entity\VocabWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

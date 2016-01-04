@@ -19,6 +19,12 @@ namespace WatchWord.Domain.DataAccess
         /// <summary>Gets the instance of the <see cref="IAccountsRepository"/>.</summary>
         IAccountsRepository AccountsRepository { get; }
 
+        /// <summary>Gets the instance of the <see cref="IKnownWordsRepository"/>.</summary>
+        IKnownWordsRepository KnownWordsRepository { get; }
+
+        /// <summary>Gets the instance of the <see cref="ILearnWordsRepository"/>.</summary>
+        ILearnWordsRepository LearnWordsRepository { get; }
+
         /// <summary>Saves all pending changes.</summary>
         /// <returns>The count of changed elements.</returns>
         int Commit();
