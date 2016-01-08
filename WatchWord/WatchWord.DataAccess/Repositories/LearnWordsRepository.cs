@@ -8,6 +8,7 @@ namespace WatchWord.DataAccess.Repositories
     /// <summary>Represents repository pattern for vocabulary of learning words.</summary>
     public class LearnWordsRepository : EfGenericRepository<LearnWord, int>, ILearnWordsRepository
     {
+        /// <summary>Entity framework context.</summary>
         private readonly DbContext _context;
 
         /// <summary>Initializes a new instance of the <see cref="LearnWordsRepository"/> class.</summary>

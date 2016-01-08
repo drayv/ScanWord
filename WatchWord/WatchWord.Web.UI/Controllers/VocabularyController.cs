@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 
 namespace WatchWord.Web.UI.Controllers
 {
+    /// <summary>Vocabulary controller.</summary>
     public class VocabularyController : AsyncController
     {
         private readonly IVocabularyService _vocabularyService;
@@ -17,6 +18,8 @@ namespace WatchWord.Web.UI.Controllers
             _vocabularyService = vocabularyService;
         }
 
+        /// <summary>Shows all words from all user dictionaries.</summary>
+        /// <returns>Vocabularies page.</returns>
         [Authorize]
         public async Task<ActionResult> DisplayAll()
         {
@@ -29,6 +32,10 @@ namespace WatchWord.Web.UI.Controllers
             return View(model);
         }
 
+        /// <summary>Inserts word to the user vocabulary of known words.</summary>
+        /// <param name="word">Original word.</param>
+        /// <param name="translation">Translation of the word.</param>
+        /// <returns>JSON with result data.</returns>
         [HttpPost]
         [Authorize]
         public JsonResult InsertKnownWord(string word, string translation)
@@ -37,6 +44,10 @@ namespace WatchWord.Web.UI.Controllers
             return Json(result > 0 ? "success, entities: " + result : "error");
         }
 
+        /// <summary>Inserts word to the user vocabulary of known words.</summary>
+        /// <param name="word">Original word.</param>
+        /// <param name="translation">Translation of the word.</param>
+        /// <returns>JSON with result data.</returns>
         [HttpPost]
         [Authorize]
         public JsonResult InsertLearnWord(string word, string translation)

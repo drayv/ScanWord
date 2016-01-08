@@ -16,6 +16,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         private readonly IWatchWordUnitOfWork _watchWordUnitOfWork;
         private readonly IScanWordParser _parser;
         private readonly IImageService _imageService;
+        private readonly IAccountService _accountService;
 
         /// <summary>Prevents a default instance of the <see cref="MaterialsService"/> class from being created.</summary>
         // ReSharper disable once UnusedMember.Local
@@ -27,10 +28,12 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="watchWordUnitOfWork">Unit of work over WatchWord repositories.</param>
         /// <param name="parser">Words parser.</param>
         /// <param name="imageService">Image service.</param>
-        public MaterialsService(IWatchWordUnitOfWork watchWordUnitOfWork, IScanWordParser parser, IImageService imageService)
+        /// <param name="accountService">Account service.</param>
+        public MaterialsService(IWatchWordUnitOfWork watchWordUnitOfWork, IScanWordParser parser, IImageService imageService, IAccountService accountService)
         {
             _watchWordUnitOfWork = watchWordUnitOfWork;
             _imageService = imageService;
+            _accountService = accountService;
             _parser = parser;
         }
 
@@ -58,6 +61,7 @@ namespace WatchWord.Application.EntityServices.Concrete
             }
 
             material.Image = _imageService.CropImage(imageStream, width, height);
+            material.Owner = _accountService.GetByExternalId(userId);
 
             return material;
         }

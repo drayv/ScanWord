@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using ScanWord.Core.Entity;
+using System.Data.Entity.SqlServer;
 
 namespace ScanWord.DataAccess
 {

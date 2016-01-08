@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.Entity;
 using WatchWord.Web.UI.Models.Materials;
@@ -9,9 +10,7 @@ namespace WatchWord.Web.UI.Controllers
     /// <summary>Materials controller.</summary>
     public class MaterialsController : AsyncController
     {
-        /// <summary>Service for work with materials.</summary>
         private readonly IMaterialsService _service;
-
         private const int ImageMaxWidth = 190;
         private const int ImageMaxHeight = 280;
         private const int PageSize = 10;
@@ -66,9 +65,8 @@ namespace WatchWord.Web.UI.Controllers
                 return View(model);
             }
 
-            // TODO: get userId
             var material = _service.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name,
-                model.Description, 0, ImageMaxWidth, ImageMaxHeight);
+                model.Description, User.Identity.GetUserId<int>(), ImageMaxWidth, ImageMaxHeight);
 
             TempData["MaterialModel"] = material;
             return RedirectToAction("Save");

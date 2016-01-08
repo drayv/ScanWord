@@ -31,7 +31,7 @@ namespace ScanWord.DataAccess.Repositories.Generic
         /// <param name="entity">The entity.</param>
         public virtual void Insert(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Added;
+            _dbSet.Add(entity);
         }
 
         /// <summary>Inserts entities.</summary>

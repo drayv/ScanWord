@@ -74,7 +74,7 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>LogIn post method.</summary>
-        /// <param name="model">LogIn view model</param>
+        /// <param name="model">LogIn view model.</param>
         /// <returns>Action result task <see cref="Task"/>.</returns>
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> LogIn(LoginViewModel model)
@@ -123,16 +123,16 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>Check if login is already registered.</summary>
-        /// <param name="login">A username from a form</param>
-        /// <returns>JSON with result data</returns>
+        /// <param name="login">A username from a form.</param>
+        /// <returns>JSON with result data.</returns>
         public JsonResult RemoteLoginValidation(string login)
         {
             return Json(UserManager.Users.All(n => string.Compare(login, n.UserName, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>Check if this email is already registered.</summary>
-        /// <param name="email">A email from a form</param>
-        /// <returns>JSON with result data</returns>
+        /// <param name="email">A email from a form.</param>
+        /// <returns>JSON with result data.</returns>
         public JsonResult RemoteEmailValidation(string email)
         {
             return Json(UserManager.Users.All(n => string.Compare(email, n.Email, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);

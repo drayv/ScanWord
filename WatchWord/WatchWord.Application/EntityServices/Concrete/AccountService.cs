@@ -4,6 +4,7 @@ using WatchWord.Domain.Entity;
 
 namespace WatchWord.Application.EntityServices.Concrete
 {
+    /// <summary>Represents a layer for work with user accounts.</summary>
     public class AccountService : IAccountService
     {
         private readonly IWatchWordUnitOfWork _watchWordUnitOfWork;
@@ -21,6 +22,9 @@ namespace WatchWord.Application.EntityServices.Concrete
             _watchWordUnitOfWork = watchWordUnitOfWork;
         }
 
+        /// <summary>Gets user account by external identifier.</summary>
+        /// <param name="id">External identifier, asp.net identity id, e.t.c.</param>
+        /// <returns>User account.</returns>
         public Account GetByExternalId(int id)
         {
             var account = _watchWordUnitOfWork.AccountsRepository.GetByСondition(a => a.ExternalId == id);

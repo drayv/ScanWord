@@ -38,7 +38,7 @@ namespace WatchWord.Application.EntityServices.Abstract
         Material GetMaterial(int id);
 
         /// <summary>Gets the total count of materils.</summary>
-        /// <returns>Total count of materials</returns>
+        /// <returns>Total count of materials.</returns>
         int TotalCount();
     }
 }
