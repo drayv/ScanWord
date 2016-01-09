@@ -13,11 +13,13 @@ namespace WatchWord.Web.UI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/theme.css",
+                "~/Content/jquery.contextMenu.css",
                 "~/Content/site.css"));
 
             // libraries
             bundles.Add(new ScriptBundle("~/Scripts/libraries").Include(
                 "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.contextMenu.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/google.analytics.js"));

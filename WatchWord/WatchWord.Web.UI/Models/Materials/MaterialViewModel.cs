@@ -1,19 +1,19 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using WatchWord.Domain.Entity;
 
 namespace WatchWord.Web.UI.Models.Materials
 {
     public class MaterialViewModel
     {
-        public MaterialViewModel(Material material, int width, int height)
+        public MaterialViewModel(Material material, List<VocabWord> vocabWords,  int width, int height)
         {
             if (material == null)
             {
                 throw new ArgumentNullException("material");
             }
 
-            InitializeFields(material, width, height);
+            InitializeFields(material, vocabWords, width, height);
         }
 
         public string Image { get; set; }
@@ -26,16 +26,19 @@ namespace WatchWord.Web.UI.Models.Materials
 
         public string Description { get; set; }
 
-        public string[] Words { get; set; }
+        public List<VocabWord> Words { get; set; }
 
-        private void InitializeFields(Material material, int width, int height)
+        public int Counter;
+
+        private void InitializeFields(Material material, List<VocabWord> vocabWords, int width, int height)
         {
             Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image));
             Name = material.Name;
             Description = material.Description ?? string.Empty;
             ImageWidth = width.ToString();
             ImageHeight = height.ToString();
-            Words = material.File.Words == null ? new string[0] : material.File.Words.Select(n => n.TheWord).ToArray();
+            Words = vocabWords;
+            Counter = 1;
         }
     }
 }

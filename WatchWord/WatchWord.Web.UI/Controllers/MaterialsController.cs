@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using WatchWord.Application.EntityServices.Abstract;
@@ -10,30 +12,34 @@ namespace WatchWord.Web.UI.Controllers
     /// <summary>Materials controller.</summary>
     public class MaterialsController : AsyncController
     {
-        private readonly IMaterialsService _service;
+        private readonly IMaterialsService _materialService;
+        private readonly IVocabularyService _vocabularyService;
         private const int ImageMaxWidth = 190;
         private const int ImageMaxHeight = 280;
         private const int PageSize = 10;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
-        /// <param name="service">Material service.</param>
-        public MaterialsController(IMaterialsService service)
+        /// <param name="materialService">Material service.</param>
+        /// <param name="vocabularyService">Vocabulary service.</param>
+        public MaterialsController(IMaterialsService materialService, IVocabularyService vocabularyService)
         {
-            _service = service;
+            _materialService = materialService;
+            _vocabularyService = vocabularyService;
         }
 
         /// <summary>Shows material by specified Id.</summary>
         /// <param name="id">Material identifier.</param>
         /// <returns>Material page.</returns>
-        public ActionResult Material(int id)
+        public async Task<ActionResult> Material(int id)
         {
-            var testMaterial = _service.GetMaterial(id);
-            if (testMaterial == null)
+            var material = _materialService.GetMaterial(id);
+            if (material == null)
             {
                 return RedirectToAction("DisplayAll"); // TODO: change to main page redirect.
             }
 
-            return View(new MaterialViewModel(testMaterial, ImageMaxWidth, ImageMaxHeight));
+            var vocabWords = await FillVocabWordsByMaterial(material);
+            return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
         }
 
         /// <summary>Shows all types of materials on the page.</summary>
@@ -41,7 +47,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>Materials list page.</returns>
         public async Task<ActionResult> DisplayAll(int pageNumber = 1)
         {
-            var model = new DisplayAllViewModel(PageSize, pageNumber, _service.TotalCount(), await _service.GetMaterials(pageNumber, PageSize));
+            var model = new DisplayAllViewModel(PageSize, pageNumber, _materialService.TotalCount(), await _materialService.GetMaterials(pageNumber, PageSize));
             return View(model);
         }
 
@@ -65,7 +71,7 @@ namespace WatchWord.Web.UI.Controllers
                 return View(model);
             }
 
-            var material = _service.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name,
+            var material = _materialService.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name,
                 model.Description, User.Identity.GetUserId<int>(), ImageMaxWidth, ImageMaxHeight);
 
             TempData["MaterialModel"] = material;
@@ -75,12 +81,13 @@ namespace WatchWord.Web.UI.Controllers
         /// <summary>Saves parsed material.</summary>
         /// <returns>Save material form.</returns>
         [Authorize]
-        public ActionResult Save()
+        public async Task<ActionResult> Save()
         {
             var material = TempData.Peek("MaterialModel") as Material;
             if (material != null)
             {
-                return View(new MaterialViewModel(material, ImageMaxWidth, ImageMaxHeight));
+                var vocabWords = await FillVocabWordsByMaterial(material);
+                return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
             }
 
             return RedirectToAction("ParseMaterial");
@@ -97,8 +104,16 @@ namespace WatchWord.Web.UI.Controllers
             if (!TempData.TryGetValue("MaterialModel", out material)) return RedirectToAction("ParseMaterial");
             var saveMaterial = material as Material;
             if (saveMaterial == null) return RedirectToAction("ParseMaterial");
-            await _service.SaveMaterial((Material)material);
+            await _materialService.SaveMaterial((Material)material);
             return RedirectToAction("DisplayAll"); // TODO: redirect to material page.
+        }
+
+        /// <summary>Fills list of words with translation.</summary>
+        /// <param name="material">Material.</param>
+        /// <returns>List of vocabulary words.</returns>
+        private async Task<List<VocabWord>> FillVocabWordsByMaterial(Material material)
+        {
+            return await _vocabularyService.FillVocabByWords(material.File.Words == null ? new string[0] : material.File.Words.Select(n => n.TheWord).ToArray());
         }
     }
 }

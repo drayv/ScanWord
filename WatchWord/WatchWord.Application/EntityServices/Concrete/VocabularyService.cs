@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.DataAccess;
@@ -52,7 +53,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         public int InsertKnownWord(string word, string translation, int userId)
         {
             var account = _accountService.GetByExternalId(userId);
-            var knownWord = new KnownWord { Word = word, Translation = translation, Owner = account };
+            var knownWord = new KnownWord { Word = word, Translation = translation, Owner = account, Type = VocabType.KnownWord };
             _watchWordUnitOfWork.KnownWordsRepository.Insert(knownWord);
             return _watchWordUnitOfWork.Commit();
         }
@@ -65,9 +66,27 @@ namespace WatchWord.Application.EntityServices.Concrete
         public int InsertLearnWord(string word, string translation, int userId)
         {
             var account = _accountService.GetByExternalId(userId);
-            var learnWord = new LearnWord { Word = word, Translation = translation, Owner = account };
+            var learnWord = new LearnWord { Word = word, Translation = translation, Owner = account, Type = VocabType.LearnWord };
             _watchWordUnitOfWork.LearnWordsRepository.Insert(learnWord);
             return _watchWordUnitOfWork.Commit();
+        }
+
+        /// <summary>Fills list of words with translation.</summary>
+        /// <param name="words">Words without translation.</param>
+        /// <returns>List of words with translation.</returns>
+        public async Task<List<VocabWord>> FillVocabByWords(string[] words)
+        {
+            var vocabWords = new List<VocabWord>();
+
+            vocabWords.AddRange(await _watchWordUnitOfWork.LearnWordsRepository.GetAllAsync(l => words.Contains(l.Word)));
+            vocabWords.AddRange(await _watchWordUnitOfWork.KnownWordsRepository.GetAllAsync(k => words.Contains(k.Word)));
+
+            foreach (var word in words.Where(word => vocabWords.All(v => v.Word != word)))
+            {
+                vocabWords.Add(new VocabWord { Word = word, Translation = "no" });
+            }
+
+            return vocabWords;
         }
     }
 }

@@ -5,18 +5,40 @@
     color: #D04437;
 }
 
+.search-group {
+    padding-top: 1px;
+}
+
+/* WORDS */
+
 .words {
     margin-top: 20px;
 }
 
-.word {
+.word, .learnWord, .knownWord {
     color: #222469;
     display: inline;
     border: 1px solid #fcdddd;
 }
 
-.search-group {
-    padding-top: 1px;
+@keyframes pop {
+    from {
+        color: #d04437;
+        border-color: #ffb3b3;
+    }
+
+    to {
+        color: #222469;
+        border-color: #fcdddd;
+    }
+}
+
+.word:hover {
+    -webkit-animation: pop 0.5s 1;
+    -moz-animation: pop 0.5s 1;
+    -ms-animation: pop 0.5s 1;
+    -o-animation: pop 0.5s 1;
+    animation: pop 0.5s 1;
 }
 
 /* REGISTRATION PAGE */
@@ -73,13 +95,13 @@
 
 /* MATERIAL */
 
-.materialInfo img{
+.materialInfo img {
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
 }
 
-.materialInfo .words{
+.materialInfo .words {
     clear: left;
 }
 
@@ -89,10 +111,6 @@
 }
 
 #material-name {
-    font-weight: bold; 
+    font-weight: bold;
     font-size: 200%;
-}
-
-#material-description {
-    
 }
