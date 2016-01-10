@@ -3,9 +3,28 @@
     ViewBag.Title = "Materials";
 }
 
-@foreach (var material in Model.Materials)
-{
-    <div class="material-in-list">
-        <a href=@Url.Action(material.Id.ToString(), "Material")>@material.Name</a>
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-9">
+        @foreach (var material in Model.Materials)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="material text-center">
+                    <img src="@string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image))" />
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <p class="label label-info">@material.Type</p>
+                        </div>
+                        <div class="col-xs-8">
+                            <p class="text-right words-count"><span>Words: </span><span class="label label-primary">@material.File.Words.Count</span></p>
+                        </div>
+                        <h3 class="material-name">@material.Name</h3>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-}
+    <!--Menu-->
+    <div class="col-sm-4 col-md-3 hidden-xs" id="material-name">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </div>
+</div>
