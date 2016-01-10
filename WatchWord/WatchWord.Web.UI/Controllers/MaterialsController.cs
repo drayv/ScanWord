@@ -47,8 +47,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>Materials list page.</returns>
         public async Task<ActionResult> DisplayAll(int pageNumber = 1)
         {
-            //todo: заменить на узнавание количества слов, если знание всех слов в материале окажется излишним.
-            //Можно использовать Dictionary<Material, int> на худой случай.
+            //TODO: do not include all the words! Make a separate method for statistics.
             var materials = await _materialService.GetMaterials(pageNumber, PageSize);
             foreach (var material in materials)
             {

@@ -1,0 +1,31 @@
+﻿@using WatchWord.Domain.Entity
+@model List<Setting>
+@{
+    ViewBag.Title = "Settings";
+}
+
+<h2>Settings</h2>
+
+@using (Html.BeginForm("SaveSettings", "Settings", FormMethod.Post, new { enctype = "multipart/form-data", id = "file-form" }))
+{
+    for (var i = 0; i < Model.Count; i++)
+    {
+        if (Model[i].Key == SettingKey.YandexDictionaryApiKey)
+        {
+            @Html.Label("Yandex dictionary api key:")
+            @* TODO: viewModel *@
+        }
+        if (Model[i].Key == SettingKey.YandexTranslateApiKey)
+        {
+            @Html.Label("Yandex translate api key:")
+        }
+
+        @Html.TextBox("Model[" + (@i) + "].Type", Model[i].Type, new { @style = "visibility: hidden;" })
+        @Html.TextBox("Model[" + (@i) + "].Key", Model[i].Key, new { @style = "visibility: hidden;" })
+        @Html.TextBox("Model[" + (@i) + "].String", Model[i].String, new { @class = "form-control" })
+    }
+    <br/>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}

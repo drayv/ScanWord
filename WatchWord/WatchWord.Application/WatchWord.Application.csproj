@@ -34,6 +34,10 @@
       <HintPath>..\..\packages\ImageProcessor.2.3.1.0\lib\net45\ImageProcessor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -42,10 +46,14 @@
     <Compile Include="EntityServices\Abstract\IAccountService.cs" />
     <Compile Include="EntityServices\Abstract\IImageService.cs" />
     <Compile Include="EntityServices\Abstract\IMaterialsService.cs" />
+    <Compile Include="EntityServices\Abstract\ISettingsService.cs" />
+    <Compile Include="EntityServices\Abstract\ITranslationService.cs" />
     <Compile Include="EntityServices\Abstract\IVocabularyService.cs" />
     <Compile Include="EntityServices\Concrete\AccountService.cs" />
     <Compile Include="EntityServices\Concrete\ImageService.cs" />
     <Compile Include="EntityServices\Concrete\MaterialsService.cs" />
+    <Compile Include="EntityServices\Concrete\SettingsService.cs" />
+    <Compile Include="EntityServices\Concrete\TranslationService.cs" />
     <Compile Include="EntityServices\Concrete\VocabularyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

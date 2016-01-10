@@ -12,6 +12,8 @@ namespace WatchWord.Web.UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(null, "Settings", new { controller = "Settings", action = "Index" });
+
             routes.MapRoute(null, "Materials", new { controller = "Materials", action = "DisplayAll", pageNumber = 1 });
 
             routes.MapRoute(null, "Vocabulary", new { controller = "Vocabulary", action = "DisplayAll" });

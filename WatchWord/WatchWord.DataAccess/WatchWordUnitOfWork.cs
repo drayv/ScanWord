@@ -57,6 +57,12 @@ namespace WatchWord.DataAccess
             get { return new LearnWordsRepository(_context); }
         }
 
+        /// <summary>Gets the instance of the <see cref="ISettingsRepository"/>.</summary>
+        public ISettingsRepository SettingsRepository
+        {
+            get { return new SettingsRepository(_context); }
+        }
+
         /// <summary>Saves all pending changes.</summary>
         /// <returns>The count of changed elements.</returns>
         public int Commit()

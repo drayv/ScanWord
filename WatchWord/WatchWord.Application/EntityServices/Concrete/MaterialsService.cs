@@ -81,6 +81,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <returns>The list of materials.</returns>
         public async Task<List<Material>> GetMaterials(int currentPage, int pageSize)
         {
+            //TODO: do not include all the words! Make a separate method for statistics.
             var pagesToSkip = (currentPage <= 0 ? 1 : currentPage) - 1;
             return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(pagesToSkip * pageSize, pageSize, null, n => n.File.Words);
         }

@@ -314,6 +314,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MaterialsController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\VocabularyController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -355,6 +356,7 @@
     <Content Include="Views\Materials\DisplayAll.cshtml" />
     <Content Include="Views\Materials\Material.cshtml" />
     <Content Include="Views\Vocabulary\DisplayAll.cshtml" />
+    <Content Include="Views\Settings\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -364,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WatchWord.DataAccess\WatchWord.DataAccess.csproj">

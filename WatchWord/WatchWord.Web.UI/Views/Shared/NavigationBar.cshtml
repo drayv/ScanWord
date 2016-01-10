@@ -55,6 +55,7 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">@User.Identity.Name <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Settings", "Index", "Settings")</li>
                             <li>@Html.ActionLink("Log out", "LogOut", "Account")</li>
                         </ul>
                     </li>

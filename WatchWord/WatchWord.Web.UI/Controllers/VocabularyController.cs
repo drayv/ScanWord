@@ -1,11 +1,8 @@
-﻿using System;
-using System.IO;
-using WatchWord.Application.EntityServices.Abstract;
+﻿using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Web.UI.Models.Vocabulary;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using System.Net;
 
 namespace WatchWord.Web.UI.Controllers
 {
@@ -13,12 +10,15 @@ namespace WatchWord.Web.UI.Controllers
     public class VocabularyController : AsyncController
     {
         private readonly IVocabularyService _vocabularyService;
+        private readonly ITranslationService _translationService;
 
         /// <summary>Initializes a new instance of the <see cref="VocabularyController"/> class.</summary>
         /// <param name="vocabularyService">Vocabulary service.</param>
-        public VocabularyController(IVocabularyService vocabularyService)
+        /// <param name="translationService">Translation service.</param>
+        public VocabularyController(IVocabularyService vocabularyService, ITranslationService translationService)
         {
             _vocabularyService = vocabularyService;
+            _translationService = translationService;
         }
 
         /// <summary>Shows all words from all user dictionaries.</summary>
@@ -63,30 +63,8 @@ namespace WatchWord.Web.UI.Controllers
         [Authorize]
         public JsonResult GetTranslations(string word)
         {
-            //TODO: hide key (db?)
-            var key = "dict.1.1.201blablalba";
-            var address = string.Format("https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={0}&lang={1}&text={2}",
-            Uri.EscapeDataString(key),
-            Uri.EscapeDataString("en-ru"),
-            Uri.EscapeDataString(word));
-
-            var text = "";
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(address);
-            httpWebRequest.ContentType = "text/json";
-            httpWebRequest.Method = "POST";
-
-            var httpResponse = ((HttpWebResponse)httpWebRequest.GetResponse()).GetResponseStream();
-            if (httpResponse == null) return Json(text);
-            using (var streamReader = new StreamReader(httpResponse))
-            {
-                text = streamReader.ReadToEnd();
-            }
-
-            //TODO: parse dict
-
-            //TODO: yandex translate if dict is null
-
-            return Json(text);
+            var translations = _translationService.GetTranslations(word);
+            return Json(translations);
         }
     }
 }
