@@ -33,7 +33,10 @@
                     typeWord = "word";
                     break;
             }
-            <div id="word_@Model.Counter" class=@typeWord>@word.Word</div>
+            <div id="word_@Model.Counter" class=@typeWord>
+                <div class="translation">@word.Translation</div>
+                <div class="origin">@word.Word</div>
+            </div>
             Model.Counter++;
         }
     </div>
@@ -42,54 +45,66 @@
 @section Scripts {
     <script>
         $(function () {
-            var knownWordsMenu = {
-                "moveToLearnnWords": { name: "Move to learning words" },
-                sep1: "---------",
-                "removeFromVocabulary": { name: "Remove from vocabulary" }
-            }
-
-            var learnWordsMenu = {
-                "moveToKnownWords": { name: "Move to known words" },
-                sep1: "---------",
-                "removeFromVocabulary": { name: "Remove from vocabulary" }
-            }
-
-            var newWordsMenu = {
-                "addToLearnnWords": { name: "Add to learning words" },
-                sep1: "---------",
-                "addToKnownWords": { name: "Add to known words" }
+            function translate(word) {
+                $.ajax({
+                    url: "/Vocabulary/GetTranslations",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ word: word }),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (data) {
+                        alert("error: " + data);
+                    }
+                });
             }
 
             function contextMenuClick(key, options) {
-                var m = "clicked: " + key + ", " + options.selector;
+                var m = "clicked: " + key + ", " + options.selector + ", " + options.$trigger.attr("id");
                 window.console && console.log(m) || alert(m);
+
+                if (key === "addToLearnWords" || key === "addToKnownWords") {
+                    var word = $("#" + options.$trigger.attr("id") + " > .origin")[0].innerHTML || "";
+                    translate(word);
+                }
             }
 
-            $.each($(".knownWord"), function (key, value) {
-                $.contextMenu({
-                    selector: "#" + value.id,
-                    trigger: "left",
-                    callback: contextMenuClick,
-                    items: knownWordsMenu
-                });
+            $.contextMenu({
+                selector: ".knownWord",
+                trigger: "left",
+                callback: contextMenuClick,
+                items: {
+                    "addToLearnWords": { name: "Move to learning words" },
+                    separator: "---------",
+                    "removeFromVocabulary": { name: "Remove from vocabulary" }
+                }
             });
 
-            $.each($(".learnWord"), function (key, value) {
-                $.contextMenu({
-                    selector: "#" + value.id,
-                    trigger: "left",
-                    callback: contextMenuClick,
-                    items: learnWordsMenu
-                });
+            $.contextMenu({
+                selector: ".learnWord",
+                trigger: "left",
+                callback: contextMenuClick,
+                items: {
+                    "addToKnownWords": { name: "Move to known words" },
+                    separator: "---------",
+                    "removeFromVocabulary": { name: "Remove from vocabulary" }
+                }
             });
 
-            $.each($(".word"), function (key, value) {
-                $.contextMenu({
-                    selector: "#" + value.id,
-                    trigger: "left",
-                    callback: contextMenuClick,
-                    items: newWordsMenu
-                });
+            $.contextMenu({
+                selector: ".word",
+                trigger: "left",
+                callback: contextMenuClick,
+                items: {
+                    "addToLearnWords": { name: "Add to learning words" },
+                    separator: "---------",
+                    "addToKnownWords": { name: "Add to known words" }
+                }
             });
         });
     </script>

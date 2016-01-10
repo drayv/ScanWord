@@ -12,13 +12,23 @@
 /* WORDS */
 
 .words {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
-.word, .learnWord, .knownWord {
+.word {
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.origin {
     color: #222469;
-    display: inline;
     border: 1px solid #fcdddd;
+}
+
+.translation {
+    font-size: 70%;
+    text-align: right;
+    color: #222469;
 }
 
 @keyframes pop {
@@ -33,12 +43,17 @@
     }
 }
 
-.word:hover {
-    -webkit-animation: pop 0.5s 1;
-    -moz-animation: pop 0.5s 1;
-    -ms-animation: pop 0.5s 1;
-    -o-animation: pop 0.5s 1;
-    animation: pop 0.5s 1;
+.origin:hover {
+    -webkit-animation: pop 1s 1;
+    -moz-animation: pop 1s 1;
+    -ms-animation: pop 1s 1;
+    -o-animation: pop 1s 1;
+    animation: pop 1s 1;
+}
+
+.context-menu-active {
+    color: #d04437;
+    border-color: #ffb3b3;
 }
 
 /* REGISTRATION PAGE */
@@ -98,7 +113,7 @@
 .materialInfo img {
     float: left;
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .materialInfo .words {

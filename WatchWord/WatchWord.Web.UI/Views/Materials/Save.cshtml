@@ -1,4 +1,5 @@
-﻿@model WatchWord.Web.UI.Models.Materials.MaterialViewModel
+﻿@using WatchWord.Domain.Entity
+@model WatchWord.Web.UI.Models.Materials.MaterialViewModel
 @{
     ViewBag.Title = "Save material";
 }
@@ -20,7 +21,24 @@
     <div class="words">
         @foreach (var word in Model.Words)
         {
-            <div class="word">@word</div>
+            string typeWord;
+            switch (word.Type)
+            {
+                case VocabType.KnownWord:
+                    typeWord = "knownWord";
+                    break;
+                case VocabType.LearnWord:
+                    typeWord = "learnWord";
+                    break;
+                default:
+                    typeWord = "word";
+                    break;
+            }
+            <div id="word_@Model.Counter" class=@typeWord>
+                <div class="translation">@word.Translation</div>
+                <div class="origin">@word.Word</div>
+            </div>
+            Model.Counter++;
         }
     </div>
 </div>

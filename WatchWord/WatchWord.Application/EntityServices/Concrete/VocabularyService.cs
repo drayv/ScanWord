@@ -83,7 +83,7 @@ namespace WatchWord.Application.EntityServices.Concrete
 
             foreach (var word in words.Where(word => vocabWords.All(v => v.Word != word)))
             {
-                vocabWords.Add(new VocabWord { Word = word, Translation = "no" });
+                vocabWords.Add(new VocabWord { Word = word, Translation = "" });
             }
 
             return vocabWords;
