@@ -31,6 +31,10 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <returns>The count of changed elements in data storage.</returns>
         int InsertLearnWord(string word, string translation, int userId);
 
-        Task<List<VocabWord>> FillVocabByWords(string[] words);
+        /// <summary>Fills list of words with their translations.</summary>
+        /// <param name="words">Words without translation.</param>
+        /// <param name="userId">External user identifier.</param>
+        /// <returns>List of original words with translations from owner vocabulary.</returns>
+        Task<List<VocabWord>> FillVocabByWords(string[] words, int userId);
     }
 }

@@ -52,9 +52,24 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <returns>The count of changed elements in data storage.</returns>
         public int InsertKnownWord(string word, string translation, int userId)
         {
-            var account = _accountService.GetByExternalId(userId);
-            var knownWord = new KnownWord { Word = word, Translation = translation, Owner = account, Type = VocabType.KnownWord };
-            _watchWordUnitOfWork.KnownWordsRepository.Insert(knownWord);
+            var owner = _accountService.GetByExternalId(userId);
+            var knownWord = new KnownWord { Word = word, Translation = translation, Owner = owner, Type = VocabType.KnownWord };
+
+            var existing = _watchWordUnitOfWork.KnownWordsRepository.GetByСondition(
+                k => k.Owner.Id == owner.Id && k.Word == word, k => k.Owner);
+
+            if (existing != null)
+            {
+                // Update translation if word exist.
+                existing.Translation = translation;
+                _watchWordUnitOfWork.KnownWordsRepository.Update(existing);
+            }
+            else
+            {
+                // Insert if this a new word.
+                _watchWordUnitOfWork.KnownWordsRepository.Insert(knownWord);
+            }
+
             return _watchWordUnitOfWork.Commit();
         }
 
@@ -65,21 +80,38 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <returns>The count of changed elements in data storage.</returns>
         public int InsertLearnWord(string word, string translation, int userId)
         {
-            var account = _accountService.GetByExternalId(userId);
-            var learnWord = new LearnWord { Word = word, Translation = translation, Owner = account, Type = VocabType.LearnWord };
-            _watchWordUnitOfWork.LearnWordsRepository.Insert(learnWord);
+            var owner = _accountService.GetByExternalId(userId);
+            var learnWord = new LearnWord { Word = word, Translation = translation, Owner = owner, Type = VocabType.LearnWord };
+
+            var existing = _watchWordUnitOfWork.LearnWordsRepository.GetByСondition(
+                l => l.Owner.Id == owner.Id && l.Word == word, l => l.Owner);
+
+            if (existing != null)
+            {
+                // Update translation if word exist.
+                existing.Translation = translation;
+                _watchWordUnitOfWork.LearnWordsRepository.Update(existing);
+            }
+            else
+            {
+                // Insert if this a new word.
+                _watchWordUnitOfWork.LearnWordsRepository.Insert(learnWord);
+            }
+
             return _watchWordUnitOfWork.Commit();
         }
 
-        /// <summary>Fills list of words with translation.</summary>
+        /// <summary>Fills list of words with their translations.</summary>
         /// <param name="words">Words without translation.</param>
-        /// <returns>List of words with translation.</returns>
-        public async Task<List<VocabWord>> FillVocabByWords(string[] words)
+        /// <param name="userId">External user identifier.</param>
+        /// <returns>List of original words with translations from owner vocabulary.</returns>
+        public async Task<List<VocabWord>> FillVocabByWords(string[] words, int userId)
         {
             var vocabWords = new List<VocabWord>();
+            var owner = _accountService.GetByExternalId(userId);
 
-            vocabWords.AddRange(await _watchWordUnitOfWork.LearnWordsRepository.GetAllAsync(l => words.Contains(l.Word)));
-            vocabWords.AddRange(await _watchWordUnitOfWork.KnownWordsRepository.GetAllAsync(k => words.Contains(k.Word)));
+            vocabWords.AddRange(await _watchWordUnitOfWork.LearnWordsRepository.GetAllAsync(l => l.Owner.Id == owner.Id && words.Contains(l.Word)));
+            vocabWords.AddRange(await _watchWordUnitOfWork.KnownWordsRepository.GetAllAsync(k => k.Owner.Id == owner.Id && words.Contains(k.Word)));
 
             foreach (var word in words.Where(word => vocabWords.All(v => v.Word != word)))
             {

@@ -31,7 +31,7 @@
                     typeWord = "learnWord";
                     break;
                 default:
-                    typeWord = "word";
+                    typeWord = "newWord";
                     break;
             }
             <div id="word_@Model.Counter" class=@typeWord>
@@ -48,5 +48,21 @@
         function goBack() {
             window.history.back();
         }
+
+        $(function () {
+            function contextMenuClick(key, options) {
+                var m = "clicked: " + key + ", " + options.selector + ", " + options.$trigger.attr("id");
+                window.console && console.log(m) || alert(m);
+            }
+
+            $.contextMenu({
+                selector: ".newWord, .knownWord, .learnWord",
+                trigger: "left",
+                callback: contextMenuClick,
+                items: {
+                    "deleteWord": { name: "Delete word from material" }
+                }
+            });
+        });
     </script>
 }

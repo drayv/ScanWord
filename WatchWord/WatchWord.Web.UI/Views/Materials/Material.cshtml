@@ -30,7 +30,7 @@
                     typeWord = "learnWord";
                     break;
                 default:
-                    typeWord = "word";
+                    typeWord = "newWord";
                     break;
             }
             <div id="word_@Model.Counter" class=@typeWord>
@@ -40,6 +40,8 @@
             Model.Counter++;
         }
     </div>
+    <!--For JS-->
+    <div id="GetTranslations" route="@Url.Action("GetTranslations", "Vocabulary")"></div>
 </div>
 
 @section Scripts {
@@ -47,7 +49,7 @@
         $(function () {
             function translate(word) {
                 $.ajax({
-                    url: "/Vocabulary/GetTranslations",
+                    url: $("#GetTranslations").attr("route"),
                     dataType: "json",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
@@ -97,7 +99,7 @@
             });
 
             $.contextMenu({
-                selector: ".word",
+                selector: ".newWord",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {

@@ -1,6 +1,5 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
 using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.DataAccess;
 using WatchWord.Domain.Entity;
@@ -12,6 +11,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         private readonly IWatchWordUnitOfWork _watchWordUnitOfWork;
         private readonly IAccountService _accountService;
 
+        /// <summary>These keys contain the specified data type.</summary>
         private static readonly Dictionary<SettingKey, SettingType> SettingKeyToTypeMapping
             = new Dictionary<SettingKey, SettingType>
             {
@@ -19,7 +19,8 @@ namespace WatchWord.Application.EntityServices.Concrete
                 {SettingKey.YandexTranslateApiKey, SettingType.String}
             };
 
-        private static readonly List<SettingKey> AdminSettingsKeys
+        /// <summary>These keys are responsible for the configuration of the site.</summary>
+        private static readonly List<SettingKey> SiteSettingsKeys
             = new List<SettingKey>
             {
                 SettingKey.YandexDictionaryApiKey,
@@ -41,17 +42,22 @@ namespace WatchWord.Application.EntityServices.Concrete
             _accountService = accountService;
         }
 
-        public List<Setting> GetUnfilledAdminSettings()
+        /// <summary>Gets the site configuration settings, which is not yet filled.</summary>
+        /// <returns>List of site configuration settings.</returns>
+        public List<Setting> GetUnfilledSiteSettings()
         {
-            var filledAdminSettings = _watchWordUnitOfWork.SettingsRepository.GetAll(s => AdminSettingsKeys.Contains(s.Key));
-            var unfilledAdminSettings = (from settingKey in AdminSettingsKeys
+            var filledAdminSettings = _watchWordUnitOfWork.SettingsRepository.GetAll(s => SiteSettingsKeys.Contains(s.Key));
+            var unfilledAdminSettings = (from settingKey in SiteSettingsKeys
                                          where filledAdminSettings.All(s => s.Key != settingKey)
-                                         select CreateNewSettingByKey(settingKey)).ToList();
+                                         select CreateNewEmptySettingByKey(settingKey)).ToList();
 
             return unfilledAdminSettings;
         }
 
-        public int InsertAdminSettings(List<Setting> settings)
+        /// <summary>Inserts the site configuration setting to the data storage. Owner will not be filled.</summary>
+        /// <param name="settings">List of the site configuration settings.</param>
+        /// <returns>The count of changed elements in data storage.</returns>
+        public int InsertSiteSettings(List<Setting> settings)
         {
             //TODO: universal parser
             foreach (var setting in settings)
@@ -66,12 +72,18 @@ namespace WatchWord.Application.EntityServices.Concrete
             return result;
         }
 
-        public Setting GetAdminSetting(SettingKey key)
+        /// <summary>Gets the site configuration setting by his key.</summary>
+        /// <param name="key">Setting key.</param>
+        /// <returns>Setting entity.</returns>
+        public Setting GetSiteSetting(SettingKey key)
         {
-            return _watchWordUnitOfWork.SettingsRepository.GetByСondition(s => s.Key == key);
+            return _watchWordUnitOfWork.SettingsRepository.GetByСondition(s => s.Key == key && s.Owner == null);
         }
 
-        private static Setting CreateNewSettingByKey(SettingKey key)
+        /// <summary>Creates new empty setting with the specified key.</summary>
+        /// <param name="key">Setting key.</param>
+        /// <returns>Setting entity.</returns>
+        private static Setting CreateNewEmptySettingByKey(SettingKey key)
         {
             var newSetting = new Setting { Key = key };
 

@@ -58,7 +58,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         {
             if (string.IsNullOrEmpty(_yandexDictionaryApiKey))
             {
-                _yandexDictionaryApiKey = _settingsService.GetAdminSetting(SettingKey.YandexDictionaryApiKey).String;
+                _yandexDictionaryApiKey = _settingsService.GetSiteSetting(SettingKey.YandexDictionaryApiKey).String;
             }
 
             return _yandexDictionaryApiKey;
