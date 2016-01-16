@@ -25,20 +25,21 @@
             switch (word.Type)
             {
                 case VocabType.KnownWord:
-                    typeWord = "knownWord";
+                    typeWord = "known-word";
                     break;
                 case VocabType.LearnWord:
-                    typeWord = "learnWord";
+                    typeWord = "learn-word";
+                    break;
+                case VocabType.NewWord:
+                    typeWord = "new-word";
                     break;
                 default:
-                    typeWord = "newWord";
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
-            <div id="word_@Model.Counter" class=@typeWord>
+            <div class=@typeWord>
                 <div class="translation">@word.Translation</div>
                 <div class="origin">@word.Word</div>
             </div>
-            Model.Counter++;
         }
     </div>
 </div>
@@ -51,12 +52,13 @@
 
         $(function () {
             function contextMenuClick(key, options) {
-                var m = "clicked: " + key + ", " + options.selector + ", " + options.$trigger.attr("id");
+                var word = options.$trigger.html() || "";
+                var m = "clicked: " + key + ", " + options.selector + ", " + word;
                 window.console && console.log(m) || alert(m);
             }
 
             $.contextMenu({
-                selector: ".newWord, .knownWord, .learnWord",
+                selector: ".origin",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {

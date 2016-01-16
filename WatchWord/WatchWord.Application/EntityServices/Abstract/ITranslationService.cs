@@ -1,7 +1,9 @@
-﻿namespace WatchWord.Application.EntityServices.Abstract
+﻿using System.Collections.Generic;
+
+namespace WatchWord.Application.EntityServices.Abstract
 {
     public interface ITranslationService
     {
-        string GetTranslations(string word);
+        IEnumerable<string> GetTranslations(string word);
     }
 }

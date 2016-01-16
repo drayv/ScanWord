@@ -3,19 +3,12 @@
     ViewBag.Title = "Vocabulary";
 }
 
-@* TODO: Most of this for test. Change it after the "words logic" will work on material page. *@
-
-<div>test data for add:</div>
-<input id="test-word" value="word">
-<input id="test-translate" value="перевод">
-
 <!--Learning words-->
 <h2>Learning words:</h2>
-<button id="learnWordButton">add test to learning words</button>
 <div class="learn-word-list">
     @foreach (var learnWord in Model.LearnWords)
     {
-        <div id="word_@Model.Counter" class="learnWord">
+        <div class="learn-word">
             <div class="translation">@learnWord.Translation</div>
             <div class="origin">@learnWord.Word</div>
         </div>
@@ -25,11 +18,10 @@
 
 <!--Known words-->
 <h2>Known words:</h2>
-<button id="knownWordButton">add test to known words</button>
 <div class="known-word-list">
     @foreach (var knownWord in Model.KnownWords)
     {
-        <div id="word_@Model.Counter" class="knownWord">
+        <div class="known-word">
             <div class="translation">@knownWord.Translation</div>
             <div class="origin">@knownWord.Word</div>
         </div>
@@ -46,71 +38,28 @@
     <script>
         $(function () {
             function contextMenuClick(key, options) {
-                var m = "clicked: " + key + ", " + options.selector + ", " + options.$trigger.attr("id");
+                var word = options.$trigger.html() || "";
+                var m = "clicked: " + key + ", " + options.selector + ", " + word;
                 window.console && console.log(m) || alert(m);
             }
 
-            $("#learnWordButton").on("click", function () {
-                $.ajax({
-                    url: $("#InsertLearnWord").attr("route"),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({
-                        word: $("#test-word").val(),
-                        translation: $("#test-translate").val()
-                    }),
-                    async: true,
-                    processData: false,
-                    cache: false,
-                    success: function (data) {
-                        alert(data);
-                    },
-                    error: function (data) {
-                        alert("error: " + data);
-                    }
-                });
-            });
-
-            $("#knownWordButton").on("click", function () {
-                $.ajax({
-                    url: $("#InsertKnownWord").attr("route"),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({
-                        word: $("#test-word").val(),
-                        translation: $("#test-translate").val()
-                    }),
-                    async: true,
-                    processData: false,
-                    cache: false,
-                    success: function (data) {
-                        alert(data);
-                    },
-                    error: function (data) {
-                        alert("error: " + data);
-                    }
-                });
-            });
-
             $.contextMenu({
-                selector: ".knownWord",
+                selector: ".known-word > .origin",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
-                    "addToLearnWords": { name: "Move to learning words" },
+                    "moveToLearnWords": { name: "Move to learning words" },
                     separator: "---------",
                     "removeFromVocabulary": { name: "Remove from vocabulary" }
                 }
             });
 
             $.contextMenu({
-                selector: ".learnWord",
+                selector: ".learn-word > .origin",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
-                    "addToKnownWords": { name: "Move to known words" },
+                    "moveToKnownWords": { name: "Move to known words" },
                     separator: "---------",
                     "removeFromVocabulary": { name: "Remove from vocabulary" }
                 }

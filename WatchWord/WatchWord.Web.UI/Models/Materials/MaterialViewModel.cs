@@ -18,8 +18,6 @@ namespace WatchWord.Web.UI.Models.Materials
 
         public List<VocabWord> Words { get; set; }
 
-        public int Counter;
-
         public MaterialViewModel(Material material, List<VocabWord> vocabWords, int width, int height)
         {
             if (material == null)
@@ -38,7 +36,6 @@ namespace WatchWord.Web.UI.Models.Materials
             ImageWidth = width.ToString();
             ImageHeight = height.ToString();
             Words = vocabWords;
-            Counter = 1;
         }
     }
 }

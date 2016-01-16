@@ -15,7 +15,7 @@
     margin-top: 5px;
 }
 
-.newWord, .knownWord, .learnWord {
+.new-word, .known-word, .learn-word {
     margin-top: 5px;
     display: inline-block;
 }
@@ -31,11 +31,11 @@
     box-sizing: border-box;
 }
 
-.knownWord > .origin {
+.known-word > .origin {
     background-color: #9cd6ae;
 }
 
-.learnWord > .origin {
+.learn-word > .origin {
     background-color: #fbd0a8;
 }
 
@@ -53,6 +53,31 @@
 .context-menu-active > .origin {
     color: #000000;
     background-color: #e86868;
+}
+
+/* MODAL */
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-button {
+    padding-top: 0.2em;
 }
 
 /* REGISTRATION PAGE */

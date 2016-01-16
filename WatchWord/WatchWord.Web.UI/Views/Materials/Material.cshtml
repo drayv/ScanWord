@@ -6,16 +6,10 @@
 
 <div class="materialInfo">
     <!--Basic info-->
-    <div class="table-layout">
-        <div class="table-cell fixed-width-200">
-            <img src="@Model.Image" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="Image" />
-        </div>
-        <div class="table-cell">
-            <div><span id="material-name">@Model.Name</span></div>
-            <div><span id="material-description">@Model.Description</span></div>
-            <br />
-        </div>
-    </div>
+    <img src="@Model.Image" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="Image" />
+    <div><span id="material-name">@Model.Name</span></div>
+    <div><span id="material-description">@Model.Description</span></div>
+    <br />
     <!--Parsed words-->
     <div class="words">
         @foreach (var word in Model.Words)
@@ -24,60 +18,63 @@
             switch (word.Type)
             {
                 case VocabType.KnownWord:
-                    typeWord = "knownWord";
+                    typeWord = "known-word";
                     break;
                 case VocabType.LearnWord:
-                    typeWord = "learnWord";
+                    typeWord = "learn-word";
+                    break;
+                case VocabType.NewWord:
+                    typeWord = "new-word";
                     break;
                 default:
-                    typeWord = "newWord";
-                    break;
+                    throw new ArgumentOutOfRangeException();
             }
-            <div id="word_@Model.Counter" class=@typeWord>
+            <div class=@typeWord>
                 <div class="translation">@word.Translation</div>
                 <div class="origin">@word.Word</div>
             </div>
-            Model.Counter++;
         }
     </div>
+    <!--Save word-->
+    <div id="save-word-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Select the translation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-buttons">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--For JS-->
+    <div id="InsertLearnWord" route="@Url.Action("InsertLearnWord", "Vocabulary")"></div>
+    <div id="InsertKnownWord" route="@Url.Action("InsertKnownWord", "Vocabulary")"></div>
     <div id="GetTranslations" route="@Url.Action("GetTranslations", "Vocabulary")"></div>
 </div>
 
 @section Scripts {
     <script>
         $(function () {
-            function translate(word) {
-                $.ajax({
-                    url: $("#GetTranslations").attr("route"),
-                    dataType: "json",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ word: word }),
-                    async: true,
-                    processData: false,
-                    cache: false,
-                    success: function (data) {
-                        alert(data);
-                    },
-                    error: function (data) {
-                        alert("error: " + data);
-                    }
-                });
-            }
+
+            /* Cache */
+
+            var $saveWordHeader = $("#save-word-modal h4");
+            var $saveWordButtons = $("#save-word-modal .modal-buttons");
+
+            /* Context menu */
 
             function contextMenuClick(key, options) {
-                var m = "clicked: " + key + ", " + options.selector + ", " + options.$trigger.attr("id");
-                window.console && console.log(m) || alert(m);
-
                 if (key === "addToLearnWords" || key === "addToKnownWords") {
-                    var word = $("#" + options.$trigger.attr("id") + " > .origin")[0].innerHTML || "";
-                    translate(word);
+                    translateOrigin(key, options.$trigger.html() || "");
                 }
             }
 
             $.contextMenu({
-                selector: ".knownWord",
+                selector: ".known-word > .origin",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
@@ -88,7 +85,7 @@
             });
 
             $.contextMenu({
-                selector: ".learnWord",
+                selector: ".learn-word > .origin",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
@@ -99,7 +96,7 @@
             });
 
             $.contextMenu({
-                selector: ".newWord",
+                selector: ".new-word > .origin",
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
@@ -108,6 +105,91 @@
                     "addToKnownWords": { name: "Add to known words" }
                 }
             });
+
+            /* Translate word */
+
+            function translateOrigin(key, word) {
+                $.ajax({
+                    url: $("#GetTranslations").attr("route"),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ word: word }),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function (data) {
+                        prepareAndShowSaveWordWindow(key, word, data);
+                    },
+                    error: function (data) {
+                        alert("error: " + data);
+                    }
+                });
+            }
+
+            function prepareAndShowSaveWordWindow(key, word, data) {
+                prepareSaveWordWindow(key, word, data);
+                $("#save-word-modal").modal("show");
+            }
+
+            function prepareSaveWordWindow(key, word, translations) {
+                $saveWordHeader.html("Select the translation for '" + word + "'");
+                $saveWordButtons.html("");
+                for (var i = 0; i < translations.length; i++) {
+                    var $newModalButton = $("<div>").addClass("modal-button");
+                    var $newWord = $("<div>").addClass("origin btn-block save").html(translations[i]);
+                    $newModalButton.append($newWord);
+                    $saveWordButtons.append($newModalButton);
+
+                    $newWord.on("click", function () {
+                        insertWordToVocab(key, word, $(this).html());
+                        $("#save-word-modal").modal('hide');
+                    });
+                }
+            }
+
+            /* Save word */
+
+            function insertWordToVocab(key, word, translation) {
+                var routeId = "";
+                if (key === "addToLearnWords") {
+                    routeId = "InsertLearnWord";
+                } else if (key === "addToKnownWords") {
+                    routeId = "InsertKnownWord";
+                }
+
+                $.ajax({
+                    url: $("#" + routeId).attr("route"),
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        word: word,
+                        translation: translation
+                    }),
+                    async: true,
+                    processData: false,
+                    cache: false,
+                    success: function () {
+                        updateWordHtml(key, word, translation);
+                    },
+                    error: function (data) {
+                        alert("error: " + data);
+                    }
+                });
+            }
+
+            function updateWordHtml(key, word, translation) {
+                var $word = $(".origin:contains('" + word + "')").parent();
+
+                if (key === "addToLearnWords") {
+                    $word.addClass("learn-word").removeClass("new-word");
+                } else if (key === "addToKnownWords") {
+                    $word.addClass("known-word").removeClass("new-word");
+                }
+
+                $word.children(".translation").html(translation);
+            }
         });
     </script>
 }
