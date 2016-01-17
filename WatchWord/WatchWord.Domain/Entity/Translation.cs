@@ -3,6 +3,7 @@ using ScanWord.Core.Entity.Common;
 
 namespace WatchWord.Domain.Entity
 {
+    /// <summary>Word translation cache.</summary>
     public class Translation : Entity<int>
     {
         /// <summary>Gets or sets the original word.</summary>

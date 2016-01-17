@@ -12,13 +12,13 @@
             <a href="@Url.Action("Material", new { id = material.Id })">
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="material text-center">
-                        <img src="@string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image))" />
+                        <img src="@string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image))" alt="img"/>
                         <div class="row">
                             <div class="col-xs-4">
                                 <p class="label label-info material-type">@material.Type</p>
                             </div>
                             <div class="col-xs-8">
-                                <p class="text-right words-count"><span>Words: </span><span class="label label-primary">@material.File.Words.Count</span></p>
+                                <p class="text-right words-count"><span>Words: </span><span class="label label-primary">@Model.MaterialsStatistic[material.Id].AllWordsCount</span></p>
                             </div>
                             <h3 class="material-name">@material.Name</h3>
                         </div>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WatchWord.Domain.Entity;
 using WatchWord.Web.UI.Models.Materials;
@@ -6,9 +7,9 @@ using WatchWord.Web.UI.Models.Materials;
 namespace ScanWord.Web.UI.Tests
 {
     [TestClass]
-    public class DisplayAllViewModel_Tests
+    public class DisplayAllViewModelTests
     {
-        private readonly Material[] materials = {
+        private readonly Material[] _materials = {
             new Material { Name = "n0" },
             new Material { Name = "n1" },
             new Material { Name = "n2" },
@@ -21,7 +22,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_first_page()
         {
-            var model = new DisplayAllViewModel(3, 1, this.materials.Count(), this.materials.Take(3));
+            var model = new DisplayAllViewModel(3, 1, _materials.Count(), _materials.Take(3), new Dictionary<int, MaterialStatisticViewModel>());
 
             Assert.AreEqual(3, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n0", model.Materials.First().Name, "The first element is wrong.");
@@ -34,7 +35,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_second_page()
         {
-            var model = new DisplayAllViewModel(3, 2, this.materials.Count(), this.materials.Skip(3).Take(3));
+            var model = new DisplayAllViewModel(3, 2, _materials.Count(), _materials.Skip(3).Take(3), new Dictionary<int, MaterialStatisticViewModel>());
 
             Assert.AreEqual(3, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n3", model.Materials.First().Name, "The first element is wrong.");
@@ -47,7 +48,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_second_not_full_page()
         {
-            var model = new DisplayAllViewModel(3, 3, this.materials.Count(), this.materials.Skip(6).Take(3));
+            var model = new DisplayAllViewModel(3, 3, _materials.Count(), _materials.Skip(6).Take(3), new Dictionary<int, MaterialStatisticViewModel>());
 
             Assert.AreEqual(1, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n6", model.Materials.First().Name, "The first element is wrong.");
@@ -58,7 +59,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_empty_page()
         {
-            var model = new DisplayAllViewModel(3, 4, this.materials.Count(), this.materials.Skip(9).Take(3));
+            var model = new DisplayAllViewModel(3, 4, _materials.Count(), _materials.Skip(9).Take(3), new Dictionary<int, MaterialStatisticViewModel>());
 
             Assert.AreEqual(0, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual(4, model.CurrentPageNumber, "The number of current page is invalid.");
@@ -68,7 +69,7 @@ namespace ScanWord.Web.UI.Tests
         [TestMethod]
         public void Test_invalid_pageNumber()
         {
-            var model = new DisplayAllViewModel(3, -1, this.materials.Count(), this.materials.Take(3));
+            var model = new DisplayAllViewModel(3, -1, _materials.Count(), _materials.Take(3), new Dictionary<int, MaterialStatisticViewModel>());
 
             Assert.AreEqual(3, model.Materials.Count(), "Wrong materials count.");
             Assert.AreEqual("n0", model.Materials.First().Name, "The first element is wrong.");

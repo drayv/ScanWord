@@ -10,9 +10,14 @@ namespace WatchWord.Web.UI.Models.Materials
 
         public int TotalPagesCount { get; set; }
 
+        /// <summary>The list of materials to view.</summary>
         public IEnumerable<Material> Materials { get; set; }
 
-        public DisplayAllViewModel(int pageSize, int pageNumber, int totalCount, IEnumerable<Material> materials)
+        /// <summary>MaterialId -> MaterialStatisticViewModel dictionary.</summary>
+        public Dictionary<int, MaterialStatisticViewModel> MaterialsStatistic { get; set; }
+
+        public DisplayAllViewModel(int pageSize, int pageNumber, int totalCount,
+            IEnumerable<Material> materials, Dictionary<int, MaterialStatisticViewModel> statistic)
         {
             if (pageSize < 0)
             {
@@ -24,14 +29,21 @@ namespace WatchWord.Web.UI.Models.Materials
                 throw new ArgumentNullException("materials");
             }
 
-            InitializeFields(pageSize, pageNumber, totalCount, materials);
+            InitializeFields(pageSize, pageNumber, totalCount, materials, statistic);
         }
 
-        private void InitializeFields(int pageSize, int pageNumber, int totalCount, IEnumerable<Material> materials)
+        private void InitializeFields(int pageSize, int pageNumber, int totalCount,
+            IEnumerable<Material> materials, Dictionary<int, MaterialStatisticViewModel> statistic)
         {
             CurrentPageNumber = pageNumber > 0 ? pageNumber : 1;
             TotalPagesCount = (int)Math.Ceiling((double)totalCount / pageSize);
             Materials = materials;
+            MaterialsStatistic = statistic;
         }
+    }
+
+    public class MaterialStatisticViewModel
+    {
+        public int AllWordsCount { get; set; }
     }
 }

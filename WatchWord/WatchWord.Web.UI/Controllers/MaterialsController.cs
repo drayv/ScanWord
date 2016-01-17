@@ -32,7 +32,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>Material page.</returns>
         public async Task<ActionResult> Material(int id)
         {
-            var material = _materialService.GetMaterial(id);
+            var material = _materialService.GetMaterialWithWords(id);
             if (material == null)
             {
                 return RedirectToAction("DisplayAll"); // TODO: change to main page redirect.
@@ -47,13 +47,13 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>Materials list page.</returns>
         public async Task<ActionResult> DisplayAll(int pageNumber = 1)
         {
-            //TODO: do not include all the words! Make a separate method for statistics.
-            var materials = await _materialService.GetMaterials(pageNumber, PageSize);
-            foreach (var material in materials)
+            var materials = await _materialService.GetMaterialsWithFile(pageNumber, PageSize);
+            var statistic = materials.ToDictionary(m => m.Id, m => new MaterialStatisticViewModel
             {
-                await FillVocabWordsByMaterial(material);
-            }
-            var model = new DisplayAllViewModel(PageSize, pageNumber, _materialService.TotalCount(), await _materialService.GetMaterials(pageNumber, PageSize));
+                AllWordsCount = _materialService.WordsCountInMaterial(m)
+            });
+
+            var model = new DisplayAllViewModel(PageSize, pageNumber, _materialService.TotalCount(), materials, statistic);
             return View(model);
         }
 
@@ -90,13 +90,9 @@ namespace WatchWord.Web.UI.Controllers
         public async Task<ActionResult> Save()
         {
             var material = TempData.Peek("MaterialModel") as Material;
-            if (material != null)
-            {
-                var vocabWords = await FillVocabWordsByMaterial(material);
-                return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
-            }
-
-            return RedirectToAction("ParseMaterial");
+            if (material == null) return RedirectToAction("ParseMaterial");
+            var vocabWords = await FillVocabWordsByMaterial(material);
+            return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
         }
 
         /// <summary>Saves material to the storage.</summary>
@@ -122,7 +118,6 @@ namespace WatchWord.Web.UI.Controllers
             var arrayOfWords = material.File.Words == null
                 ? new string[0]
                 : material.File.Words.Select(n => n.TheWord).ToArray();
-
 
             return await _vocabularyService.FillVocabByWords(arrayOfWords, User.Identity.GetUserId<int>());
         }

@@ -79,17 +79,16 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="currentPage">The current page number.</param>
         /// <param name="pageSize">The size of a page.</param>
         /// <returns>The list of materials.</returns>
-        public async Task<List<Material>> GetMaterials(int currentPage, int pageSize)
+        public async Task<List<Material>> GetMaterialsWithFile(int currentPage, int pageSize)
         {
-            //TODO: do not include all the words! Make a separate method for statistics.
             var pagesToSkip = (currentPage <= 0 ? 1 : currentPage) - 1;
-            return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(pagesToSkip * pageSize, pageSize, null, n => n.File.Words);
+            return await _watchWordUnitOfWork.MaterialsRepository.SkipAndTakeAsync(pagesToSkip * pageSize, pageSize, null, m => m.File);
         }
 
         /// <summary>Gets material by Id.</summary>
         /// <param name="id">Material identity.</param>
         /// <returns>Material entity.</returns>
-        public Material GetMaterial(int id)
+        public Material GetMaterialWithWords(int id)
         {
             return _watchWordUnitOfWork.MaterialsRepository.GetByСondition(m => m.Id == id, m => m.File.Words);
         }
@@ -99,6 +98,14 @@ namespace WatchWord.Application.EntityServices.Concrete
         public int TotalCount()
         {
             return _watchWordUnitOfWork.MaterialsRepository.GetCount();
+        }
+
+        /// <summary>Gets the total count of words in materil.</summary>
+        /// <param name="material">Specified material.</param>
+        /// <returns>Total count of words in material.</returns>
+        public int WordsCountInMaterial(Material material)
+        {
+            return _watchWordUnitOfWork.WordsRepository.GetCount(w => w.File.Id == material.File.Id);
         }
     }
 }

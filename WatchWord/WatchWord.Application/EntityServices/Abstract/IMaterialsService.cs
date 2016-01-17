@@ -30,15 +30,20 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <param name="currentPage">The current page number.</param>
         /// <param name="pageSize">The size of a page.</param>
         /// <returns>The list of materials.</returns>
-        Task<List<Material>> GetMaterials(int currentPage, int pageSize);
+        Task<List<Material>> GetMaterialsWithFile(int currentPage, int pageSize);
 
         /// <summary>Gets material by Id.</summary>
         /// <param name="id">Material identity.</param>
         /// <returns>Material entity.</returns>
-        Material GetMaterial(int id);
+        Material GetMaterialWithWords(int id);
 
         /// <summary>Gets the total count of materils.</summary>
         /// <returns>Total count of materials.</returns>
         int TotalCount();
+
+        /// <summary>Gets the total count of words in materil.</summary>
+        /// <param name="material">Specified material.</param>
+        /// <returns>Total count of words in material.</returns>
+        int WordsCountInMaterial(Material material);
     }
 }
