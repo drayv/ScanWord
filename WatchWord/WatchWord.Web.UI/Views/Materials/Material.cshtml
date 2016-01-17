@@ -64,12 +64,14 @@
 
             var $saveWordHeader = $("#save-word-modal h4");
             var $saveWordButtons = $("#save-word-modal .modal-buttons");
+            var $contaxtMenuTrigger = null;
 
             /* Context menu */
 
             function contextMenuClick(key, options) {
                 if (key === "addToLearnWords" || key === "addToKnownWords") {
-                    translateOrigin(key, options.$trigger.html() || "");
+                    $contaxtMenuTrigger = options.$trigger;
+                    translateOrigin(key, $contaxtMenuTrigger.html() || "");
                 }
             }
 
@@ -180,7 +182,7 @@
             }
 
             function updateWordHtml(key, word, translation) {
-                var $word = $(".origin:contains('" + word + "')").parent();
+                var $word = $contaxtMenuTrigger.parent();
 
                 if (key === "addToLearnWords") {
                     $word.addClass("learn-word").removeClass("new-word");
