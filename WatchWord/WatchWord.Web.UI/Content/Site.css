@@ -50,7 +50,7 @@
     background-color: #e86868;
 }
 
-.context-menu-active > .origin {
+.origin.context-menu-active {
     color: #000000;
     background-color: #e86868;
 }
