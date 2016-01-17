@@ -133,7 +133,7 @@
 .material {
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 200px;
+    width: 230px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -160,19 +160,16 @@
         color: #254054;
     }
 
-.words-count> :first-child {
+.material .words-count> :first-child {
     color: #008cba;
     font-weight: bold;
     font-size: 14px;
 }
 
+.material .material-type {
+    margin-left: 19px;
+}
+
 .words-count{
-    padding-right: 4px;
+    padding-right: 20px;
 }
-
-/*Delete this later*/
-#material-name {
-    height: 700px;
-    background-color: green
-}
-

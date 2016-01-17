@@ -43,7 +43,7 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
                 throw new NullReferenceException("Model");
             }
 
-            var builder = new StringBuilder();
+            var innerBuilder = new StringBuilder();
             foreach (var value in Enum.GetValues(model.GetType()))
             {
                 var label = new TagBuilder("label");
@@ -55,10 +55,100 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
                 var radio = helper.RadioButton(metadata.PropertyName, value, isChecked, new { id });
                 label.InnerHtml = string.Format("{0} {1}", radio.ToHtmlString(), value);
 
-                builder.Append(label);
+                innerBuilder.Append(label);
             }
 
-            return new MvcHtmlString(builder.ToString());
+            return new MvcHtmlString(innerBuilder.ToString());
+        }
+
+        public static MvcHtmlString Pagination(this HtmlHelper helper, int totalPages, int currentPage, string action, string controller)
+        {
+            var urlHelper = new UrlHelper(helper.ViewContext.RequestContext);
+
+            var ul = new TagBuilder("ul");
+            ul.AddCssClass("pagination pagination-sm");
+
+            var builder = new StringBuilder();
+
+            if (totalPages <= 9)
+            {
+                AddPages(builder, urlHelper, 1, totalPages, currentPage, action, controller);
+            }
+            else
+            {
+                if (currentPage <= 5)
+                {
+                    CurrentPageAtTheFirstPart(totalPages, currentPage, action, controller, urlHelper, builder);
+                }
+                else if (currentPage >= totalPages - 4)
+                {
+                    CurrentPageAtTheLastPart(totalPages, currentPage, action, controller, urlHelper, builder);
+                }
+                else
+                {
+                    CurrentPageAtTheMiddle(totalPages, currentPage, action, controller, urlHelper, builder);
+                }
+
+            }
+            ul.InnerHtml = builder.ToString();
+            return new MvcHtmlString(ul.ToString(TagRenderMode.Normal));
+        }
+
+        private static void CurrentPageAtTheMiddle(int totalPages, int currentPage, string action, string controller, UrlHelper urlHelper, StringBuilder builder)
+        {
+            AddPages(builder, urlHelper, 1, 2, currentPage, action, controller);
+            AddEmptyElement(builder);
+            AddPages(builder, urlHelper, currentPage - 2, currentPage + 2, currentPage, action, controller);
+            AddEmptyElement(builder);
+            AddPages(builder, urlHelper, totalPages - 1, totalPages, currentPage, action, controller);
+        }
+
+        private static void CurrentPageAtTheLastPart(int totalPages, int currentPage, string action, string controller, UrlHelper urlHelper, StringBuilder builder)
+        {
+            AddPages(builder, urlHelper, 1, 2, currentPage, action, controller);
+            AddEmptyElement(builder);
+            AddPages(builder, urlHelper, totalPages - 6, totalPages, currentPage, action, controller);
+        }
+
+        private static void CurrentPageAtTheFirstPart(int totalPages, int currentPage, string action, string controller, UrlHelper urlHelper, StringBuilder builder)
+        {
+            AddPages(builder, urlHelper, 1, 7, currentPage, action, controller);
+            AddEmptyElement(builder);
+            AddPages(builder, urlHelper, totalPages - 1, totalPages, currentPage, action, controller);
+        }
+
+        private static void AddPages(StringBuilder builder, UrlHelper urlHelper, int from, int to, int currentPage, string action, string controller)
+        {
+            TagBuilder li = null;
+            TagBuilder a = null;
+
+            for (int i = from; i <= to; i++)
+            {
+                li = new TagBuilder("li");
+                if (i == currentPage)
+                {
+                    li.AddCssClass("active");
+                }
+                a = new TagBuilder("a");
+                a.MergeAttribute("href", urlHelper.Action(action, controller, new { pageNumber = i }));
+                a.SetInnerText(i.ToString());
+
+                li.InnerHtml = a.ToString(TagRenderMode.Normal);
+                builder.Append(li.ToString(TagRenderMode.Normal));
+            }
+        }
+
+        private static void AddEmptyElement(StringBuilder builder)
+        {
+            var li = new TagBuilder("li");
+            li.AddCssClass("disabled");
+
+            var a = new TagBuilder("a");
+            a.MergeAttribute("href", "#");
+            a.SetInnerText("...");
+
+            li.InnerHtml = a.ToString(TagRenderMode.Normal);
+            builder.Append(li.ToString());
         }
     }
 }
