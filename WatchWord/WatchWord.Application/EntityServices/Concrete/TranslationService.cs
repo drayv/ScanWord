@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using Newtonsoft.Json;
 using WatchWord.Application.EntityServices.Abstract;
+using WatchWord.Domain.DataAccess;
 using WatchWord.Domain.Entity;
 
 namespace WatchWord.Application.EntityServices.Concrete
@@ -15,6 +16,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         private static string _yandexTranslateApiKey;
         private static string _yandexDictionaryApiKey;
         private readonly ISettingsService _settingsService;
+        private readonly IWatchWordUnitOfWork _watchWordUnitOfWork;
 
         /// <summary>Prevents a default instance of the <see cref="TranslationService"/> class from being created.</summary>
         // ReSharper disable once UnusedMember.Local
@@ -24,24 +26,65 @@ namespace WatchWord.Application.EntityServices.Concrete
 
         /// <summary>Initializes a new instance of the <see cref="TranslationService"/> class.</summary>
         /// <param name="settingsService">Settings service.</param>
-        public TranslationService(ISettingsService settingsService)
+        /// <param name="watchWordUnitOfWork">Unit of work over WatchWord repositories.</param>
+        public TranslationService(ISettingsService settingsService, IWatchWordUnitOfWork watchWordUnitOfWork)
         {
             _settingsService = settingsService;
+            _watchWordUnitOfWork = watchWordUnitOfWork;
         }
 
         public IEnumerable<string> GetTranslations(string word)
         {
-            //TODO: translate caching
-
             var translations = new List<string>();
-            translations.AddRange(GetYandexDictionaryTranslations(word));
 
+            // cache
+            translations.AddRange(GetTranslateFromCache(word));
+            if (translations.Count != 0)
+            {
+                return translations;
+            }
+
+            // yandex dictionary
+            var source = TranslationSource.YandexDictionary;
+            translations.AddRange(GetYandexDictionaryTranslations(word));
             if (translations.Count == 0)
             {
+                // yandex translate
+                source = TranslationSource.YandexTranslate;
                 translations.AddRange(GetYandexTranslateWord(word));
             }
 
+            SaveTranslationsToCache(word, translations, source);
             return translations;
+        }
+
+        private void SaveTranslationsToCache(string word, IReadOnlyCollection<string> translations, TranslationSource source)
+        {
+            if (translations.Count == 0) return;
+
+            // delete if exist
+            var existing = _watchWordUnitOfWork.TranslationsRepository.GetAll(t => t.Word == word);
+            foreach (var translation in existing)
+            {
+                _watchWordUnitOfWork.TranslationsRepository.Delete(translation);
+            }
+
+            // save translations
+            var translationsCache = translations.Select(translation => new Translation
+            {
+                Word = word,
+                Translate = translation,
+                AddDate = DateTime.Now,
+                Source = source
+            }).ToList();
+
+            _watchWordUnitOfWork.TranslationsRepository.Insert(translationsCache);
+            _watchWordUnitOfWork.TranslationsRepository.Save();
+        }
+
+        private IEnumerable<string> GetTranslateFromCache(string word)
+        {
+            return _watchWordUnitOfWork.TranslationsRepository.GetAll(t => t.Word == word).Select(s => s.Translate);
         }
 
         private IEnumerable<string> GetYandexTranslateWord(string word)

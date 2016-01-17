@@ -13,7 +13,7 @@ namespace WatchWord.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201601171444024_WatchWord.DataAccess-v4"; }
+            get { return "201601172237232_WatchWord.DataAccess-v4"; }
         }
         
         string IMigrationMetadata.Source

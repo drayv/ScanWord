@@ -23,11 +23,10 @@
 .origin {
     color: #2a2b50;
     background-color: #e0e0e0;
-    -ms-border-radius: 0.25em;
     border-radius: 0.25em;
     padding: 0.2em 0.6em 0.3em;
-    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -42,7 +41,7 @@
 .translation {
     font-size: 70%;
     text-align: right;
-    color: #333
+    color: #333;
 }
 
 .origin:hover {
@@ -58,22 +57,22 @@
 /* MODAL */
 
 .modal {
-  text-align: center;
+    text-align: center;
 }
 
-@media screen and (min-width: 768px) { 
-  .modal:before {
-    display: inline-block;
-    vertical-align: middle;
-    content: " ";
-    height: 100%;
-  }
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: "";
+        height: 100%;
+    }
 }
 
 .modal-dialog {
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .modal-button {
@@ -86,11 +85,9 @@
     margin-top: 40px;
     padding: 10px 30px;
     border: .3px solid #000;
-    -ms-border-radius: 5px;
     border-radius: 5px;
     -moz-box-shadow: 1px 1px 2px 2px gray;
     -webkit-box-shadow: 1px 1px 3px 1px #a19d9d;
-    -ms-box-shadow: 1px 1px 3px 1px #a19d9d;
     box-shadow: 1px 1px 3px 1px #a19d9d;
     background-color: #fff;
 }
@@ -123,11 +120,9 @@
     margin-top: 5px;
     padding: 20px 30px;
     border: .3px solid #000;
-    -ms-border-radius: 5px;
     border-radius: 5px;
     -moz-box-shadow: 1px 1px 2px 2px gray;
     -webkit-box-shadow: 1px 1px 3px 1px #a19d9d;
-    -ms-box-shadow: 1px 1px 3px 1px #a19d9d;
     box-shadow: 1px 1px 3px 1px #a19d9d;
     background-color: #fff;
 }
@@ -162,6 +157,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
     .material img {
         -moz-box-shadow: .2px .2px 1px 1px #6c6c6c;
         -webkit-box-shadow: .2px .2px 1px 1px #6c6c6c;
@@ -173,18 +169,18 @@
         -webkit-border-radius: 5px;
         border-radius: 5px;
         -moz-box-shadow: .5px .6px 3px 1px #254054;
-        -webkit-box-shadow:.5px .6px 3px 1px #254054;
+        -webkit-box-shadow: .5px .6px 3px 1px #254054;
         box-shadow: .5px .6px 3px 1px #254054;
         background-color: #e6f4ff;
     }
 
-    .material-name {
-        font-size: 20px;
-        font-weight: bold;
-        color: #254054;
-    }
+.material-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #254054;
+}
 
-.material .words-count> :first-child {
+.material .words-count > :first-child {
     color: #008cba;
     font-weight: bold;
     font-size: 14px;
@@ -194,6 +190,6 @@
     margin-left: 19px;
 }
 
-.words-count{
+.words-count {
     padding-right: 20px;
 }

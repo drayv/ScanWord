@@ -14,6 +14,7 @@ namespace WatchWord.DataAccess.Migrations
                     Word = c.String(),
                     Translate = c.String(),
                     AddDate = c.DateTime(nullable: false),
+                    Source = c.Int(nullable: false),
                 })
                 .PrimaryKey(t => t.Id);
 

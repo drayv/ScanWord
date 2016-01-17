@@ -59,9 +59,9 @@
     <Compile Include="Migrations\201601101742571_WatchWord.DataAccess-v3.Designer.cs">
       <DependentUpon>201601101742571_WatchWord.DataAccess-v3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601171444024_WatchWord.DataAccess-v4.cs" />
-    <Compile Include="Migrations\201601171444024_WatchWord.DataAccess-v4.Designer.cs">
-      <DependentUpon>201601171444024_WatchWord.DataAccess-v4.cs</DependentUpon>
+    <Compile Include="Migrations\201601172237232_WatchWord.DataAccess-v4.cs" />
+    <Compile Include="Migrations\201601172237232_WatchWord.DataAccess-v4.Designer.cs">
+      <DependentUpon>201601172237232_WatchWord.DataAccess-v4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AccountsRepository.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Repositories\MaterialsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SettingsRepository.cs" />
+    <Compile Include="Repositories\TranslationsRepository.cs" />
     <Compile Include="WatchDataContainer.cs" />
     <Compile Include="WatchDbConfiguration.cs" />
     <Compile Include="WatchWordUnitOfWork.cs" />
@@ -104,8 +105,8 @@
     <EmbeddedResource Include="Migrations\201601101742571_WatchWord.DataAccess-v3.resx">
       <DependentUpon>201601101742571_WatchWord.DataAccess-v3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601171444024_WatchWord.DataAccess-v4.resx">
-      <DependentUpon>201601171444024_WatchWord.DataAccess-v4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201601172237232_WatchWord.DataAccess-v4.resx">
+      <DependentUpon>201601172237232_WatchWord.DataAccess-v4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

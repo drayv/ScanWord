@@ -40,6 +40,7 @@
     <Compile Include="DataAccess\Repositories\ILearnWordsRepository.cs" />
     <Compile Include="DataAccess\Repositories\IMaterialsRepository.cs" />
     <Compile Include="DataAccess\Repositories\ISettingsRepository.cs" />
+    <Compile Include="DataAccess\Repositories\ITranslationsRepository.cs" />
     <Compile Include="Entity\KnownWord.cs" />
     <Compile Include="Entity\LearnWord.cs" />
     <Compile Include="Entity\Material.cs" />

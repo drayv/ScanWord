@@ -14,5 +14,14 @@ namespace WatchWord.Domain.Entity
 
         /// <summary>Gets or sets the date when translation was added.</summary>
         public DateTime AddDate { get; set; }
+
+        /// <summary>Gets or sets source of the translation.</summary>
+        public TranslationSource Source { get; set; }
+    }
+
+    public enum TranslationSource
+    {
+        YandexTranslate,
+        YandexDictionary
     }
 }
