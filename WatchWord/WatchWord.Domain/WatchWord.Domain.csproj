@@ -45,6 +45,7 @@
     <Compile Include="Entity\Material.cs" />
     <Compile Include="Entity\Account.cs" />
     <Compile Include="Entity\Setting.cs" />
+    <Compile Include="Entity\Translation.cs" />
     <Compile Include="Entity\VocabWord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -105,9 +105,15 @@ namespace WatchWord.Application.EntityServices.Concrete
 
         private string GetYandexDictionaryApiKey()
         {
-            if (string.IsNullOrEmpty(_yandexDictionaryApiKey))
+            if (!string.IsNullOrEmpty(_yandexDictionaryApiKey)) return _yandexDictionaryApiKey;
+            var setting = _settingsService.GetSiteSetting(SettingKey.YandexDictionaryApiKey);
+            if (setting != null)
             {
                 _yandexDictionaryApiKey = _settingsService.GetSiteSetting(SettingKey.YandexDictionaryApiKey).String;
+            }
+            else
+            {
+                throw new Exception("Yandex dictionary api key not found.");
             }
 
             return _yandexDictionaryApiKey;
@@ -115,9 +121,15 @@ namespace WatchWord.Application.EntityServices.Concrete
 
         private string GetYandexTranslateApiKey()
         {
-            if (string.IsNullOrEmpty(_yandexTranslateApiKey))
+            if (!string.IsNullOrEmpty(_yandexTranslateApiKey)) return _yandexTranslateApiKey;
+            var setting = _settingsService.GetSiteSetting(SettingKey.YandexTranslateApiKey);
+            if (setting != null)
             {
                 _yandexTranslateApiKey = _settingsService.GetSiteSetting(SettingKey.YandexTranslateApiKey).String;
+            }
+            else
+            {
+                throw new Exception("Yandex translate api key not found.");
             }
 
             return _yandexTranslateApiKey;

@@ -80,7 +80,7 @@
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
-                    "addToLearnWords": { name: "Move to learning words" },
+                    "moveToLearnWords": { name: "Move to learning words" },
                     separator: "---------",
                     "removeFromVocabulary": { name: "Remove from vocabulary" }
                 }
@@ -91,7 +91,7 @@
                 trigger: "left",
                 callback: contextMenuClick,
                 items: {
-                    "addToKnownWords": { name: "Move to known words" },
+                    "moveToKnownWords": { name: "Move to known words" },
                     separator: "---------",
                     "removeFromVocabulary": { name: "Remove from vocabulary" }
                 }
@@ -124,7 +124,7 @@
                         prepareAndShowSaveWordWindow(key, word, data);
                     },
                     error: function (data) {
-                        alert("error: " + data);
+                        alert("error: " + data.statusText);
                     }
                 });
             }
@@ -176,7 +176,7 @@
                         updateWordHtml(key, word, translation);
                     },
                     error: function (data) {
-                        alert("error: " + data);
+                        alert("error: " + data.statusText);
                     }
                 });
             }

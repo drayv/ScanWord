@@ -41,6 +41,9 @@ namespace WatchWord.DataAccess
         /// <summary>Gets or sets user or site settings.</summary>
         public DbSet<Setting> Settings { get; set; }
 
+        /// <summary>Gets or sets user or site settings.</summary>
+        public DbSet<Translation> Translations { get; set; }
+
         /// <summary>Configure model with fluent API.</summary>
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -57,6 +60,7 @@ namespace WatchWord.DataAccess
             modelBuilder.Entity<Material>().HasKey(m => m.Id);
             modelBuilder.Entity<KnownWord>().HasKey(k => k.Id);
             modelBuilder.Entity<LearnWord>().HasKey(l => l.Id);
+            modelBuilder.Entity<Translation>().HasKey(t => t.Id);
 
             // Settings
             modelBuilder.Entity<Setting>().HasKey(s => s.Id);
