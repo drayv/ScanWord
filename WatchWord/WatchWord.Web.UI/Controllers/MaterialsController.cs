@@ -16,7 +16,7 @@ namespace WatchWord.Web.UI.Controllers
         private readonly IVocabularyService _vocabularyService;
         private const int ImageMaxWidth = 190;
         private const int ImageMaxHeight = 280;
-        private const int PageSize = 10;
+        private const int PageSize = 8;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
         /// <param name="materialService">Material service.</param>
