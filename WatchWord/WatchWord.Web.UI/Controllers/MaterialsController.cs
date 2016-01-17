@@ -119,7 +119,12 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>List of vocabulary words.</returns>
         private async Task<List<VocabWord>> FillVocabWordsByMaterial(Material material)
         {
-            return await _vocabularyService.FillVocabByWords(material.File.Words == null ? new string[0] : material.File.Words.Select(n => n.TheWord).ToArray());
+            var arrayOfWords = material.File.Words == null
+                ? new string[0]
+                : material.File.Words.Select(n => n.TheWord).ToArray();
+
+
+            return await _vocabularyService.FillVocabByWords(arrayOfWords, User.Identity.GetUserId<int>());
         }
     }
 }

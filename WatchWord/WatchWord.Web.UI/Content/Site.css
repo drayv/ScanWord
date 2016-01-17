@@ -15,45 +15,69 @@
     margin-top: 5px;
 }
 
-.word {
+.new-word, .known-word, .learn-word {
     margin-top: 5px;
     display: inline-block;
 }
 
 .origin {
-    color: #222469;
-    border: 1px solid #fcdddd;
+    color: #2a2b50;
+    background-color: #e0e0e0;
+    -ms-border-radius: 0.25em;
+    border-radius: 0.25em;
+    padding: 0.2em 0.6em 0.3em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.known-word > .origin {
+    background-color: #9cd6ae;
+}
+
+.learn-word > .origin {
+    background-color: #fbd0a8;
 }
 
 .translation {
     font-size: 70%;
     text-align: right;
-    color: #222469;
-}
-
-@keyframes pop {
-    from {
-        color: #d04437;
-        border-color: #ffb3b3;
-    }
-
-    to {
-        color: #222469;
-        border-color: #fcdddd;
-    }
+    color: #333
 }
 
 .origin:hover {
-    -webkit-animation: pop 1s 1;
-    -moz-animation: pop 1s 1;
-    -ms-animation: pop 1s 1;
-    -o-animation: pop 1s 1;
-    animation: pop 1s 1;
+    color: #000000;
+    background-color: #e86868;
 }
 
-.context-menu-active {
-    color: #d04437;
-    border-color: #ffb3b3;
+.origin.context-menu-active {
+    color: #000000;
+    background-color: #e86868;
+}
+
+/* MODAL */
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-button {
+    padding-top: 0.2em;
 }
 
 /* REGISTRATION PAGE */

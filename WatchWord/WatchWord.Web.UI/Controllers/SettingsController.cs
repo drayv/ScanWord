@@ -20,7 +20,7 @@ namespace WatchWord.Web.UI.Controllers
         public ActionResult Index()
         {
             //TODO: viewModel
-            var unfilledAdminSettings = _settingsService.GetUnfilledAdminSettings();
+            var unfilledAdminSettings = _settingsService.GetUnfilledSiteSettings();
             return View(unfilledAdminSettings);
         }
 
@@ -29,7 +29,7 @@ namespace WatchWord.Web.UI.Controllers
         public ActionResult SaveSettings(List<Setting> model)
         {
             //TODO: work with all types of settings (not only admin)
-            _settingsService.InsertAdminSettings(model);
+            _settingsService.InsertSiteSettings(model);
             return RedirectToAction("Index");
         }
     }

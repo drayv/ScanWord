@@ -3,61 +3,65 @@
     ViewBag.Title = "Vocabulary";
 }
 
+<!--Learning words-->
 <h2>Learning words:</h2>
-<button id="learnWordButton">add test</button>
 <div class="learn-word-list">
     @foreach (var learnWord in Model.LearnWords)
     {
-        <div class="word">@learnWord.Word \ @learnWord.Translation</div>
+        <div class="learn-word">
+            <div class="translation">@learnWord.Translation</div>
+            <div class="origin">@learnWord.Word</div>
+        </div>
+        Model.Counter++;
     }
 </div>
 
+<!--Known words-->
 <h2>Known words:</h2>
-<button id="knownWordButton">add test</button>
 <div class="known-word-list">
     @foreach (var knownWord in Model.KnownWords)
     {
-        <div class="word">@knownWord.Word \ @knownWord.Translation</div>
+        <div class="known-word">
+            <div class="translation">@knownWord.Translation</div>
+            <div class="origin">@knownWord.Word</div>
+        </div>
+        Model.Counter++;
     }
 </div>
+
+<!--For JS-->
+<div id="InsertLearnWord" route="@Url.Action("InsertLearnWord", "Vocabulary")"></div>
+<div id="InsertKnownWord" route="@Url.Action("InsertKnownWord", "Vocabulary")"></div>
 
 @section Scripts{
     @Scripts.Render("~/Scripts/validation")
     <script>
-        $("#learnWordButton").on("click", function () {
-            $.ajax({
-                url: "/Vocabulary/InsertLearnWord",
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ word: "test", translation: "тест" }),
-                async: true,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (data) {
-                    alert("error: " + data);
+        $(function () {
+            function contextMenuClick(key, options) {
+                var word = options.$trigger.html() || "";
+                var m = "clicked: " + key + ", " + options.selector + ", " + word;
+                window.console && console.log(m) || alert(m);
+            }
+
+            $.contextMenu({
+                selector: ".known-word > .origin",
+                trigger: "left",
+                callback: contextMenuClick,
+                items: {
+                    "moveToLearnWords": { name: "Move to learning words" },
+                    separator: "---------",
+                    "removeFromVocabulary": { name: "Remove from vocabulary" }
                 }
             });
-        });
 
-        $("#knownWordButton").on("click", function () {
-            $.ajax({
-                url: "/Vocabulary/InsertKnownWord",
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ word: "test", translation: "тест" }),
-                async: true,
-                processData: false,
-                cache: false,
-                success: function (data) {
-                    alert(data);
-                },
-                error: function (data) {
-                    alert("error: " + data);
+            $.contextMenu({
+                selector: ".learn-word > .origin",
+                trigger: "left",
+                callback: contextMenuClick,
+                items: {
+                    "moveToKnownWords": { name: "Move to known words" },
+                    separator: "---------",
+                    "removeFromVocabulary": { name: "Remove from vocabulary" }
                 }
             });
         });

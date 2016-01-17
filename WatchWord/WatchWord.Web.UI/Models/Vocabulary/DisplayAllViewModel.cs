@@ -8,5 +8,12 @@ namespace WatchWord.Web.UI.Models.Vocabulary
         public IEnumerable<KnownWord> KnownWords { get; set; }
 
         public IEnumerable<LearnWord> LearnWords { get; set; }
+
+        public int Counter;
+
+        public DisplayAllViewModel()
+        {
+            Counter = 1;
+        }
     }
 }
