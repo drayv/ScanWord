@@ -11,10 +11,10 @@ using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Controllers
 {
-    /// <summary>The account controller.</summary>
+    /// <summary>Account controller.</summary>
     public class AccountController : Controller
     {
-        /// <summary>Gets the user manager.</summary>
+        /// <summary>Gets the user's manager.</summary>
         private AppUserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
@@ -27,15 +27,15 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>Sign up action.</summary>
-        /// <returns>The SignUp view action result <see cref="ActionResult"/>.</returns>
+        /// <returns>The sign up view action result <see cref="ActionResult"/>.</returns>
         public ActionResult SignUp()
         {
             return View();
         }
 
         /// <summary>The sign up post method.</summary>
-        /// <param name="model">The SignUp view model.</param>
-        /// <returns>The sing up view with errors or redirect to login page <see cref="Task"/>.</returns>
+        /// <param name="model">The sign up view model.</param>
+        /// <returns>Redirects to the login page, or shows validation errors <see cref="Task"/>.</returns>
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> SignUp(SignUpViewModel model)
         {
@@ -55,7 +55,7 @@ namespace WatchWord.Web.UI.Controllers
             return View(model);
         }
 
-        /// <summary>Add model errors to model state.</summary>
+        /// <summary>Adds model errors to model state.</summary>
         /// <param name="result">Identity result.</param>
         private void AddModelErrors(IdentityResult result)
         {
@@ -65,17 +65,17 @@ namespace WatchWord.Web.UI.Controllers
             }
         }
 
-        /// <summary>LogIn action.</summary>
-        /// <param name="returnUrl">The return url in login view model.</param>
-        /// <returns>Action result <see cref="ActionResult"/>.</returns>
+        /// <summary>Log in action.</summary>
+        /// <param name="returnUrl">Page where a user came from.</param>
+        /// <returns>Log in page <see cref="ActionResult"/>.</returns>
         public ActionResult LogIn(string returnUrl = "")
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
 
-        /// <summary>LogIn post method.</summary>
-        /// <param name="model">LogIn view model.</param>
-        /// <returns>Action result task <see cref="Task"/>.</returns>
+        /// <summary>Log in post method.</summary>
+        /// <param name="model">Log in view model.</param>
+        /// <returns>Returns to the page where the user's came from, or shows validation errors <see cref="Task"/>.</returns>
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<ActionResult> LogIn(LoginViewModel model)
         {
@@ -99,9 +99,9 @@ namespace WatchWord.Web.UI.Controllers
             return View(model);
         }
 
-        /// <summary>Check url and return it or default local url.</summary>
-        /// <param name="url">The url to check and return.</param>
-        /// <returns>Checked url <see cref="string"/>.</returns>
+        /// <summary>Returns specified url, or url for main page if specified url is not local.</summary>
+        /// <param name="url">Specified url.</param>
+        /// <returns>Checked url or main page url <see cref="string"/>.</returns>
         private string GetLocalUrl(string url)
         {
             if (string.IsNullOrEmpty(url) || !Url.IsLocalUrl(url))
@@ -113,8 +113,8 @@ namespace WatchWord.Web.UI.Controllers
             return url;
         }
 
-        /// <summary>The logout action.</summary>
-        /// <returns>Redirect to main page <see cref="ActionResult"/>.</returns>
+        /// <summary>The log out action.</summary>
+        /// <returns>Main page redirect <see cref="ActionResult"/>.</returns>
         public ActionResult LogOut()
         {
             AuthenticationManager.SignOut();
@@ -122,7 +122,7 @@ namespace WatchWord.Web.UI.Controllers
             return RedirectToAction("ParseMaterial", "Materials");
         }
 
-        /// <summary>Check if login is already registered.</summary>
+        /// <summary>Checks if login is already registered.</summary>
         /// <param name="login">A username from a form.</param>
         /// <returns>JSON with result data.</returns>
         public JsonResult RemoteLoginValidation(string login)
@@ -130,8 +130,8 @@ namespace WatchWord.Web.UI.Controllers
             return Json(UserManager.Users.All(n => string.Compare(login, n.UserName, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>Check if this email is already registered.</summary>
-        /// <param name="email">A email from a form.</param>
+        /// <summary>Checks if this email is already registered.</summary>
+        /// <param name="email">An email from a form.</param>
         /// <returns>JSON with result data.</returns>
         public JsonResult RemoteEmailValidation(string email)
         {

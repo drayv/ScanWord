@@ -21,7 +21,7 @@ namespace WatchWord.Domain.Entity
         /// <summary>Gets or sets the ScanWord file.</summary>
         public File File { get; set; }
 
-        /// <summary>Gets or sets name of material.</summary>
+        /// <summary>Gets or sets name of the material.</summary>
         public string Name { get; set; }
 
         /// <summary>Gets or sets the description of the material.</summary>

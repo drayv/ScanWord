@@ -352,7 +352,7 @@
     <Content Include="Views\Navigation\Search.cshtml" />
     <Content Include="Views\Shared\NavigationBar.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Materials\Save.cshtml" />
     <Content Include="Views\Materials\DisplayAll.cshtml" />
     <Content Include="Views\Materials\Material.cshtml" />

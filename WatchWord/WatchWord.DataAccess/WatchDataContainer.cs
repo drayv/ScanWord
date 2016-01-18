@@ -38,13 +38,13 @@ namespace WatchWord.DataAccess
         /// <summary>Gets or sets the vocabulary of learning words.</summary>
         public DbSet<LearnWord> LearnWords { get; set; }
 
-        /// <summary>Gets or sets user or site settings.</summary>
+        /// <summary>Gets or sets user's or site's settings.</summary>
         public DbSet<Setting> Settings { get; set; }
 
-        /// <summary>Gets or sets user or site settings.</summary>
+        /// <summary>Gets or sets translations.</summary>
         public DbSet<Translation> Translations { get; set; }
 
-        /// <summary>Configure model with fluent API.</summary>
+        /// <summary>Configures model with fluent API.</summary>
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

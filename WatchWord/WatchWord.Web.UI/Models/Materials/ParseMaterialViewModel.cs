@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Web;
+﻿using System.Web;
 using WatchWord.Domain.Entity;
+using System.ComponentModel.DataAnnotations;
 using WatchWord.Web.UI.Infrastructure.ValidationAttributes;
 
 namespace WatchWord.Web.UI.Models.Materials

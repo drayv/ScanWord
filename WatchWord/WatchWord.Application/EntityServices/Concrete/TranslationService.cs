@@ -33,6 +33,9 @@ namespace WatchWord.Application.EntityServices.Concrete
             _watchWordUnitOfWork = watchWordUnitOfWork;
         }
 
+        /// <summary>Gets the list of translations of the word by using cache, ya dict, or ya translate api.</summary>
+        /// <param name="word">Specified word.</param>
+        /// <returns>List of translations.</returns>
         public IEnumerable<string> GetTranslations(string word)
         {
             var translations = new List<string>();
@@ -58,6 +61,10 @@ namespace WatchWord.Application.EntityServices.Concrete
             return translations;
         }
 
+        /// <summary>Saves translations to the cache.</summary>
+        /// <param name="word">Original word.</param>
+        /// <param name="translations">List of translations.</param>
+        /// <param name="source">Source of the translation.</param>
         private void SaveTranslationsToCache(string word, IReadOnlyCollection<string> translations, TranslationSource source)
         {
             if (translations.Count == 0) return;
@@ -82,11 +89,17 @@ namespace WatchWord.Application.EntityServices.Concrete
             _watchWordUnitOfWork.TranslationsRepository.Save();
         }
 
+        /// <summary>Gets translations list from the cache for specified word.</summary>
+        /// <param name="word">Specified word.</param>
+        /// <returns>List of the translations.</returns>
         private IEnumerable<string> GetTranslateFromCache(string word)
         {
             return _watchWordUnitOfWork.TranslationsRepository.GetAll(t => t.Word == word).Select(s => s.Translate);
         }
 
+        /// <summary>Gets translations list using yandex translate api for specified word.</summary>
+        /// <param name="word">Specified word.</param>
+        /// <returns>List of the translations.</returns>
         private IEnumerable<string> GetYandexTranslateWord(string word)
         {
             var translations = new List<string>();
@@ -115,6 +128,9 @@ namespace WatchWord.Application.EntityServices.Concrete
             return translations;
         }
 
+        /// <summary>Gets translations list using yandex dictionary api for specified word.</summary>
+        /// <param name="word">Specified word.</param>
+        /// <returns>List of the translations.</returns>
         private IEnumerable<string> GetYandexDictionaryTranslations(string word)
         {
             var translations = new List<string>();
@@ -146,6 +162,8 @@ namespace WatchWord.Application.EntityServices.Concrete
             return translations;
         }
 
+        /// <summary>Gets yandex dictionary api key from data storage.</summary>
+        /// <returns>Yandex dictionary api key.</returns>
         private string GetYandexDictionaryApiKey()
         {
             if (!string.IsNullOrEmpty(_yandexDictionaryApiKey)) return _yandexDictionaryApiKey;
@@ -162,6 +180,8 @@ namespace WatchWord.Application.EntityServices.Concrete
             return _yandexDictionaryApiKey;
         }
 
+        /// <summary>Gets yandex translate api key from data storage.</summary>
+        /// <returns>Yandex translate api key.</returns>
         private string GetYandexTranslateApiKey()
         {
             if (!string.IsNullOrEmpty(_yandexTranslateApiKey)) return _yandexTranslateApiKey;

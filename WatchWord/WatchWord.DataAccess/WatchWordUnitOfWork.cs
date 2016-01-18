@@ -76,7 +76,7 @@ namespace WatchWord.DataAccess
             return _context.SaveChanges();
         }
 
-        /// <summary>Saves all pending changes async.</summary>
+        /// <summary>Saves all pending changes asynchronously.</summary>
         /// <returns>The count of changed elements.</returns>
         public Task<int> CommitAsync()
         {

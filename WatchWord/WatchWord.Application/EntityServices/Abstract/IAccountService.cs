@@ -2,12 +2,12 @@
 
 namespace WatchWord.Application.EntityServices.Abstract
 {
-    /// <summary>Represents a layer for work with user accounts.</summary>
+    /// <summary>Represents a layer for work with user's accounts.</summary>
     public interface IAccountService
     {
-        /// <summary>Gets user account by external identifier.</summary>
-        /// <param name="id">External identifier, asp.net identity id, e.t.c.</param>
-        /// <returns>User account.</returns>
+        /// <summary>Gets user's account by external identifier.</summary>
+        /// <param name="id">External identifier, asp.net identity id, etc.</param>
+        /// <returns>User's account.</returns>
         Account GetByExternalId(int id);
     }
 }

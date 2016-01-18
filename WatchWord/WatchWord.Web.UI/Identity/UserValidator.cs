@@ -5,25 +5,25 @@ using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
 {
-    /// <summary>The scan word user validator.</summary>
+    /// <summary>The scan word user's validator.</summary>
     public class UserValidator : UserValidator<AppUser, int>
     {
         /// <summary>Initializes a new instance of the <see cref="UserValidator"/> class.</summary>
-        /// <param name="manager">User manager.</param>
+        /// <param name="manager">User's manager.</param>
         public UserValidator(UserManager<AppUser, int> manager)
             : base(manager)
         {
         }
 
-        /// <summary>Gets or sets the user name min length.</summary>
+        /// <summary>Gets or sets the minimal length of the user name.</summary>
         public int UserNameMinLength { get; set; }
 
         /// <summary>Gets or sets a value indicating whether user name starts with digit.</summary>
         public bool UserNameStartsWithDigit { get; set; }
 
-        /// <summary>Validate user asynchronous.</summary>
+        /// <summary>Validate user asynchronously.</summary>
         /// <param name="item">Application user.</param>
-        /// <returns>Identity result<see cref="Task"/>.</returns>
+        /// <returns>Identity result <see cref="Task"/>.</returns>
         public override async Task<IdentityResult> ValidateAsync(AppUser item)
         {
             if (UserNameMinLength > 0 && item.UserName.Length < UserNameMinLength)

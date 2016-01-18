@@ -1,6 +1,6 @@
 ﻿namespace ScanWord.Core.Entity
 {
-    enum TypeResult
+    public enum TypeResult
     {
         OnlyUniqueWordsInFile,
         CompositionOfWords  

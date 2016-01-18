@@ -18,8 +18,8 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
 
         /// <summary>Applies validation rules for client validation.</summary>
         /// <param name="metadata">Metadata.</param>
-        /// <param name="context">The controller context</param>
-        /// <returns>The list of validation rules</returns>
+        /// <param name="context">The controller context.</param>
+        /// <returns>The list of validation rules.</returns>
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
         {
             var rule = new ModelClientValidationRule
@@ -34,7 +34,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         }
 
         /// <summary>Validating the property.</summary>
-        /// <param name="value">The property value</param>
+        /// <param name="value">The property value.</param>
         /// <param name="validationContext">The validation context.</param>
         /// <returns>The validation result.</returns>
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

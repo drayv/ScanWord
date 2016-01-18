@@ -13,7 +13,7 @@ namespace WatchWord.Web.UI.Models.Materials
         /// <summary>The list of materials to view.</summary>
         public IEnumerable<Material> Materials { get; set; }
 
-        /// <summary>MaterialId -> MaterialStatisticViewModel dictionary.</summary>
+        /// <summary>Dictionary with material identifier as a key; and value as material statistic view model.</summary>
         public Dictionary<int, MaterialStatisticViewModel> MaterialsStatistic { get; set; }
 
         public DisplayAllViewModel(int pageSize, int pageNumber, int totalCount,

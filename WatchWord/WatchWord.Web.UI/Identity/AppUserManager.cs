@@ -6,20 +6,20 @@ using WatchWord.Web.UI.Models.Identity;
 
 namespace WatchWord.Web.UI.Identity
 {
-    /// <summary>Identity user manager.</summary>
+    /// <summary>Identity users manager.</summary>
     public class AppUserManager : UserManager<AppUser, int>
     {
         /// <summary>Initializes a new instance of the <see cref="AppUserManager"/> class.</summary>
-        /// <param name="store">Identity user store.</param>
+        /// <param name="store">Identity users store.</param>
         public AppUserManager(IUserStore<AppUser, int> store)
             : base(store)
         {
         }
 
-        /// <summary>Creates application user manager.</summary>
+        /// <summary>Creates application users manager.</summary>
         /// <param name="options">Identity factory options.</param>
         /// <param name="context">OWIN context.</param>
-        /// <returns>The application user manager <see cref="AppUserManager"/>.</returns>
+        /// <returns>The application users manager <see cref="AppUserManager"/>.</returns>
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
             var db = context.Get<AppIdentityDbContext>();

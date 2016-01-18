@@ -6,12 +6,13 @@ using WatchWord.Domain.Entity;
 
 namespace WatchWord.Application.EntityServices.Concrete
 {
+    /// <summary>Represents a layer for work with settings.</summary>
     public class SettingsService : ISettingsService
     {
         private readonly IWatchWordUnitOfWork _watchWordUnitOfWork;
         private readonly IAccountService _accountService;
 
-        /// <summary>These keys contain the specified data type.</summary>
+        /// <summary>These keys contain the specified data types.</summary>
         private static readonly Dictionary<SettingKey, SettingType> SettingKeyToTypeMapping
             = new Dictionary<SettingKey, SettingType>
             {
@@ -43,7 +44,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         }
 
         /// <summary>Gets the site configuration settings, which is not yet filled.</summary>
-        /// <returns>List of site configuration settings.</returns>
+        /// <returns>List of the site configuration settings.</returns>
         public List<Setting> GetUnfilledSiteSettings()
         {
             var filledAdminSettings = _watchWordUnitOfWork.SettingsRepository.GetAll(s => SiteSettingsKeys.Contains(s.Key));
@@ -54,7 +55,7 @@ namespace WatchWord.Application.EntityServices.Concrete
             return unfilledAdminSettings;
         }
 
-        /// <summary>Inserts the site configuration setting to the data storage. Owner will not be filled.</summary>
+        /// <summary>Inserts the site configuration settings to the data storage. Owner will not be filled.</summary>
         /// <param name="settings">List of the site configuration settings.</param>
         /// <returns>The count of changed elements in data storage.</returns>
         public int InsertSiteSettings(List<Setting> settings)
@@ -72,7 +73,7 @@ namespace WatchWord.Application.EntityServices.Concrete
             return result;
         }
 
-        /// <summary>Gets the site configuration setting by his key.</summary>
+        /// <summary>Gets the site configuration setting by its key.</summary>
         /// <param name="key">Setting key.</param>
         /// <returns>Setting entity.</returns>
         public Setting GetSiteSetting(SettingKey key)

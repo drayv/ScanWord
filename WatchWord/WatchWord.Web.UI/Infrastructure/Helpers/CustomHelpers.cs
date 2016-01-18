@@ -29,7 +29,7 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
 
         /// <summary>Returns HTML markup with bootstap classes for the model property.</summary>
         /// <typeparam name="TModel">The model type.</typeparam>
-        /// <typeparam name="TValue">The property value typr</typeparam>
+        /// <typeparam name="TValue">The property value type.</typeparam>
         /// <param name="helper">The <see cref="HtmlHelper"/>.</param>
         /// <param name="exp">The <see cref="Expression"/>.</param>
         /// <returns>HTML markup.</returns>
@@ -119,17 +119,14 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
 
         private static void AddPages(StringBuilder builder, UrlHelper urlHelper, int from, int to, int currentPage, string action, string controller)
         {
-            TagBuilder li = null;
-            TagBuilder a = null;
-
-            for (int i = from; i <= to; i++)
+            for (var i = from; i <= to; i++)
             {
-                li = new TagBuilder("li");
+                var li = new TagBuilder("li");
                 if (i == currentPage)
                 {
                     li.AddCssClass("active");
                 }
-                a = new TagBuilder("a");
+                var a = new TagBuilder("a");
                 a.MergeAttribute("href", urlHelper.Action(action, controller, new { pageNumber = i }));
                 a.SetInnerText(i.ToString());
 
@@ -148,7 +145,7 @@ namespace WatchWord.Web.UI.Infrastructure.Helpers
             a.SetInnerText("...");
 
             li.InnerHtml = a.ToString(TagRenderMode.Normal);
-            builder.Append(li.ToString());
+            builder.Append(li);
         }
     }
 }

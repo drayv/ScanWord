@@ -26,10 +26,10 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <returns>The count of changed elements in data storage.</returns>
         Task<int> SaveMaterial(Material material);
 
-        /// <summary>Take the list of materials.</summary>
+        /// <summary>Gets the list of the materials.</summary>
         /// <param name="currentPage">The current page number.</param>
-        /// <param name="pageSize">The size of a page.</param>
-        /// <returns>The list of materials.</returns>
+        /// <param name="pageSize">The size of the page.</param>
+        /// <returns>The list of the materials.</returns>
         Task<List<Material>> GetMaterialsWithFile(int currentPage, int pageSize);
 
         /// <summary>Gets material by Id.</summary>
@@ -37,13 +37,13 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <returns>Material entity.</returns>
         Material GetMaterialWithWords(int id);
 
-        /// <summary>Gets the total count of materils.</summary>
-        /// <returns>Total count of materials.</returns>
+        /// <summary>Gets total count of the materials.</summary>
+        /// <returns>Total count of the materials.</returns>
         int TotalCount();
 
-        /// <summary>Gets the total count of words in materil.</summary>
+        /// <summary>Gets total count of words in the material.</summary>
         /// <param name="material">Specified material.</param>
-        /// <returns>Total count of words in material.</returns>
+        /// <returns>Total count of words in the material.</returns>
         int WordsCountInMaterial(Material material);
     }
 }

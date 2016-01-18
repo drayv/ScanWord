@@ -5,6 +5,7 @@ using WatchWord.Domain.Entity;
 
 namespace WatchWord.Web.UI.Controllers
 {
+    /// <summary>Settings controller.</summary>
     public class SettingsController : Controller
     {
         private readonly ISettingsService _settingsService;
@@ -16,6 +17,8 @@ namespace WatchWord.Web.UI.Controllers
             _settingsService = settingsService;
         }
 
+        /// <summary>Settings index page.</summary>
+        /// <returns>Settings page.</returns>
         [Authorize]
         public ActionResult Index()
         {
@@ -24,6 +27,9 @@ namespace WatchWord.Web.UI.Controllers
             return View(unfilledAdminSettings);
         }
 
+        /// <summary>Saves settings to storage.</summary>
+        /// <param name="model">Settings model.</param>
+        /// <returns>Settings page redirect.</returns>
         [HttpPost]
         [Authorize]
         public ActionResult SaveSettings(List<Setting> model)

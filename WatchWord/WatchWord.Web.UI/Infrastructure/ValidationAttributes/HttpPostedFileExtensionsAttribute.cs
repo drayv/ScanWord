@@ -28,7 +28,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         /// <summary>Applies validation rules for client validation.</summary>
         /// <param name="metadata">Metadata.</param>
         /// <param name="context">The controller context.</param>
-        /// <returns>The list of validation ri=ukes.</returns>
+        /// <returns>The list of validation rules.</returns>
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata,
             ControllerContext context)
         {
@@ -50,8 +50,7 @@ namespace WatchWord.Web.UI.Infrastructure.ValidationAttributes
         }
 
         /// <summary>Checks that the specified file name extension or extensions is valid.</summary>
-        /// <returns>True if the file name extension is valid; otherwise, false.
-        /// </returns>
+        /// <returns>True if the file name extension is valid; otherwise, false.</returns>
         /// <param name="value">A comma delimited list of valid file extensions.</param>
         public override bool IsValid(object value)
         {

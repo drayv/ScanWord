@@ -2,7 +2,7 @@
 
 namespace WatchWord.Web.UI.Models.Account
 {
-    /// <summary>The login view model.</summary>
+    /// <summary>The log in view model.</summary>
     public class LoginViewModel
     {
         /// <summary>Gets or sets the login.</summary>

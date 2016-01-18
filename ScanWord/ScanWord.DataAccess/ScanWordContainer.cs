@@ -23,7 +23,7 @@ namespace ScanWord.DataAccess
         /// <summary>Gets or sets the compositions.</summary>
         public DbSet<Composition> Compositions { get; set; }
 
-        /// <summary>Configure model with fluent API.</summary>
+        /// <summary>Configures model with fluent API.</summary>
         /// <param name="modelBuilder">The model builder.</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

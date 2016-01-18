@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
-        @using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new {@class = "registration-form"}))
+        @using (Html.BeginForm("LogIn", "Account", FormMethod.Post, new { @class = "registration-form" }))
         {
             @Html.AntiForgeryToken()
 
@@ -18,17 +18,17 @@
             @Html.BootstrapValidationSummaryFor(true)
 
             <div class="form-group">
-                @Html.TextBoxFor(n => n.Login, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Login)})
+                @Html.TextBoxFor(n => n.Login, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Login) })
                 @Html.ValidationMessageFor(n => n.Login)
             </div>
 
             <div class="form-group">
-                @Html.PasswordFor(n => n.Password, new {@class = "form-control", placeholder = Html.DisplayNameFor(n => n.Password)})
+                @Html.PasswordFor(n => n.Password, new { @class = "form-control", placeholder = Html.DisplayNameFor(n => n.Password) })
                 @Html.ValidationMessageFor(n => n.Password)
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-info btn-block" value="Log In"/>
+                <input type="submit" class="btn btn-info btn-block" value="Log In" />
             </div>
 
             <div class="form-group text-center">
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="form-group text-center">
-                @Html.ActionLink("Need a new account", "SignUp", null, new {@class = "btn btn-link"})
+                @Html.ActionLink("Need a new account", "SignUp", null, new { @class = "btn btn-link" })
             </div>
         }
     </div>

@@ -57,8 +57,8 @@ namespace WatchWord.Web.UI.Controllers
             return View(model);
         }
 
-        /// <summary>Represents form for parse material.</summary>
-        /// <returns>Parse material form.</returns>
+        /// <summary>Represents form for parsing material.</summary>
+        /// <returns>Parsing material form.</returns>
         [Authorize]
         public ActionResult ParseMaterial()
         {
@@ -85,7 +85,7 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>Saves parsed material.</summary>
-        /// <returns>Save material form.</returns>
+        /// <returns>Saved material form.</returns>
         [Authorize]
         public async Task<ActionResult> Save()
         {
@@ -96,7 +96,7 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>Saves material to the storage.</summary>
-        /// <returns>Redirects to the materials view.</returns>
+        /// <returns>Materials list page redirect.</returns>
         [HttpPost]
         [Authorize]
         [ActionName("Save")]
@@ -110,7 +110,7 @@ namespace WatchWord.Web.UI.Controllers
             return RedirectToAction("DisplayAll"); // TODO: redirect to material page.
         }
 
-        /// <summary>Fills list of words with translation.</summary>
+        /// <summary>Fills the list of words with translation.</summary>
         /// <param name="material">Material.</param>
         /// <returns>List of vocabulary words.</returns>
         private async Task<List<VocabWord>> FillVocabWordsByMaterial(Material material)

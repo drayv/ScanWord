@@ -22,7 +22,7 @@ namespace WatchWord.Web.UI.Models.Account
         [Required]
         public string Password { get; set; }
 
-        /// <summary>Gets or sets the confirm password.</summary>
+        /// <summary>Gets or sets the confirmation of the password.</summary>
         [Required]
         [Compare("Password")]
         [Display(Name = "Confirm password")]
