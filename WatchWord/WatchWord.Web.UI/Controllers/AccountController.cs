@@ -144,7 +144,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <summary>Gets authenticated flag.</summary>
         /// <returns>JSON bool.</returns>
         [HttpGet]
-        public JsonResult IsAuthenticated(string word)
+        public JsonResult IsAuthenticated()
         {
             return Json(User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
         }

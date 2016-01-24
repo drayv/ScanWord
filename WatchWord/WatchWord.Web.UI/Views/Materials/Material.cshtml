@@ -199,6 +199,7 @@
                     type: "GET",
                     url: $("#IsAuthenticated").attr("route"),
                     contentType: "application/json; charset=utf-8",
+                    async: false,
                     cache: false,
                     success: function (data) {
                         authenticated = data;
