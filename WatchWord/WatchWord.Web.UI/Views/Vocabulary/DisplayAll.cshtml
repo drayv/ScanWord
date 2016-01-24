@@ -5,7 +5,7 @@
 
 <!--Learning words-->
 <h2>Learning words:</h2>
-<div class="learn-word-list">
+<div id="learn-word-list" class="words">
     @foreach (var learnWord in Model.LearnWords)
     {
         <div class="learn-word">
@@ -17,7 +17,7 @@
 
 <!--Known words-->
 <h2>Known words:</h2>
-<div class="known-word-list">
+<div id="known-word-list" class="words">
     @foreach (var knownWord in Model.KnownWords)
     {
         <div class="known-word">

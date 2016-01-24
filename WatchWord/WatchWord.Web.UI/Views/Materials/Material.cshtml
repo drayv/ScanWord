@@ -136,8 +136,8 @@
 
                 $.ajax({
                     type: "POST",
-                    url: $("#" + vocabAction).attr("route"),
                     dataType: "json",
+                    url: $("#" + vocabAction).attr("route"),
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ word: word, translation: translation }),
                     async: true,

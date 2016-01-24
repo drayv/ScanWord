@@ -13,11 +13,32 @@
 
 .words {
     margin-top: 5px;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
+    .words:after {
+        content: "";
+        -ms-flex: auto;
+        -webkit-flex: auto;
+        flex: auto;
+    }
+
 .new-word, .known-word, .learn-word {
-    margin-top: 5px;
+    margin-top: 1px;
+    margin-right: 6px;
     display: inline-block;
+    line-height: 1.3;
+    -ms-flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
 }
 
 .origin, .other-actions {
@@ -42,6 +63,7 @@
     font-size: 70%;
     text-align: right;
     color: #333;
+    height: 12.5px;
 }
 
 .origin:hover {
@@ -90,13 +112,13 @@
 }
 
 .other-actions {
-    font-size: 80%;  
+    font-size: 80%;
 }
 
-.other-actions:hover {
-    color: #000000;
-    background-color: #e86868;
-}
+    .other-actions:hover {
+        color: #000000;
+        background-color: #e86868;
+    }
 
 /* REGISTRATION PAGE */
 
