@@ -85,7 +85,7 @@ namespace WatchWord.Web.UI.Controllers
         }
 
         /// <summary>Saves parsed material.</summary>
-        /// <returns>Saved material form.</returns>
+        /// <returns>Material page.</returns>
         [Authorize]
         public async Task<ActionResult> Save()
         {

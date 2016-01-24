@@ -14,7 +14,7 @@ namespace WatchWord.Web.UI.Controllers
     /// <summary>Account controller.</summary>
     public class AccountController : Controller
     {
-        /// <summary>Gets the user's manager.</summary>
+        /// <summary>Gets the user manager.</summary>
         private AppUserManager UserManager
         {
             get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
@@ -44,7 +44,8 @@ namespace WatchWord.Web.UI.Controllers
                 return View(model);
             }
 
-            var result = await UserManager.CreateAsync(new AppUser { UserName = model.Login, Email = model.Email }, model.Password);
+            var appUser = new AppUser { UserName = model.Login, Email = model.Email };
+            var result = await UserManager.CreateAsync(appUser, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("Login");
@@ -53,16 +54,6 @@ namespace WatchWord.Web.UI.Controllers
             AddModelErrors(result);
 
             return View(model);
-        }
-
-        /// <summary>Adds model errors to model state.</summary>
-        /// <param name="result">Identity result.</param>
-        private void AddModelErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error);
-            }
         }
 
         /// <summary>Log in action.</summary>
@@ -91,26 +82,12 @@ namespace WatchWord.Web.UI.Controllers
                 AuthenticationManager.SignOut();
                 AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = model.IsPersistent }, identity);
 
-                return Redirect(GetLocalUrl(model.ReturnUrl));
+                return RedirectToLocal(model.ReturnUrl);
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login or password");
 
             return View(model);
-        }
-
-        /// <summary>Returns specified url, or url for main page if specified url is not local.</summary>
-        /// <param name="url">Specified url.</param>
-        /// <returns>Checked url or main page url <see cref="string"/>.</returns>
-        private string GetLocalUrl(string url)
-        {
-            if (string.IsNullOrEmpty(url) || !Url.IsLocalUrl(url))
-            {
-                ////TODO Change this to "main page" later
-                url = Url.Action("ParseMaterial", "Materials");
-            }
-
-            return url;
         }
 
         /// <summary>The log out action.</summary>
@@ -127,7 +104,8 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>JSON with result data.</returns>
         public JsonResult RemoteLoginValidation(string login)
         {
-            return Json(UserManager.Users.All(n => string.Compare(login, n.UserName, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
+            return Json(UserManager.Users.All(n => string.Compare(login, n.UserName,
+                System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>Checks if this email is already registered.</summary>
@@ -135,7 +113,32 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>JSON with result data.</returns>
         public JsonResult RemoteEmailValidation(string email)
         {
-            return Json(UserManager.Users.All(n => string.Compare(email, n.Email, System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
+            return Json(UserManager.Users.All(n => string.Compare(email, n.Email,
+                System.StringComparison.InvariantCultureIgnoreCase) != 0), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>Redirects to specified URL if URL is local, otherwise redirects to main page.</summary>
+        /// <param name="continueUrl">Specified URL to redirect.</param>
+        /// <returns>Redirect <see cref="ActionResult"/>.</returns>
+        private ActionResult RedirectToLocal(string continueUrl)
+        {
+            if (Url.IsLocalUrl(continueUrl))
+            {
+                return Redirect(continueUrl);
+            }
+
+            ////TODO Change this to "main page" later
+            return RedirectToAction("ParseMaterial", "Materials");
+        }
+
+        /// <summary>Adds model errors to model state.</summary>
+        /// <param name="result">Identity result.</param>
+        private void AddModelErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error);
+            }
         }
     }
 }

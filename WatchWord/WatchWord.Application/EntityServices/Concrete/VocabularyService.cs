@@ -55,14 +55,23 @@ namespace WatchWord.Application.EntityServices.Concrete
             var owner = _accountService.GetByExternalId(userId);
             var knownWord = new KnownWord { Word = word, Translation = translation, Owner = owner, Type = VocabType.KnownWord };
 
-            var existing = _watchWordUnitOfWork.KnownWordsRepository.GetByСondition(
+            var existingLearnWord = _watchWordUnitOfWork.LearnWordsRepository.GetByСondition(
+                l => l.Owner.Id == owner.Id && l.Word == word, l => l.Owner);
+
+            var existingKnownWord = _watchWordUnitOfWork.KnownWordsRepository.GetByСondition(
                 k => k.Owner.Id == owner.Id && k.Word == word, k => k.Owner);
 
-            if (existing != null)
+            if (existingLearnWord != null)
+            {
+                // Delete translation from learning words vocabulary if exist.
+                _watchWordUnitOfWork.LearnWordsRepository.Delete(existingLearnWord.Id);
+            }
+
+            if (existingKnownWord != null)
             {
                 // Update translation if word exist.
-                existing.Translation = translation;
-                _watchWordUnitOfWork.KnownWordsRepository.Update(existing);
+                existingKnownWord.Translation = translation;
+                _watchWordUnitOfWork.KnownWordsRepository.Update(existingKnownWord);
             }
             else
             {
@@ -83,14 +92,23 @@ namespace WatchWord.Application.EntityServices.Concrete
             var owner = _accountService.GetByExternalId(userId);
             var learnWord = new LearnWord { Word = word, Translation = translation, Owner = owner, Type = VocabType.LearnWord };
 
-            var existing = _watchWordUnitOfWork.LearnWordsRepository.GetByСondition(
+            var existingLearnWord = _watchWordUnitOfWork.LearnWordsRepository.GetByСondition(
                 l => l.Owner.Id == owner.Id && l.Word == word, l => l.Owner);
 
-            if (existing != null)
+            var existingKnownWord = _watchWordUnitOfWork.KnownWordsRepository.GetByСondition(
+                k => k.Owner.Id == owner.Id && k.Word == word, k => k.Owner);
+
+            if (existingKnownWord != null)
+            {
+                // Delete translation from known words vocabulary if exist.
+                _watchWordUnitOfWork.KnownWordsRepository.Delete(existingKnownWord.Id);
+            }
+
+            if (existingLearnWord != null)
             {
                 // Update translation if word exist.
-                existing.Translation = translation;
-                _watchWordUnitOfWork.LearnWordsRepository.Update(existing);
+                existingLearnWord.Translation = translation;
+                _watchWordUnitOfWork.LearnWordsRepository.Update(existingLearnWord);
             }
             else
             {

@@ -40,12 +40,25 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Select the translation</h4>
+                    <h4 class="modal-title">Chose action and translation for word: </h4>
+                    <div id="radioGroup" class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary btn-sm active">
+                            <input class="add-vocab-button" type="radio" value="InsertLearnWord" name="VocabAction"
+                                   data-val-required="The Vocabulary field is required." data-val="true" checked="checked">
+                            Add to Learning
+                        </label>
+                        <label class="btn btn-primary btn-sm">
+                            <input class="add-vocab-button" type="radio" value="InsertKnownWord" name="VocabAction">
+                            Add to Known
+                        </label>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="modal-buttons">
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <label class="other-actions">Other actions.</label>
                 </div>
             </div>
         </div>
@@ -55,73 +68,39 @@
     <div id="InsertKnownWord" route="@Url.Action("InsertKnownWord", "Vocabulary")"></div>
     <div id="GetTranslations" route="@Url.Action("GetTranslations", "Vocabulary")"></div>
 </div>
-
 @section Scripts {
     <script>
         $(function () {
 
             /* Cache */
 
-            var $saveWordHeader = $("#save-word-modal h4");
+            var $saveWordHeader = $(".modal-title");
             var $saveWordButtons = $("#save-word-modal .modal-buttons");
-            var $contaxtMenuTrigger = null;
+            var $wordClickTrigger = null;
 
-            /* Context menu */
+            /* Word click */
 
-            function contextMenuClick(key, options) {
-                if (key === "addToLearnWords" || key === "addToKnownWords") {
-                    $contaxtMenuTrigger = options.$trigger;
-                    translateOrigin(key, $contaxtMenuTrigger.html() || "");
-                }
+            $(".origin").on("click", function () {
+                wordClick($(this));
+            });
+
+            function wordClick(trigger) {
+                $wordClickTrigger = trigger;
+                translateOrigin(trigger.text() || "");
             }
-
-            $.contextMenu({
-                selector: ".known-word > .origin",
-                trigger: "left",
-                callback: contextMenuClick,
-                items: {
-                    "moveToLearnWords": { name: "Move to learning words" },
-                    separator: "---------",
-                    "removeFromVocabulary": { name: "Remove from vocabulary" }
-                }
-            });
-
-            $.contextMenu({
-                selector: ".learn-word > .origin",
-                trigger: "left",
-                callback: contextMenuClick,
-                items: {
-                    "moveToKnownWords": { name: "Move to known words" },
-                    separator: "---------",
-                    "removeFromVocabulary": { name: "Remove from vocabulary" }
-                }
-            });
-
-            $.contextMenu({
-                selector: ".new-word > .origin",
-                trigger: "left",
-                callback: contextMenuClick,
-                items: {
-                    "addToLearnWords": { name: "Add to learning words" },
-                    separator: "---------",
-                    "addToKnownWords": { name: "Add to known words" }
-                }
-            });
 
             /* Translate word */
 
-            function translateOrigin(key, word) {
+            function translateOrigin(word) {
                 $.ajax({
+                    type: "GET",
                     url: $("#GetTranslations").attr("route"),
-                    dataType: "json",
-                    type: "POST",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ word: word }),
+                    data: { word: word },
                     async: true,
-                    processData: false,
                     cache: false,
                     success: function (data) {
-                        prepareAndShowSaveWordWindow(key, word, data);
+                        prepareAndShowSaveWordWindow(word, data);
                     },
                     error: function (data) {
                         alert("error: " + data.statusText);
@@ -129,13 +108,13 @@
                 });
             }
 
-            function prepareAndShowSaveWordWindow(key, word, data) {
-                prepareSaveWordWindow(key, word, data);
+            function prepareAndShowSaveWordWindow(word, data) {
+                prepareSaveWordWindow(word, data);
                 $("#save-word-modal").modal("show");
             }
 
-            function prepareSaveWordWindow(key, word, translations) {
-                $saveWordHeader.html("Select the translation for '" + word + "'");
+            function prepareSaveWordWindow(word, translations) {
+                $saveWordHeader.html("Chose action and translation for word: " + word);
                 $saveWordButtons.html("");
                 for (var i = 0; i < translations.length; i++) {
                     var $newModalButton = $("<div>").addClass("modal-button");
@@ -144,7 +123,7 @@
                     $saveWordButtons.append($newModalButton);
 
                     $newWord.on("click", function () {
-                        insertWordToVocab(key, word, $(this).html());
+                        insertWordToVocab(word, $(this).html());
                         $("#save-word-modal").modal('hide');
                     });
                 }
@@ -152,28 +131,19 @@
 
             /* Save word */
 
-            function insertWordToVocab(key, word, translation) {
-                var routeId = "";
-                if (key === "addToLearnWords") {
-                    routeId = "InsertLearnWord";
-                } else if (key === "addToKnownWords") {
-                    routeId = "InsertKnownWord";
-                }
+            function insertWordToVocab(word, translation) {
+                var vocabAction = getVocabAction();
 
                 $.ajax({
-                    url: $("#" + routeId).attr("route"),
-                    dataType: "json",
                     type: "POST",
+                    url: $("#" + vocabAction).attr("route"),
+                    dataType: "json",
                     contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({
-                        word: word,
-                        translation: translation
-                    }),
+                    data: JSON.stringify({ word: word, translation: translation }),
                     async: true,
-                    processData: false,
                     cache: false,
                     success: function () {
-                        updateWordHtml(key, word, translation);
+                        updateWordHtml(vocabAction, word, translation);
                     },
                     error: function (data) {
                         alert("error: " + data.statusText);
@@ -181,16 +151,20 @@
                 });
             }
 
-            function updateWordHtml(key, word, translation) {
-                var $word = $contaxtMenuTrigger.parent();
+            function updateWordHtml(vocabAction, word, translation) {
+                var $word = $wordClickTrigger.parent();
 
-                if (key === "addToLearnWords") {
-                    $word.addClass("learn-word").removeClass("new-word");
-                } else if (key === "addToKnownWords") {
-                    $word.addClass("known-word").removeClass("new-word");
+                if (vocabAction === "InsertLearnWord") {
+                    $word.removeClass().addClass("learn-word");
+                } else if (vocabAction === "InsertKnownWord") {
+                    $word.removeClass().addClass("known-word");
                 }
 
                 $word.children(".translation").html(translation);
+            }
+
+            function getVocabAction() {
+                return $('.active > .add-vocab-button').attr('value');
             }
         });
     </script>

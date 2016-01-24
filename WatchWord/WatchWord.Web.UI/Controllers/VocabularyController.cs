@@ -62,12 +62,12 @@ namespace WatchWord.Web.UI.Controllers
         /// <summary>Gets translations of the specified word.</summary>
         /// <param name="word">Specified word.</param>
         /// <returns>JSON list of translations.</returns>
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         public JsonResult GetTranslations(string word)
         {
             var translations = _translationService.GetTranslations(word);
-            return Json(translations);
+            return Json(translations, JsonRequestBehavior.AllowGet);
         }
     }
 }
