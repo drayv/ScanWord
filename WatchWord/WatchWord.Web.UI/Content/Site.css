@@ -1,4 +1,10 @@
-﻿
+﻿/* FOR XS*/
+@media (max-width: 768px) {
+    #material-name {
+        text-align: center;
+    }
+}
+
 /* BASICS */
 
 .field-validation-error {
@@ -171,18 +177,17 @@
 /* MATERIAL */
 
 .materialInfo img {
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 5px;
+    margin: 0 auto 0 auto;
+}
+
+.material-act-button {
+    display: block;
+    width: 190px;
+    margin: 10px auto 0 auto;
 }
 
 .materialInfo .words {
     clear: left;
-}
-
-.materialInfo form {
-    display: inline-block;
-    margin-left: 10px;
 }
 
 #material-name {

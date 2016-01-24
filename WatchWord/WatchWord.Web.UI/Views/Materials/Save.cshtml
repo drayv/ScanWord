@@ -5,17 +5,29 @@
 }
 
 <div class="materialInfo">
-    <!--Basic info-->
-    <img src="@Model.Image" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="Image" />
-    <div><span id="material-name">@Model.Name</span></div>
-    <div><span id="material-description">@Model.Description</span></div>
-    <br />
-
-    <button class="btn btn-primary" onclick="goBack()">Back</button>
-    @using (Html.BeginForm("Save"))
-    {
-        <input type="submit" value="Save" class="btn btn-success" />
-    }
+    <div class="row">
+        <!--Basic info-->
+        <div id="img-container" class="col-md-3 col-sm-4 col-xs-12 text-center">
+            <img src="@Model.Image" width="@Model.ImageWidth" height="@Model.ImageHeight" alt="Image" />
+        </div>
+        <div class="col-md-9 col-sm-8 col-xs-12">
+            <h2 id="material-name">@Model.Name</h2>
+            <div>
+                @Model.Description
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="save-buttons-container" class="col-xs-12 col-sm-4 col-md-3">
+            <div class="row">
+                <button class="btn btn-primary material-act-button" id="goBack">Back</button>
+                @using (Html.BeginForm("Save"))
+                {
+                    <input type="submit" value="Save" class="btn btn-success material-act-button" />
+                }
+            </div>
+        </div>
+    </div>
 
     <!--Parsed words-->
     <div class="words">
@@ -44,11 +56,14 @@
     </div>
 </div>
 
+
+
 @section Scripts {
     <script>
-        function goBack() {
+        $("#goBack").on("click", function () {
             window.history.back();
-        }
+        });
+
 
         $(function () {
             function contextMenuClick(key, options) {
