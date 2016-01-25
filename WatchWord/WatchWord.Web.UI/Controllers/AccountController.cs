@@ -140,5 +140,13 @@ namespace WatchWord.Web.UI.Controllers
                 ModelState.AddModelError(string.Empty, error);
             }
         }
+
+        /// <summary>Gets authenticated flag.</summary>
+        /// <returns>JSON bool.</returns>
+        [HttpGet]
+        public JsonResult IsAuthenticated()
+        {
+            return Json(User.Identity.IsAuthenticated, JsonRequestBehavior.AllowGet);
+        }
     }
 }
