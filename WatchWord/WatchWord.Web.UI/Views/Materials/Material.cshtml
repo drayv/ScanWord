@@ -54,10 +54,6 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <div class="modal-authenticated-error display-none">
-                        <div class="alert alert-warning">To add words to the vocabulary, please create an account or log in.</div>
-                        @Html.ActionLink("Click here to register.", "LogIn", "Account") @*TODO: ReturnUrl*@
-                    </div>
                     <div class="modal-buttons">
                     </div>
                 </div>
@@ -139,12 +135,12 @@
             }
 
             function showAutintificateError() {
+                $saveWordButtons.html("");
                 var $alert = $("<div>").addClass("alert alert-warning")
                     .html("To add words to the vocabulary, please create an account.");
-                var $logIn = $('<a>', { text: 'Click here to register.',
+                var $logIn = $('<a>', { text: 'Click here to create one.',
                     title: 'Click here to create one.', href: logInRoute }); //TODO: ReturnUrl
 
-                $saveWordButtons.html("");
                 $saveWordButtons.append($alert);
                 $saveWordButtons.append($logIn);
             }
