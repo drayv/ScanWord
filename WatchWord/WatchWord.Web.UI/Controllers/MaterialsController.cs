@@ -38,7 +38,7 @@ namespace WatchWord.Web.UI.Controllers
                 return RedirectToAction("DisplayAll"); // TODO: change to main page redirect.
             }
 
-            var vocabWords = await FillVocabWordsByMaterial(material);
+            var vocabWords = await FillVocabWordsByMaterial(material); //TODO: do not take words to material.
             return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
         }
 

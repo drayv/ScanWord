@@ -27,9 +27,11 @@
     }
 </div>
 
-<!--For JS-->
-<div id="InsertLearnWord" route="@Url.Action("InsertLearnWord", "Vocabulary")"></div>
-<div id="InsertKnownWord" route="@Url.Action("InsertKnownWord", "Vocabulary")"></div>
+<!--For outer JS-->
+<script>
+    var insertLearnWordRoute = "@Url.Action("InsertLearnWord", "Vocabulary")";
+    var insertKnownWordRoute = "@Url.Action("InsertKnownWord", "Vocabulary")";
+</script>
 
 @section Scripts{
     @Scripts.Render("~/Scripts/validation")

@@ -1,10 +1,4 @@
-﻿/* FOR XS*/
-@media (max-width: 768px) {
-    #material-name {
-        text-align: center;
-    }
-}
-
+﻿
 /* BASICS */
 
 .field-validation-error {
@@ -13,6 +7,15 @@
 
 .search-group {
     padding-top: 1px;
+}
+
+
+/* FOR XS */
+
+@media (max-width: 768px) {
+    #material-name {
+        text-align: center;
+    }
 }
 
 /* WORDS */

@@ -54,6 +54,10 @@
                     </div>
                 </div>
                 <div class="modal-body">
+                    <div class="modal-authenticated-error display-none">
+                        <div class="alert alert-warning">To add words to the vocabulary, please create an account or log in.</div>
+                        @Html.ActionLink("Click here to register.", "LogIn", "Account") @*TODO: ReturnUrl*@
+                    </div>
                     <div class="modal-buttons">
                     </div>
                 </div>
@@ -64,113 +68,104 @@
             </div>
         </div>
     </div>
-    <!--For JS-->
-    <div id="LogIn" route="@Url.Action("LogIn", "Account")"></div>
-    <div id="InsertLearnWord" route="@Url.Action("InsertLearnWord", "Vocabulary")"></div>
-    <div id="InsertKnownWord" route="@Url.Action("InsertKnownWord", "Vocabulary")"></div>
-    <div id="GetTranslations" route="@Url.Action("GetTranslations", "Vocabulary")"></div>
-    <div id="IsAuthenticated" route="@Url.Action("IsAuthenticated", "Account")"></div>
+    <!--For outer JS-->
+    <script>
+        var insertLearnWordRoute = "@Url.Action("InsertLearnWord", "Vocabulary")";
+        var insertKnownWordRoute = "@Url.Action("InsertKnownWord", "Vocabulary")";
+        var getTranslationsRoute = "@Url.Action("GetTranslations", "Vocabulary")";
+        var isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
+        var logInRoute = "@Url.Action("LogIn", "Account")";
+    </script>
 </div>
 @section Scripts {
     <script>
-        $(function () {
+        $(function() {
 
             /* Cache */
 
             var $saveWordHeader = $(".modal-title");
             var $saveWordButtons = $("#save-word-modal .modal-buttons");
-            var $wordClickTrigger = null;
+            var $wordClickTrigger;
 
             /* Word click */
 
-            $(".origin").on("click", function () {
+            $(".origin").on("click", function() {
                 wordClick($(this));
             });
 
             function wordClick(trigger) {
                 $wordClickTrigger = trigger;
-                translateOrigin(trigger.text() || "");
+                showModalForWord(trigger.text() || "");
             }
 
             /* Translate word */
 
-            function translateOrigin(word) {
+            function showModalForWord(word) {
+                $saveWordHeader.html("Chose action and translation for word: " + word);
+                $saveWordButtons.html("");
+                $("#save-word-modal").modal("show");
+                fillTranslations(word);
+            }
+
+            function fillTranslations(word) {
                 $.ajax({
                     type: "GET",
-                    url: $("#GetTranslations").attr("route"),
+                    url: getTranslationsRoute,
                     contentType: "application/json; charset=utf-8",
                     data: { word: word },
                     async: true,
                     cache: false,
-                    success: function (data) {
-                        prepareAndShowSaveWordWindow(word, data);
+                    success: function(translations) {
+                        for (var i = 0; i < translations.length; i++) {
+                            var $newModalButton = $("<div>").addClass("modal-button");
+                            var $newWord = $("<div>").addClass("origin btn-block save").html(translations[i]);
+                            $newModalButton.append($newWord);
+                            $saveWordButtons.append($newModalButton);
+
+                            $newWord.on("click", function() {
+                                if (!isAuthenticated) {
+                                    showAutintificateError();
+                                } else {
+                                    insertWordToVocab(word, $(this).html());
+                                    $("#save-word-modal").modal('hide');
+                                }
+                            });
+                        }
                     },
-                    error: function (data) {
-                        alert("error: " + data.statusText);
+                    error: function(error) {
+                        alert("Error: " + error.statusText);
                     }
                 });
             }
 
-            function prepareAndShowSaveWordWindow(word, data) {
-                prepareSaveWordWindow(word, data);
-                $("#save-word-modal").modal("show");
-            }
+            function showAutintificateError() {
+                var $alert = $("<div>").addClass("alert alert-warning")
+                    .html("To add words to the vocabulary, please create an account.");
+                var $logIn = $('<a>', { text: 'Click here to register.',
+                    title: 'Click here to create one.', href: logInRoute }); //TODO: ReturnUrl
 
-            function prepareSaveWordWindow(word, translations) {
-                $saveWordHeader.html("Chose action and translation for word: " + word);
                 $saveWordButtons.html("");
-                for (var i = 0; i < translations.length; i++) {
-                    var $newModalButton = $("<div>").addClass("modal-button");
-                    var $newWord = $("<div>").addClass("origin btn-block save").html(translations[i]);
-                    $newModalButton.append($newWord);
-                    $saveWordButtons.append($newModalButton);
-
-                    $newWord.on("click", function () {
-                        insertWordToVocab(word, $(this).html());
-                    });
-                }
+                $saveWordButtons.append($alert);
+                $saveWordButtons.append($logIn);
             }
 
             /* Save word */
 
-            function showNeedAutintificateMessage() {
-                $saveWordButtons.html("");
-
-                var $alert = $("<div>").addClass("alert alert-warning").html("To add words to the vocabulary, " +
-                    "please create an account or log in.");
-                var $logIn = $('<a>', {
-                    text: 'Click here to register.',
-                    title: 'Click here to register.',
-                    href: $("#LogIn").attr("route")
-                }); //TODO: ReturnUrl
-                $saveWordButtons.append($alert);
-                $saveWordButtons.append($logIn);
-                $("#save-word-modal").modal('show');
-            }
-
             function insertWordToVocab(word, translation) {
-
-                if (isAuthenticated()) {
-                    $("#save-word-modal").modal('hide');
-                } else {
-                    showNeedAutintificateMessage();
-                    return;
-                }
-
                 var vocabAction = getVocabAction();
                 $.ajax({
                     type: "POST",
                     dataType: "json",
-                    url: $("#" + vocabAction).attr("route"),
+                    url: getVocabActionRoute(vocabAction),
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({ word: word, translation: translation }),
                     async: true,
                     cache: false,
-                    success: function () {
+                    success: function() {
                         updateWordHtml(vocabAction, word, translation);
                     },
-                    error: function (data) {
-                        alert("error: " + data.statusText);
+                    error: function(error) {
+                        alert("Error: " + error.statusText);
                     }
                 });
             }
@@ -191,24 +186,15 @@
                 return $('.active > .add-vocab-button').attr('value');
             }
 
-            /* Helper */
-
-            function isAuthenticated() {
-                var authenticated = false;
-                $.ajax({
-                    type: "GET",
-                    url: $("#IsAuthenticated").attr("route"),
-                    contentType: "application/json; charset=utf-8",
-                    async: false,
-                    cache: false,
-                    success: function (data) {
-                        authenticated = data;
-                    },
-                    error: function (data) {
-                        alert(data);
-                    }
-                });
-                return authenticated;
+            function getVocabActionRoute(action) {
+                switch (action) {
+                    case "InsertLearnWord":
+                        return insertLearnWordRoute;
+                    case "InsertKnownWord":
+                        return insertKnownWordRoute;
+                    default:
+                        return "";
+                }
             }
         });
     </script>
