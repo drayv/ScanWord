@@ -14,12 +14,14 @@ namespace WatchWord.Web.UI
                 "~/Content/bootstrap.css",
                 "~/Content/theme.css",
                 "~/Content/jquery.contextMenu.css",
+                "~/Content/jquery.loading.min.css",
                 "~/Content/site.css"));
 
             // libraries
             bundles.Add(new ScriptBundle("~/Scripts/libraries").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery.contextMenu.js",
+                "~/Scripts/jquery.loading.min.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/google.analytics.js"));
@@ -29,6 +31,10 @@ namespace WatchWord.Web.UI
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/customValidation.js"));
+
+            #if (!DEBUG)
+                BundleTable.EnableOptimizations = true;
+            #endif
         }
     }
 }

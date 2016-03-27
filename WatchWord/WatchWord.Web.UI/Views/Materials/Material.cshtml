@@ -97,13 +97,21 @@
             /* Translate word */
 
             function showModalForWord(word) {
+                $wordClickTrigger.loading({
+                    stoppable: false,
+                    message: 'translating...'
+                });
                 $saveWordHeader.html("Chose action and translation for word: " + word);
                 $saveWordButtons.html("");
-                $("#save-word-modal").modal("show");
-                fillTranslations(word);
+                fillTranslations(word, function(success) {
+                    if (success) {
+                        $("#save-word-modal").modal("show");
+                    }
+                    $wordClickTrigger.loading('stop');
+                });
             }
 
-            function fillTranslations(word) {
+            function fillTranslations(word, callback) {
                 $.ajax({
                     type: "GET",
                     url: getTranslationsRoute,
@@ -126,9 +134,12 @@
                                     $("#save-word-modal").modal('hide');
                                 }
                             });
+
+                            callback(true);
                         }
                     },
                     error: function(error) {
+                        callback(false);
                         alert("Error: " + error.statusText);
                     }
                 });

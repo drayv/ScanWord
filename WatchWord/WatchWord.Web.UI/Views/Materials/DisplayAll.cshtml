@@ -13,7 +13,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="material text-center">
                         <img src="@string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image))" alt="img" />
-                        <div class="row">
+                        <div class="row info-block">
                             <div class="col-xs-4">
                                 <p class="label label-info material-type">@material.Type</p>
                             </div>
@@ -35,4 +35,3 @@
         @Html.Pagination(Model.TotalPagesCount, Model.CurrentPageNumber, "DisplayAll", "Materials")
     </div>
 </div>
-

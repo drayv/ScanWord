@@ -1,261 +1,298 @@
-﻿// Bootswatch
+﻿// Lumen 3.3.5
+// Bootswatch
 // -----------------------------------------------------
 
-@web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700";
+@web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic";
 
 .web-font(@path) {
   @import url("@{path}");
 }
 .web-font(@web-font-path);
 
+.shadow (@width: 4px) {
+  border-width: 0 1px @width 1px;
+}
+
 // Navbar =====================================================================
 
-.navbar {
-  border: none;
-  font-size: 13px;
-  font-weight: 300;
-
-  .navbar-toggle:hover .icon-bar {
-    background-color: #b3b3b3;
-  }
-
-  &-collapse {
-    border-top-color: @dropdown-divider-bg;
-    .box-shadow(none);
-  }
-
-  .btn {
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  &-form {
-    margin-top: 7px;
-    margin-bottom: 5px;
-
-    .form-control {
-      height: auto;
-      padding: @padding-xs-vertical @padding-xs-horizontal;
-    }
-  }
-
-  .dropdown {
-
-    &-menu {
-      border: none;
-
-      > li > a,
-      > li > a:focus {
-        background-color: transparent;
-        font-size: 13px;
-        font-weight: 300;
-      }
-    }
-
-    &-header {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-  }
-
-  &-default {
-
-    .dropdown-menu {
-      background-color: @navbar-default-bg;
-
-      > li > a,
-      > li > a:focus {
-        color: @navbar-default-color;
-      }
-
-      > li > a:hover,
-      > .active > a,
-      > .active > a:hover {
-        background-color: @navbar-default-link-hover-bg;
-      }
-    }
-  }
-
-  &-inverse {
-
-    .dropdown-menu {
-      background-color: @navbar-inverse-bg;
-
-      > li > a,
-      > li > a:focus {
-        color: @navbar-inverse-color;
-      }
-
-      > li > a:hover,
-      > .active > a,
-      > .active > a:hover {
-        background-color: @navbar-inverse-link-hover-bg;
-      }
-    }
-  }
+.navbar  {
+  .shadow();
 }
 
 // Buttons ====================================================================
 
 .btn {
-  padding: @padding-base-vertical @padding-base-horizontal;
+  padding: (@padding-base-vertical + 2) @padding-base-horizontal @padding-base-vertical;
+  .shadow();
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
 
-  &-lg {
-    padding: @padding-large-vertical @padding-large-horizontal;
+  &:hover {
+    margin-top: 1px;
+    border-bottom-width: 3px;
   }
 
-  &-sm {
-    padding: @padding-small-vertical @padding-small-horizontal;
+  &:active {
+    margin-top: 2px;
+    border-bottom-width: 2px;
+    .box-shadow(none);
   }
 
-  &-xs {
-    padding: @padding-xs-vertical @padding-xs-horizontal;
+  &-lg,
+  &-group-lg > .btn {
+    padding: (@padding-large-vertical + 2) @padding-large-horizontal @padding-large-vertical;
+    line-height: 15px;
+  }
+
+  &-sm,
+  &-group-sm > .btn {
+    padding: (@padding-small-vertical + 2) @padding-small-horizontal @padding-small-vertical;
+  }
+
+  &-xs,
+  &-group-xs > .btn {
+    padding: (@padding-xs-vertical + 2) @padding-xs-horizontal @padding-xs-vertical;
+  }
+
+  &-default:hover,
+  &-default:focus,
+  &-group.open .dropdown-toggle.btn-default {
+    background-color: @btn-default-bg;
+    border-color: @btn-default-border;
+  }
+
+  &-primary:hover,
+  &-primary:focus,
+  &-group.open .dropdown-toggle.btn-primary {
+    background-color: @btn-primary-bg;
+    border-color: @btn-primary-border;
+  }
+
+  &-success:hover,
+  &-success:focus,
+  &-group.open .dropdown-toggle.btn-success {
+    background-color: @btn-success-bg;
+    border-color: @btn-success-border;
+  }
+
+  &-info:hover,
+  &-info:focus,
+  &-group.open .dropdown-toggle.btn-info {
+    background-color: @btn-info-bg;
+    border-color: @btn-info-border;
+  }
+
+  &-warning:hover,
+  &-warning:focus,
+  &-group.open .dropdown-toggle.btn-warning {
+    background-color: @btn-warning-bg;
+    border-color: @btn-warning-border;
+  }
+
+  &-danger:hover,
+  &-danger:focus,
+  &-group.open .dropdown-toggle.btn-danger {
+    background-color: @btn-danger-bg;
+    border-color: @btn-danger-border;
+  }
+
+  &-group.open .dropdown-toggle {
+    .box-shadow(none);
   }
 }
 
-.btn-group {
-
-  .btn ~ .dropdown-toggle {
-    padding-left: 16px;
-    padding-right: 16px;
+.navbar-btn {
+  &:hover {
+    margin-top: 8px
   }
 
-  .dropdown-menu {
-    border-top-width: 0;
+  &:active {
+    margin-top: 9px
   }
 
-  &.dropup .dropdown-menu {
-    border-top-width: 1px;
-    border-bottom-width: 0;
-    margin-bottom: 0;
+  &.btn-sm {
+    &:hover {
+      margin-top: 11px
+    }
+
+    &:active {
+      margin-top: 12px
+    }
   }
 
-  .dropdown-toggle {
-
-    &.btn-default ~ .dropdown-menu {
-      background-color: @btn-default-bg;
-      border-color: @btn-default-border;
-
-      > li > a {
-        color: @btn-default-color;
-      }
-
-      > li > a:hover {
-        background-color: darken(@btn-default-bg, 8%);
-      }
+  &.btn-xs {
+    &:hover {
+      margin-top: 15px
     }
 
-    &.btn-primary ~ .dropdown-menu {
-      background-color: @btn-primary-bg;
-      border-color: @btn-primary-border;
+    &:active {
+      margin-top: 16px
+    }
+  }
+}
 
-      > li > a {
-        color: @btn-primary-color;
-      }
-
-      > li > a:hover {
-        background-color: darken(@btn-primary-bg, 8%);
-      }
+.btn-group-vertical {
+  .btn + .btn {
+    &:hover {
+      border-top-width: 1px;
     }
 
-    &.btn-success ~ .dropdown-menu {
-      background-color: @btn-success-bg;
-      border-color: @btn-success-border;
-
-      > li > a {
-        color: @btn-success-color;
-      }
-
-      > li > a:hover {
-        background-color: darken(@btn-success-bg, 8%);
-      }
-    }
-
-    &.btn-info ~ .dropdown-menu {
-      background-color: @btn-info-bg;
-      border-color: @btn-info-border;
-
-      > li > a {
-        color: @btn-info-color;
-      }
-
-      > li > a:hover {
-        background-color: darken(@btn-info-bg, 8%);
-      }
-    }
-
-    &.btn-warning ~ .dropdown-menu {
-      background-color: @btn-warning-bg;
-      border-color: @btn-warning-border;
-
-      > li > a {
-        color: @btn-warning-color;
-      }
-
-      > li > a:hover {
-        background-color: darken(@btn-warning-bg, 8%);
-      }
-    }
-
-    &.btn-danger ~ .dropdown-menu {
-      background-color: @btn-danger-bg;
-      border-color: @btn-danger-border;
-
-      > li > a {
-        color: @btn-danger-color;
-      }
-
-      > li > a:hover {
-        background-color: darken(@btn-danger-bg, 8%);
-      }
+    &:active {
+      border-top-width: 2px;
     }
   }
 }
 
 // Typography =================================================================
 
-.lead {
-  color: @gray;
+.text-primary,
+.text-primary:hover {
+  color: @brand-primary;
 }
 
-cite {
-  font-style: italic;
+.text-success,
+.text-success:hover {
+  color: @brand-success;
 }
 
-blockquote {
-  border-left-width: 1px;
-  color: @gray;
+.text-danger,
+.text-danger:hover {
+  color: @brand-danger;
+}
 
-  &.pull-right {
-    border-right-width: 1px;
-  }
+.text-warning,
+.text-warning:hover {
+  color: @brand-warning;
+}
 
-  small {
-    font-size: @font-size-small;
-    font-weight: 300;
-  }
+.text-info,
+.text-info:hover {
+  color: @brand-info;
 }
 
 // Tables =====================================================================
 
-table {
-  font-size: @font-size-small;
+table,
+.table {
+
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+
+  .dropdown-menu a {
+    text-decoration: none;
+  }
+
+  .success,
+  .warning,
+  .danger,
+  .info {
+    color: #fff;
+
+    a:not(.btn) {
+      color: #fff;
+    }
+  }
+
+  &:not(.table-bordered) {
+    > thead > tr > th,
+    > tbody > tr > th,
+    > tfoot > tr > th,
+    > thead > tr > td,
+    > tbody > tr > td,
+    > tfoot > tr > td {
+      border-color: transparent;
+    }
+  }
 }
 
 // Forms ======================================================================
 
-label,
-.control-label,
-.help-block,
-.checkbox,
-.radio {
-  font-size: @font-size-small;
+.form-control {
+  .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+}
+
+label {
   font-weight: normal;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-  margin-top: 1px;
+.has-warning {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: @brand-warning;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border: 1px solid @brand-warning;
+    .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+  }
+
+  .input-group-addon {
+    border: 1px solid @brand-warning;
+  }
+}
+
+.has-error {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: @brand-danger;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border: 1px solid @brand-danger;
+    .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+  }
+
+  .input-group-addon {
+    border: 1px solid @brand-danger;
+  }
+}
+
+.has-success {
+  .help-block,
+  .control-label,
+  .radio,
+  .checkbox,
+  .radio-inline,
+  .checkbox-inline,
+  &.radio label,
+  &.checkbox label,
+  &.radio-inline label,
+  &.checkbox-inline label,
+  .form-control-feedback {
+    color: @brand-success;
+  }
+
+  .form-control,
+  .form-control:focus {
+    border: 1px solid @brand-success;
+    .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.075));
+  }
+
+  .input-group-addon {
+    border: 1px solid @brand-success;
+  }
 }
 
 // Navs =======================================================================
@@ -269,97 +306,128 @@ input[type="checkbox"] {
 }
 
 .nav-tabs {
+
   > li > a {
-    background-color: @btn-default-bg;
-    color: @text-color;
+    margin-top: 6px;
+    border-color: @navbar-default-border;
+    color: @gray-dark;
+    .transition(all 0.2s ease-in-out);
   }
 
-  .caret {
-    border-top-color: @text-color;
-    border-bottom-color: @text-color;
+  > li > a:hover,
+  > li > a:focus,
+  > li.active > a,
+  > li.active > a:hover,
+  > li.active > a:focus,
+  .open > a,
+  .open > a:hover,
+  .open > a:focus {
+    padding-bottom: (@padding-large-vertical + 3);
+    margin-top: 0;
+  }
+
+  .open > a,
+  .open > a:hover,
+  .open > a:focus {
+    border-color: @navbar-default-border;
+  }
+
+  > li.disabled > a:hover,
+  > li.disabled > a:focus {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 6px;
+  }
+
+  &.nav-justified > li {
+    vertical-align: bottom;
   }
 }
 
-.nav-pills {
-  font-weight: 300;
+.dropdown-menu {
+  margin-top: 0;
+  .shadow();
+  border-top-width: 1px;
+  .box-shadow(none);
 }
 
 .breadcrumb {
-  border: 1px solid @table-border-color;
-  border-radius: 3px;
-  font-size: 10px;
-  font-weight: 300;
-  text-transform: uppercase;
+  border-color: darken(@breadcrumb-bg, 5%);
+  border-style: solid;
+  .shadow();
 }
 
-.pagination {
-  font-size: @font-size-small;
-  font-weight: 300;
-  color: @gray-light;
+.pagination,
+.pager {
 
-  > li {
-    > a,
-    > span {
-      margin-left: 4px;
-      color: @gray-light;
+  > li > a,
+  > li > span {
+    position: relative;
+    top: 0;
+    .shadow();
+    color: @pagination-color;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &:hover {
+      top: 1px;
+      border-bottom-width: 3px;
+    }
+
+    &:active {
+      top: 2px;
+      border-bottom-width: 2px;
     }
   }
 
-  > .active {
-    > a,
-    > span {
-      color: #fff;
+  > .disabled > a,
+  > .disabled > span {
+
+    &:hover {
+      top: 0;
+      .shadow();
     }
-  }
 
-  > li,
-  > li:first-child,
-  > li:last-child {
-    > a,
-    > span {
-      border-radius: 3px;
+    &:active {
+      top: 0;
+      .shadow();
     }
-  }
-
-  &-lg > li > a,
-  &-lg > li > span {
-    padding-left: 22px;
-    padding-right: 22px;
-  }
-
-  &-sm > li > a,
-  &-sm > li > span {
-    padding: 0 5px;
   }
 }
 
 .pager {
-  font-size: @font-size-small;
-  font-weight: 300;
-  color: @gray-light;
-}
 
-.list-group {
-  font-size: @font-size-small;
-  font-weight: 300;
+  > li > a,
+  > li > span,
+  > .disabled > a,
+  > .disabled > span {
+
+    &,
+    &:hover,
+    &:active {
+      border-left-width: 2px;
+      border-right-width: 2px;
+    }
+  }
 }
 
 // Indicators =================================================================
 
 .close {
-  opacity: 0.4;
+  color: #fff;
   text-decoration: none;
-  text-shadow: none;
+  opacity: 0.4;
 
   &:hover,
   &:focus {
+    color: #fff;
     opacity: 1;
   }
 }
 
 .alert {
-  font-size: @font-size-small;
-  font-weight: 300;
+  .shadow();
 
   .alert-link {
     font-weight: normal;
@@ -369,65 +437,77 @@ input[type="checkbox"] {
 }
 
 .label {
-  padding-left: 1em;
-  padding-right: 1em;
-  border-radius: 0;
-  font-weight: 300;
-
-  &-default {
-    background-color: @btn-default-bg;
-    color: @btn-default-color;
-  }
-}
-
-.badge {
-  font-weight: 300;
+  font-weight: normal;
 }
 
 // Progress bars ==============================================================
 
 .progress {
-  height: 22px;
-  padding: 2px;
-  background-color: #f6f6f6;
-  border: 1px solid #ccc;
-  .box-shadow(none);
+  border: 1px solid @navbar-default-border;
+  .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.1));
+
+  &-bar {
+    .box-shadow(inset 0 -4px 0 rgba(0, 0, 0, 0.15));
+  }
 }
 
 // Containers =================================================================
 
-.dropdown {
+.well {
+  border: 1px solid @navbar-default-border;
+  .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.05));
+}
 
-  &-menu {
-    padding: 0;
-    margin-top: 0;
-    font-size: @font-size-small;
+a.list-group-item {
 
-    > li > a {
-      padding: 12px 15px;
+  &.active,
+  &.active:hover,
+  &.active:focus {
+    border-color: @list-group-border;
+  }
+
+  &-success {
+    &.active {
+      background-color: @state-success-bg;
+    }
+
+    &.active:hover,
+    &.active:focus {
+      background-color: darken(@state-success-bg, 5%);
     }
   }
 
-  &-header {
-    padding-left: 15px;
-    padding-right: 15px;
-    font-size: 9px;
-    text-transform: uppercase;
+  &-warning {
+    &.active {
+      background-color: @state-warning-bg;
+    }
+    
+    &.active:hover,
+    &.active:focus {
+      background-color: darken(@state-warning-bg, 5%);
+    }
+  }
+
+  &-danger {
+    &.active {
+      background-color: @state-danger-bg;
+    }
+    
+    &.active:hover,
+    &.active:focus {
+      background-color: darken(@state-danger-bg, 5%);
+    }
   }
 }
 
-.popover {
-  color: #fff;
-  font-size: 12px;
-  font-weight: 300;
+.jumbotron {
+  border: 1px solid @navbar-default-border;
+  .box-shadow(inset 0 2px 0 rgba(0, 0, 0, 0.05));
 }
 
 .panel {
-  &-heading,
-  &-footer {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-  }
+  border: 1px solid @navbar-default-border;
+  .shadow();
 
   &-default {
     .close {
@@ -440,4 +520,8 @@ input[type="checkbox"] {
   .close {
     color: @text-color;
   }
+}
+
+.popover {
+  color: @text-color;
 }

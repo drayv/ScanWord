@@ -6,7 +6,9 @@
 }
 
 .search-group {
-    padding-top: 1px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 
@@ -178,6 +180,10 @@
 }
 
 /* MATERIAL */
+
+.info-block {
+    margin-top: 5px;
+}
 
 .materialInfo img {
     margin: 0 auto 0 auto;
