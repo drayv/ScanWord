@@ -202,6 +202,7 @@
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\ticket.png" />
     <Content Include="Content\jquery.contextMenu.css" />
     <Content Include="Content\jquery.loading.min.css" />
     <Content Include="Content\site.css" />
