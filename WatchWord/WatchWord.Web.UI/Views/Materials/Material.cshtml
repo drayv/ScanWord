@@ -66,8 +66,7 @@
     </div>
     <!--For outer JS-->
     <script>
-        var insertLearnWordRoute = "@Url.Action("InsertLearnWord", "Vocabulary")";
-        var insertKnownWordRoute = "@Url.Action("InsertKnownWord", "Vocabulary")";
+        var siteRoute = "@Url.Content("~/")";
         var getTranslationsRoute = "@Url.Action("GetTranslations", "Vocabulary")";
         var isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
         var logInRoute = "@Url.Action("LogIn", "Account")";
@@ -159,21 +158,17 @@
             /* Save word */
 
             function insertWordToVocab(word, translation) {
-                var vocabAction = getVocabAction();
-                $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: getVocabActionRoute(vocabAction),
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({ word: word, translation: translation }),
-                    async: true,
-                    cache: false,
-                    success: function() {
-                        updateWordHtml(vocabAction, word, translation);
-                    },
-                    error: function(error) {
-                        alert("Error: " + error.statusText);
-                    }
+                var action = getVocabAction();
+                var vocabAction = {
+                    word: word,
+                    translation: translation,
+                    isKnown: getIsKnownWord(action)
+                };
+
+                $.post(siteRoute + "api/VocabularyWords", vocabAction).done(function() {
+                    updateWordHtml(action, word, translation);
+                }).fail(function() {
+                    alert("Error");
                 });
             }
 
@@ -193,15 +188,8 @@
                 return $('.active > .add-vocab-button').attr('value');
             }
 
-            function getVocabActionRoute(action) {
-                switch (action) {
-                    case "InsertLearnWord":
-                        return insertLearnWordRoute;
-                    case "InsertKnownWord":
-                        return insertKnownWordRoute;
-                    default:
-                        return "";
-                }
+            function getIsKnownWord(action) {
+                return action === "InsertKnownWord";
             }
         });
     </script>

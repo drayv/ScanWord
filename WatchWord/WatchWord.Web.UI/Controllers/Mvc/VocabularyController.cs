@@ -35,30 +35,6 @@ namespace WatchWord.Web.UI.Controllers.Mvc
             return View(model);
         }
 
-        /// <summary>Inserts word to the user's vocabulary of known words.</summary>
-        /// <param name="word">Original word.</param>
-        /// <param name="translation">Translation of the word.</param>
-        /// <returns>JSON with result data.</returns>
-        [HttpPost]
-        [Authorize]
-        public JsonResult InsertKnownWord(string word, string translation)
-        {
-            var result = _vocabularyService.InsertKnownWord(word, translation, User.Identity.GetUserId<int>());
-            return Json(result > 0 ? "success, entities: " + result : "error");
-        }
-
-        /// <summary>Inserts word to the user's vocabulary of learning words.</summary>
-        /// <param name="word">Original word.</param>
-        /// <param name="translation">Translation of the word.</param>
-        /// <returns>JSON with result data.</returns>
-        [HttpPost]
-        [Authorize]
-        public JsonResult InsertLearnWord(string word, string translation)
-        {
-            var result = _vocabularyService.InsertLearnWord(word, translation, User.Identity.GetUserId<int>());
-            return Json(result > 0 ? "success, entities: " + result : "error");
-        }
-
         /// <summary>Gets translations of the specified word.</summary>
         /// <param name="word">Specified word.</param>
         /// <returns>JSON list of translations.</returns>
