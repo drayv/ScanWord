@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.Entity;
 
-namespace WatchWord.Web.UI.Controllers
+namespace WatchWord.Web.UI.Controllers.Mvc
 {
     /// <summary>Settings controller.</summary>
     public class SettingsController : Controller

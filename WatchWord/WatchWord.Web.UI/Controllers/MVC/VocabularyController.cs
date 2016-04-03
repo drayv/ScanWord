@@ -1,10 +1,10 @@
-﻿using WatchWord.Application.EntityServices.Abstract;
-using WatchWord.Web.UI.Models.Vocabulary;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using WatchWord.Application.EntityServices.Abstract;
+using WatchWord.Web.UI.Models.Vocabulary;
 
-namespace WatchWord.Web.UI.Controllers
+namespace WatchWord.Web.UI.Controllers.Mvc
 {
     /// <summary>Vocabulary controller.</summary>
     public class VocabularyController : AsyncController

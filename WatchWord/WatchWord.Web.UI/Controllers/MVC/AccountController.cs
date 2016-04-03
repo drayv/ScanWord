@@ -9,22 +9,18 @@ using WatchWord.Web.UI.Identity;
 using WatchWord.Web.UI.Models.Account;
 using WatchWord.Web.UI.Models.Identity;
 
-namespace WatchWord.Web.UI.Controllers
+namespace WatchWord.Web.UI.Controllers.Mvc
 {
     /// <summary>Account controller.</summary>
     public class AccountController : Controller
     {
         /// <summary>Gets the user manager.</summary>
-        private AppUserManager UserManager
-        {
-            get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
-        }
+        private AppUserManager UserManager => 
+            HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
 
         /// <summary>Gets the authentication manager.</summary>
-        private IAuthenticationManager AuthenticationManager
-        {
-            get { return HttpContext.GetOwinContext().Authentication; }
-        }
+        private IAuthenticationManager AuthenticationManager => 
+            HttpContext.GetOwinContext().Authentication;
 
         /// <summary>Sign up action.</summary>
         /// <returns>The sign up view action result <see cref="ActionResult"/>.</returns>

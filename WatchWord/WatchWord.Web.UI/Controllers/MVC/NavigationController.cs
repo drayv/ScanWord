@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace WatchWord.Web.UI.Controllers
+namespace WatchWord.Web.UI.Controllers.Mvc
 {
     /// <summary>The navigation bar controller.</summary>
     public class NavigationController : Controller

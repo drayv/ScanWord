@@ -7,7 +7,7 @@ using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.Entity;
 using WatchWord.Web.UI.Models.Materials;
 
-namespace WatchWord.Web.UI.Controllers
+namespace WatchWord.Web.UI.Controllers.Mvc
 {
     /// <summary>Materials controller.</summary>
     public class MaterialsController : AsyncController
@@ -115,9 +115,7 @@ namespace WatchWord.Web.UI.Controllers
         /// <returns>List of vocabulary words.</returns>
         private async Task<List<VocabWord>> FillVocabWordsByMaterial(Material material)
         {
-            var arrayOfWords = material.File.Words == null
-                ? new string[0]
-                : material.File.Words.Select(n => n.TheWord).ToArray();
+            var arrayOfWords = material.File.Words?.Select(n => n.TheWord).ToArray() ?? new string[0];
 
             return await _vocabularyService.FillVocabByWords(arrayOfWords, User.Identity.GetUserId<int>());
         }
