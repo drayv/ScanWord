@@ -106,7 +106,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <returns>List of the translations.</returns>
         private IEnumerable<string> GetYandexTranslateWord(string word)
         {
-            var translations = new List<string>();
+            var translations = new HashSet<string>();
 
             var address = string.Format("https://translate.yandex.net/api/v1.5/tr.json/translate?key={0}&lang={1}&text={2}",
             Uri.EscapeDataString(GetYandexTranslateApiKey()),
@@ -127,7 +127,10 @@ namespace WatchWord.Application.EntityServices.Concrete
             }
 
             var yandexTranslateWords = JsonConvert.DeserializeObject<YandexTranslateWords>(text);
-            translations.AddRange(yandexTranslateWords.text);
+            foreach (var translation in yandexTranslateWords.text)
+            {
+                translations.Add(translation.ToLower());
+            }
 
             return translations;
         }
@@ -137,7 +140,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <returns>List of the translations.</returns>
         private IEnumerable<string> GetYandexDictionaryTranslations(string word)
         {
-            var translations = new List<string>();
+            var translations = new HashSet<string>();
 
             var address = string.Format("https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={0}&lang={1}&text={2}",
             Uri.EscapeDataString(GetYandexDictionaryApiKey()),
@@ -158,9 +161,9 @@ namespace WatchWord.Application.EntityServices.Concrete
             }
 
             var yandexDictionaryTranslateWords = JsonConvert.DeserializeObject<YandexDictionaryTranslateWords>(text);
-            foreach (var partOfSpeech in yandexDictionaryTranslateWords.def)
+            foreach (var translation in yandexDictionaryTranslateWords.def.SelectMany(partOfSpeech => partOfSpeech.tr))
             {
-                translations.AddRange(partOfSpeech.tr.Select(translate => translate.text));
+                translations.Add(translation.text.ToLower());
             }
 
             return translations;
