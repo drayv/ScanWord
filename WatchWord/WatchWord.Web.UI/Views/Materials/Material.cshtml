@@ -67,7 +67,6 @@
     <!--For outer JS-->
     <script>
         var siteRoute = "@Url.Content("~/")";
-        var getTranslationsRoute = "@Url.Action("GetTranslations", "Vocabulary")";
         var isAuthenticated = @User.Identity.IsAuthenticated.ToString().ToLower();
         var logInRoute = "@Url.Action("LogIn", "Account")";
     </script>
@@ -113,7 +112,7 @@
             function fillTranslations(word, callback) {
                 $.ajax({
                     type: "GET",
-                    url: getTranslationsRoute,
+                    url: siteRoute + "api/Translations",
                     contentType: "application/json; charset=utf-8",
                     data: { word: word },
                     async: true,

@@ -345,6 +345,7 @@
     <Compile Include="Controllers\Mvc\NavigationController.cs" />
     <Compile Include="Controllers\Mvc\SettingsController.cs" />
     <Compile Include="Controllers\Mvc\VocabularyController.cs" />
+    <Compile Include="Controllers\WebApi\TranslationsController.cs" />
     <Compile Include="Controllers\WebApi\VocabularyWordsController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">

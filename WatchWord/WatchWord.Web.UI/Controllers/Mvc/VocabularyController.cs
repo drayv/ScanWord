@@ -10,7 +10,6 @@ namespace WatchWord.Web.UI.Controllers.Mvc
     public class VocabularyController : AsyncController
     {
         private readonly IVocabularyService _vocabularyService;
-        private readonly ITranslationService _translationService;
 
         /// <summary>Initializes a new instance of the <see cref="VocabularyController"/> class.</summary>
         /// <param name="vocabularyService">Vocabulary service.</param>
@@ -18,7 +17,6 @@ namespace WatchWord.Web.UI.Controllers.Mvc
         public VocabularyController(IVocabularyService vocabularyService, ITranslationService translationService)
         {
             _vocabularyService = vocabularyService;
-            _translationService = translationService;
         }
 
         /// <summary>Shows all words from all user's dictionaries.</summary>
@@ -33,16 +31,6 @@ namespace WatchWord.Web.UI.Controllers.Mvc
             };
 
             return View(model);
-        }
-
-        /// <summary>Gets translations of the specified word.</summary>
-        /// <param name="word">Specified word.</param>
-        /// <returns>JSON list of translations.</returns>
-        [HttpGet]
-        public JsonResult GetTranslations(string word)
-        {
-            var translations = _translationService.GetTranslations(word);
-            return Json(translations, JsonRequestBehavior.AllowGet);
         }
     }
 }
