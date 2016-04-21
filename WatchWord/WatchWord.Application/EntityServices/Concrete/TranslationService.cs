@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WatchWord.Application.EntityServices.Abstract;
 using WatchWord.Domain.DataAccess;
@@ -67,26 +68,29 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="source">Source of the translation.</param>
         private void SaveTranslationsToCache(string word, IReadOnlyCollection<string> translations, TranslationSource source)
         {
-            if (translations.Count == 0) return;
-
-            // delete if exist
-            var existing = _watchWordUnitOfWork.TranslationsRepository.GetAll(t => t.Word == word);
-            foreach (var translation in existing)
+            Task.Run(() =>
             {
-                _watchWordUnitOfWork.TranslationsRepository.Delete(translation);
-            }
+                if (translations.Count == 0) return;
 
-            // save translations
-            var translationsCache = translations.Select(translation => new Translation
-            {
-                Word = word,
-                Translate = translation,
-                AddDate = DateTime.Now,
-                Source = source
-            }).ToList();
+                // delete if exist
+                var existing = _watchWordUnitOfWork.TranslationsRepository.GetAll(t => t.Word == word);
+                foreach (var translation in existing)
+                {
+                    _watchWordUnitOfWork.TranslationsRepository.Delete(translation);
+                }
 
-            _watchWordUnitOfWork.TranslationsRepository.Insert(translationsCache);
-            _watchWordUnitOfWork.TranslationsRepository.Save();
+                // save translations
+                var translationsCache = translations.Select(translation => new Translation
+                {
+                    Word = word,
+                    Translate = translation,
+                    AddDate = DateTime.Now,
+                    Source = source
+                }).ToList();
+
+                _watchWordUnitOfWork.TranslationsRepository.Insert(translationsCache);
+                _watchWordUnitOfWork.TranslationsRepository.Save();
+            });
         }
 
         /// <summary>Gets translations list from the cache for specified word.</summary>
