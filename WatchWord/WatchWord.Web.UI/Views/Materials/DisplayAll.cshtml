@@ -7,12 +7,19 @@
 
 <div class="row">
     <div class="col-xs-12">
+        @* ReSharper disable once AssignNullToNotNullAttribute *@
         @foreach (var material in Model.Materials)
         {
+            var imageUrl = "";
+            if (Request != null && Request.Url != null)
+            {
+                imageUrl = new Uri(Request.Url, Url.HttpRouteUrl("DefaultAPI", new { controller = "MaterialImage", id = material.Id })).AbsoluteUri;
+            }
+
             <a href="@Url.Action("Material", new { id = material.Id })">
                 <div class="col-xs-12 col-sm-6 col-md-3">
                     <div class="material text-center">
-                        <img src="@string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image))" alt="img" />
+                        <img src="@imageUrl" alt="img" />
                         <div class="row info-block">
                             <div class="col-xs-4">
                                 <p class="label label-info material-type">@material.Type</p>

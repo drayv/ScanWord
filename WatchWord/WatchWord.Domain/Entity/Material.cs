@@ -13,7 +13,7 @@ namespace WatchWord.Domain.Entity
     }
 
     /// <summary>The Material entity, a film or series with information about it.</summary>
-    public class Material: Entity<int>
+    public class Material : Entity<int>
     {
         /// <summary>Gets or sets the material type.</summary>
         public MaterialType Type { get; set; }
@@ -29,6 +29,9 @@ namespace WatchWord.Domain.Entity
 
         /// <summary>Gets or sets the image of the material.</summary>
         public byte[] Image { get; set; }
+
+        /// <summary>Gets or sets mime type of material image.</summary>
+        public string MimeType { get; set; }
 
         /// <summary>Gets or sets the creator of the material.</summary>
         public Account Owner { get; set; }

@@ -8,6 +8,8 @@ namespace WatchWord.Web.UI.Models.Materials
     {
         public string Image { get; set; }
 
+        public string ImageSource { get; set; }
+
         public string ImageWidth { get; set; }
 
         public string ImageHeight { get; set; }
@@ -18,14 +20,17 @@ namespace WatchWord.Web.UI.Models.Materials
 
         public List<VocabWord> Words { get; set; }
 
-        public MaterialViewModel(Material material, List<VocabWord> vocabWords, int imageWidth, int imageHeight)
+        public MaterialViewModel(Material material, List<VocabWord> vocabWords, int imageWidth, int imageHeight, string imgSrc)
         {
             if (material == null)
             {
-                throw new ArgumentNullException("material");
+                throw new ArgumentNullException(nameof(material));
             }
 
+            //TODO: fix this sh%^&
+            ImageSource = imgSrc;
             Image = string.Format("data:image/gif;base64,{0}", Convert.ToBase64String(material.Image));
+
             Name = material.Name;
             Description = material.Description ?? string.Empty;
             ImageWidth = imageWidth.ToString();

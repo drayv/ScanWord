@@ -21,12 +21,12 @@ namespace WatchWord.Web.UI.Models.Materials
         {
             if (pageSize < 0)
             {
-                throw new ArgumentOutOfRangeException("pageSize", "Can't be lower then 0.");
+                throw new ArgumentOutOfRangeException(nameof(pageSize), "Can't be lower then 0.");
             }
 
             if (materials == null)
             {
-                throw new ArgumentNullException("materials");
+                throw new ArgumentNullException(nameof(materials));
             }
 
             InitializeFields(pageSize, pageNumber, totalCount, materials, statistic);

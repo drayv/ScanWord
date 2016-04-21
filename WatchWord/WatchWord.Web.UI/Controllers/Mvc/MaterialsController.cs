@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -14,9 +15,11 @@ namespace WatchWord.Web.UI.Controllers.Mvc
     {
         private readonly IMaterialsService _materialService;
         private readonly IVocabularyService _vocabularyService;
+        private const int PageSize = 8;
+
+        //TODO: Fix this. sizes sets in FE
         private const int ImageMaxWidth = 190;
         private const int ImageMaxHeight = 280;
-        private const int PageSize = 8;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialsController"/> class.</summary>
         /// <param name="materialService">Material service.</param>
@@ -39,7 +42,9 @@ namespace WatchWord.Web.UI.Controllers.Mvc
             }
 
             var vocabWords = await FillVocabWordsByMaterial(material); //TODO: do not take words to material.
-            return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
+
+            var imgSrc = GetMaterialImageUrl(material.Id);
+            return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight, imgSrc));
         }
 
         /// <summary>Shows all types of materials on the page.</summary>
@@ -65,9 +70,9 @@ namespace WatchWord.Web.UI.Controllers.Mvc
             return View(new ParseMaterialViewModel());
         }
 
-        /// <summary>Checks parsed material before save it.</summary>
+        /// <summary>Checks parsed material before open pre-save page.</summary>
         /// <param name="model">The parsed material view model.</param>
-        /// <returns>Save material form if model is valid, or ParseMaterial if not.</returns>
+        /// <returns>Pre-save material form if model is valid, or ParseMaterial if not.</returns>
         [HttpPost]
         [Authorize]
         public ActionResult ParseMaterial(ParseMaterialViewModel model)
@@ -77,14 +82,14 @@ namespace WatchWord.Web.UI.Controllers.Mvc
                 return View(model);
             }
 
-            var material = _materialService.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Type, model.Name,
-                model.Description, User.Identity.GetUserId<int>(), ImageMaxWidth, ImageMaxHeight);
+            var material = _materialService.CreateMaterial(model.File.InputStream, model.Image.InputStream, model.Image.ContentType,
+                model.Type, model.Name, model.Description, User.Identity.GetUserId<int>(), ImageMaxWidth, ImageMaxHeight);
 
             TempData["MaterialModel"] = material;
             return RedirectToAction("Save");
         }
 
-        /// <summary>Saves parsed material.</summary>
+        /// <summary>Opens pre-save material page.</summary>
         /// <returns>Material page.</returns>
         [Authorize]
         public async Task<ActionResult> Save()
@@ -92,7 +97,9 @@ namespace WatchWord.Web.UI.Controllers.Mvc
             var material = TempData.Peek("MaterialModel") as Material;
             if (material == null) return RedirectToAction("ParseMaterial");
             var vocabWords = await FillVocabWordsByMaterial(material);
-            return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight));
+
+            var imgSrc = GetMaterialImageUrl(material.Id);
+            return View(new MaterialViewModel(material, vocabWords, ImageMaxWidth, ImageMaxHeight, imgSrc));
         }
 
         /// <summary>Saves material to the storage.</summary>
@@ -118,6 +125,17 @@ namespace WatchWord.Web.UI.Controllers.Mvc
             var arrayOfWords = material.File.Words?.Select(n => n.TheWord).ToArray() ?? new string[0];
 
             return await _vocabularyService.FillVocabByWords(arrayOfWords, User.Identity.GetUserId<int>());
+        }
+
+        private string GetMaterialImageUrl(int materialId)
+        {
+            var imageUrl = "";
+            if (Request != null && Request.Url != null)
+            {
+                // ReSharper disable once AssignNullToNotNullAttribute
+                imageUrl = new Uri(Request.Url, Url.HttpRouteUrl("DefaultAPI", new { controller = "MaterialImage", id = materialId })).AbsoluteUri;
+            }
+            return imageUrl;
         }
     }
 }

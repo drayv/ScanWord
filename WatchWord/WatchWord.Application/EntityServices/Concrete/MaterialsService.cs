@@ -40,6 +40,7 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <summary>Creates material with the specified attributes.</summary>
         /// <param name="subtitlesStream">Subtitles file stream.</param>
         /// <param name="imageStream">Image file stream.</param>
+        /// <param name="mimeType">Mime type of image.</param>
         /// <param name="type">Material type <see cref="MaterialType"/>.</param>
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
@@ -47,11 +48,11 @@ namespace WatchWord.Application.EntityServices.Concrete
         /// <param name="width">Material image width.</param>
         /// <param name="height">Material image height.</param>
         /// <returns>Created material by specific attributes.</returns>
-        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name,
-            string description, int userId, int width, int height)
+        public Material CreateMaterial(Stream subtitlesStream, Stream imageStream, string mimeType,
+            MaterialType type, string name, string description, int userId, int width, int height)
         {
             //TODO: this material exist check
-            var material = new Material { Description = description, Name = name, Type = type };
+            var material = new Material { Description = description, Name = name, Type = type, MimeType = mimeType };
 
             using (var streamReader = new StreamReader(subtitlesStream, Encoding.GetEncoding("Windows-1251")))
             {
@@ -91,6 +92,14 @@ namespace WatchWord.Application.EntityServices.Concrete
         public Material GetMaterialWithWords(int id)
         {
             return _watchWordUnitOfWork.MaterialsRepository.GetByСondition(m => m.Id == id, m => m.File.Words);
+        }
+
+        /// <summary>Gets material by Id.</summary>
+        /// <param name="id">Material identity.</param>
+        /// <returns>Material entity.</returns>
+        public Material GetMaterial(int id)
+        {
+            return _watchWordUnitOfWork.MaterialsRepository.GetByСondition(m => m.Id == id);
         }
 
         /// <summary>Gets total count of the materials.</summary>

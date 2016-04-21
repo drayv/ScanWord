@@ -11,6 +11,7 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <summary>Creates material with the specified attributes.</summary>
         /// <param name="subtitlesStream">Subtitles file stream.</param>
         /// <param name="imageStream">Image file stream.</param>
+        /// <param name="mimeType">Mime type of image.</param>
         /// <param name="type">Material type <see cref="MaterialType"/>.</param>
         /// <param name="name">Name of the material.</param>
         /// <param name="description">Description of the material.</param>
@@ -18,8 +19,8 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <param name="width">Material image width.</param>
         /// <param name="height">Material image height.</param>
         /// <returns>Created material by specific attributes.</returns>
-        Material CreateMaterial(Stream subtitlesStream, Stream imageStream, MaterialType type, string name,
-            string description, int userId, int width, int height);
+        Material CreateMaterial(Stream subtitlesStream, Stream imageStream, string mimeType,
+            MaterialType type, string name, string description, int userId, int width, int height);
 
         /// <summary>Saves material to the data storage.</summary>
         /// <param name="material">The material <see cref="Material"/>.</param>
@@ -36,6 +37,11 @@ namespace WatchWord.Application.EntityServices.Abstract
         /// <param name="id">Material identity.</param>
         /// <returns>Material entity.</returns>
         Material GetMaterialWithWords(int id);
+
+        /// <summary>Gets material by Id.</summary>
+        /// <param name="id">Material identity.</param>
+        /// <returns>Material entity.</returns>
+        Material GetMaterial(int id);
 
         /// <summary>Gets total count of the materials.</summary>
         /// <returns>Total count of the materials.</returns>
