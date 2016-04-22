@@ -24,7 +24,7 @@ namespace WatchWord.Web.UI.Models.Materials
         {
             if (material == null)
             {
-                throw new ArgumentNullException(nameof(material));
+                throw new ArgumentNullException("material");
             }
 
             //TODO: fix this sh%^&

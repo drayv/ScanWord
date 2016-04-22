@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,12 +11,14 @@ namespace WatchWord.Web.UI.Controllers.WebApi
     public class MaterialImageController : ApiController
     {
         private readonly IMaterialsService _materialService;
+        private TimeSpan _age;
 
         /// <summary>Initializes a new instance of the <see cref="MaterialImageController"/> class.</summary>
         /// <param name="materialService">Material service.</param>
         public MaterialImageController(IMaterialsService materialService)
         {
             _materialService = materialService;
+            _age = new TimeSpan(120, 0, 0);
         }
 
         public HttpResponseMessage Get(int id)
@@ -45,6 +48,15 @@ namespace WatchWord.Web.UI.Controllers.WebApi
             };
 
             result.Content.Headers.ContentType = mimeTypeHeader;
+            result.Headers.CacheControl = new CacheControlHeaderValue()
+            {
+                MaxAge = _age,
+                Public = false,
+                NoCache = false,
+                Private = true,
+            };
+            result.Content.Headers.Expires = DateTime.UtcNow.Add(_age);
+
             return result;
         }
     }

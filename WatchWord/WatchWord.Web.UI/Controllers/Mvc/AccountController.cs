@@ -15,13 +15,16 @@ namespace WatchWord.Web.UI.Controllers.Mvc
     public class AccountController : Controller
     {
         /// <summary>Gets the user manager.</summary>
-        private AppUserManager UserManager => 
-            HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+        private AppUserManager UserManager
+        {
+            get { return HttpContext.GetOwinContext().GetUserManager<AppUserManager>(); }
+        }
 
         /// <summary>Gets the authentication manager.</summary>
-        private IAuthenticationManager AuthenticationManager => 
-            HttpContext.GetOwinContext().Authentication;
-
+        private IAuthenticationManager AuthenticationManager
+        {
+            get { return HttpContext.GetOwinContext().Authentication; }
+        }
         /// <summary>Sign up action.</summary>
         /// <returns>The sign up view action result <see cref="ActionResult"/>.</returns>
         public ActionResult SignUp()
